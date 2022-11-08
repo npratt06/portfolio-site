@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import NavDisplay from './NavDisplay/NavDisplay'
 import { outerWrapper, rowElement, NavigationProps } from './Navigation.interface'
 import NavigateLR from './NavLR/NavLR'
-import { NavDisplayStrings } from './NavDisplay/NavDisplay.interface';
+import { MyPages } from './NavDisplay/NavDisplay.interface';
 
 export default class Navigation extends Component<any, NavigationProps>{
 
@@ -18,7 +18,7 @@ export default class Navigation extends Component<any, NavigationProps>{
   handleClickLeft() {
     this.setState((prevState) => {
       let cni = prevState.navIndex - 1;
-      if (cni < 0) cni = NavDisplayStrings.length - 1;
+      if (cni < 0) cni = MyPages.pages.length - 1;
       return { navIndex: cni }
     });
   }
@@ -26,7 +26,7 @@ export default class Navigation extends Component<any, NavigationProps>{
   handleClickRight() {
     this.setState((prevState) => {
       let cni = prevState.navIndex + 1;
-      if (cni > NavDisplayStrings.length - 1) cni = 0;
+      if (cni > MyPages.pages.length - 1) cni = 0;
       return { navIndex: cni }
     });
   }
@@ -39,7 +39,7 @@ export default class Navigation extends Component<any, NavigationProps>{
             <NavDisplay navIndex={this.state.navIndex}></NavDisplay>
           </Box>
           <Box sx={rowElement}>
-            <NavigateLR handleClickLeft={this.handleClickLeft.bind(this)} handleClickRight={this.handleClickRight.bind(this)}></NavigateLR>
+            <NavigateLR navIndex={this.state.navIndex} handleClickLeft={this.handleClickLeft.bind(this)} handleClickRight={this.handleClickRight.bind(this)}></NavigateLR>
           </Box>
         </Box>
       </div>
