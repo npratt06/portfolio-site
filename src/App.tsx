@@ -1,11 +1,10 @@
-import NavDisplay from './components/NavDisplay/NavDisplay';
-import NavigateLR from './components/NavLR/NavLR';
+import Navigation from './components/Navigation/Navigation';
 
 function App() {
   return (
     <div>
-      <NavDisplay></NavDisplay>
-      <NavigateLR></NavigateLR>
+      <Navigation>
+      </Navigation>
     </div>
   );
 }
