@@ -11,5 +11,9 @@ export const rowElement: React.CSSProperties = {
 };
 
 export interface NavigationProps {
+    // add as needed
+}
+
+export interface NavigationState {
     navIndex: number;
 }

@@ -1,13 +1,13 @@
 import Box from '@mui/material/Box'
 import React, { Component } from 'react'
 import NavDisplay from './NavDisplay/NavDisplay'
-import { outerWrapper, rowElement, NavigationProps } from './Navigation.interface'
+import { outerWrapper, rowElement, NavigationProps, NavigationState } from './Navigation.interface'
 import NavigateLR from './NavLR/NavLR'
 import { MyPages } from './NavDisplay/NavDisplay.const';
 
-export default class Navigation extends Component<any, NavigationProps>{
+export default class Navigation extends Component<NavigationProps, NavigationState>{
 
-  constructor(props: any) {
+  constructor(props: NavigationProps) {
     super(props);
 
     this.state = {

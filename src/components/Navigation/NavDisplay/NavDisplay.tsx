@@ -1,17 +1,17 @@
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import React, { Component } from 'react'
-import { NavigationProps, outerWrapper, rowElement } from '../Navigation.interface';
+import { outerWrapper, rowElement } from '../Navigation.interface';
 import { screenStyle, dotStyle, highlightedDotStyle, MyPages } from './NavDisplay.const';
-import { PageInfo, NavDisplayProps } from './NavDisplay.interface';
+import { PageInfo, NavDisplayProps, NavDisplayState } from './NavDisplay.interface';
 import { getCurrentPageInfo } from '../../../utils/NavUtils';
 
-export default class NavDisplay extends Component<NavigationProps, NavDisplayProps> {
+export default class NavDisplay extends Component<NavDisplayProps, NavDisplayState> {
 
     numDisplayStrings: number = 0;
-    dots: any;
+    dots: JSX.Element[] = [];
     
-    constructor(props: NavigationProps) {
+    constructor(props: NavDisplayProps) {
         super(props);
         const displayString = getCurrentPageInfo(MyPages.pages, props.navIndex).displayString;
         this.state = {
@@ -32,7 +32,7 @@ export default class NavDisplay extends Component<NavigationProps, NavDisplayPro
         return dots;
     }
 
-    componentDidUpdate(prevProps: Readonly<NavigationProps>): void {
+    componentDidUpdate(prevProps: Readonly<NavDisplayProps>): void {
         // if navIndex has changed, update navDisplayString
         if (prevProps.navIndex !== this.props.navIndex) {
             this.setState((() => {

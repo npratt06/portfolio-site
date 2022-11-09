@@ -13,5 +13,9 @@ export interface Pages {
 };
 
 export interface NavDisplayProps {
-    navDisplayString: string
+    navIndex: number
 };
+
+export interface NavDisplayState {
+    navDisplayString: string
+}
