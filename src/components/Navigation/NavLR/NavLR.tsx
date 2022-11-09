@@ -1,23 +1,23 @@
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
 import React, { Component, MouseEventHandler } from 'react'
 import { Link }from 'react-router-dom';
 import { getCurrentPageInfo } from '../../../utils/NavUtils';
-import { selectBtnStyle, selectBtnTextStyle, lrStyle } from './NavLR.const';
 import { NavigateLRProps, NavigateLRState } from './NavLR.interface';
 import { MyPages } from '../NavDisplay/NavDisplay.const';
 import { unformatLink } from '../../../globalCSS';
+import leftBtn from '../../../img/navLeftBtn.png';
+import rightBtn from '../../../img/navRightBtn.png';
+import selectBtn from '../../../img/selectBtn.png';
+import NavBtn from './NavBtn/NavBtn';
 
 export default class NavigateLR extends Component<NavigateLRProps, NavigateLRState> {
     handleClickLeft: MouseEventHandler<HTMLDivElement>;
     handleClickRight: MouseEventHandler<HTMLDivElement>;
     navIndex: number;
-    linkPath: string;
 
     constructor(props: NavigateLRProps) {
         super(props);
         this.navIndex = props.navIndex;
-        this.linkPath = '/';
         this.handleClickLeft = props.handleClickLeft;
         this.handleClickRight =props.handleClickRight;
         const page = getCurrentPageInfo(MyPages.pages, this.navIndex);
@@ -33,7 +33,6 @@ export default class NavigateLR extends Component<NavigateLRProps, NavigateLRSta
                 const linkPath = getCurrentPageInfo(MyPages.pages, this.props.navIndex).linkPath;
                 return { linkPath };
             }));
-            this.linkPath = getCurrentPageInfo(MyPages.pages, this.props.navIndex).linkPath;
         }
     }
 
@@ -41,15 +40,11 @@ export default class NavigateLR extends Component<NavigateLRProps, NavigateLRSta
         return (
             <div>
                 <Box sx={{display: 'flex'}}>
-                    <Box sx={lrStyle} onClick={this.handleClickLeft} />
-                    <Link to={this.state.linkPath} style={unformatLink}>
-                        <Card sx={selectBtnStyle}>
-                            <Box sx={selectBtnTextStyle}>
-                                SELECT
-                            </Box>
-                        </Card>
+                    <NavBtn imgSrc={leftBtn} btnText={''} handleClick={this.handleClickLeft}/>
+                    <Link to={this.state.linkPath}>
+                        <NavBtn imgSrc={selectBtn} btnText={'SELECT'}/>
                     </Link>
-                    <Box sx={lrStyle} onClick={this.handleClickRight} />
+                    <NavBtn imgSrc={rightBtn} btnText={''} handleClick={this.handleClickRight}/>
                 </Box>
             </div>
         )

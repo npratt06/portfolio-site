@@ -46,7 +46,8 @@ export const screenStyle: React.CSSProperties = {
     margin: '3em',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    filter: 'drop-shadow(5px 5px 5px #000000)'
 };
 
 const dotBase: React.CSSProperties = {
@@ -58,12 +59,13 @@ const dotBase: React.CSSProperties = {
 };
 
 export const dotStyle: React.CSSProperties = {
-    backgroundColor: '#000000',
-    ...dotBase
+    backgroundColor: '#afaa98',
+    ...dotBase,
+    filter: 'drop-shadow(0px 0px 5px #000000)'
 };
 
 export const highlightedDotStyle: React.CSSProperties = {
-    backgroundColor: '#777777',
+    backgroundColor: '#000000',
     ...dotBase
 };
 
