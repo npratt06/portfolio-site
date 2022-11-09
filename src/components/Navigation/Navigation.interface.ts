@@ -1,7 +1,8 @@
 export const outerWrapper: React.CSSProperties = {
     display: 'flex',
     justifyContent: 'center',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    backgroundColor: '#gggggg'
 };
 
 export const rowElement: React.CSSProperties = {

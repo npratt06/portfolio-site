@@ -1,5 +1,5 @@
 import { MyPages } from '../components/Navigation/NavDisplay/NavDisplay.const';
-import Home from '../pages/Home';
+import Home from './Home/Home';
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { PageLayoutProps, PageLayoutState } from './PageLayout.interface';

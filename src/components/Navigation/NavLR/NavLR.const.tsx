@@ -1,33 +1,27 @@
+import { textFontStyle } from "../../../globalCSS";
+
 // csss styles --- start
-const triWidth = '40px';
-const triHeight = '80px';
-const triMargin = '40px';
-
-export const triangleLeftStyle: React.CSSProperties = {
-    width: 0,
-    height: 0,
-    borderTop: `${triWidth} solid transparent`,
-    borderRight: `${triHeight} solid #555`,
-    borderBottom: `${triWidth} solid transparent`,
-    marginRight: `${triMargin}`
-};
-
-export const triangleRightStyle: React.CSSProperties = {
-    width: 0,
-    height: 0,
-    borderTop: `${triWidth} solid transparent`,
-    borderLeft: `${triHeight} solid #555`,
-    borderBottom: `${triWidth} solid transparent`,
-    marginLeft: `${triMargin}`,
-};
-
 export const selectBtnStyle: React.CSSProperties = {
-    backgroundColor: '#afaa98',
-    width: '75vw',
-    height: '25vw',
-    margin: '3em',
+    backgroundColor: '#ff0000',
+    width: '10vw',
+    height: '7vw',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
+};
+
+
+export const selectBtnTextStyle: React.CSSProperties = {
+    ...textFontStyle,
+    fontSize: '3vw'
+};
+
+
+export const lrStyle: React.CSSProperties = {
+    width: '10vw',
+    height: '7vw',
+    backgroundColor: '#000000',
+    marginLeft: '20px',
+    marginRight: '20px'
 };
 // csss styles --- end

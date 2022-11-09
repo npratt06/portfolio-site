@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import React, { Component } from 'react'
 import { outerWrapper, rowElement } from '../Navigation.interface';
-import { screenStyle, dotStyle, highlightedDotStyle, MyPages } from './NavDisplay.const';
+import { screenStyle, dotStyle, highlightedDotStyle, MyPages, navDisplayStringStyle } from './NavDisplay.const';
 import { PageInfo, NavDisplayProps, NavDisplayState } from './NavDisplay.interface';
 import { getCurrentPageInfo } from '../../../utils/NavUtils';
 
@@ -48,7 +48,7 @@ export default class NavDisplay extends Component<NavDisplayProps, NavDisplaySta
                 <Card sx={screenStyle}>
                 <Box sx={outerWrapper}>
                     <Box sx={rowElement}>
-                        <Box sx={{ fontFamily: 'Marker Felt, fantasy', fontSize: '5vw'} }>
+                        <Box sx={navDisplayStringStyle}>
                             {this.state.navDisplayString}
                         </Box>
                     </Box>

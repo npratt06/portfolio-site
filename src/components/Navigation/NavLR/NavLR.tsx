@@ -1,11 +1,12 @@
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import React, { Component, MouseEventHandler } from 'react'
-import { NavigateLRProps, NavigateLRState } from './NavLR.interface';
-import { triangleLeftStyle, triangleRightStyle } from './NavLR.const';
 import { Link }from 'react-router-dom';
-import { MyPages } from '../NavDisplay/NavDisplay.const';
 import { getCurrentPageInfo } from '../../../utils/NavUtils';
+import { selectBtnStyle, selectBtnTextStyle, lrStyle } from './NavLR.const';
+import { NavigateLRProps, NavigateLRState } from './NavLR.interface';
+import { MyPages } from '../NavDisplay/NavDisplay.const';
+
 export default class NavigateLR extends Component<NavigateLRProps, NavigateLRState> {
     handleClickLeft: MouseEventHandler<HTMLDivElement>;
     handleClickRight: MouseEventHandler<HTMLDivElement>;
@@ -29,11 +30,9 @@ export default class NavigateLR extends Component<NavigateLRProps, NavigateLRSta
         if (prevProps.navIndex !== this.props.navIndex) {
             this.setState((() => {
                 const linkPath = getCurrentPageInfo(MyPages.pages, this.props.navIndex).linkPath;
-                console.log(linkPath);
                 return { linkPath };
             }));
             this.linkPath = getCurrentPageInfo(MyPages.pages, this.props.navIndex).linkPath;
-            console.log(this.linkPath);
         }
     }
 
@@ -41,9 +40,15 @@ export default class NavigateLR extends Component<NavigateLRProps, NavigateLRSta
         return (
             <div>
                 <Box sx={{display: 'flex'}}>
-                    <div style={triangleLeftStyle} onClick={this.handleClickLeft}></div>
-                    <Link to={this.state.linkPath}><Card>SELECT</Card></Link>
-                    <div style={triangleRightStyle} onClick={this.handleClickRight}></div>
+                    <Box sx={lrStyle} onClick={this.handleClickLeft}></Box>
+                    <Link to={this.state.linkPath}>
+                        <Card sx={selectBtnStyle}>
+                            <Box sx={selectBtnTextStyle}>
+                                SELECT
+                            </Box>
+                        </Card>
+                    </Link>
+                    <Box sx={lrStyle} onClick={this.handleClickRight}></Box>
                 </Box>
             </div>
         )

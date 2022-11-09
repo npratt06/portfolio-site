@@ -1,8 +1,9 @@
 import { PageInfo, Pages } from './NavDisplay.interface';
-import Resume from './../../../pages/Resume';
-import Projects from './../../../pages/Projects';
-import About from './../../../pages/About';
-import Home from '../../../pages/Home';
+import Resume from '../../../pages/Resume/Resume';
+import Projects from '../../../pages/Projects/Projects';
+import About from '../../../pages/About/About';
+import Home from '../../../pages/Home/Home';
+import { textFontStyle } from '../../../globalCSS';
 
 // Pages --- start
 const OtherPages: PageInfo[] = [
@@ -54,7 +55,7 @@ const dotBase: React.CSSProperties = {
     borderRadius: '50%',
     display: 'inlineBlock',
     margin: '1vw'
-}
+};
 
 export const dotStyle: React.CSSProperties = {
     backgroundColor: '#000000',
@@ -64,5 +65,10 @@ export const dotStyle: React.CSSProperties = {
 export const highlightedDotStyle: React.CSSProperties = {
     backgroundColor: '#777777',
     ...dotBase
+};
+
+export const navDisplayStringStyle = {
+    ...textFontStyle,
+    fontSize: '5vw'
 };
 // css styles --- end
