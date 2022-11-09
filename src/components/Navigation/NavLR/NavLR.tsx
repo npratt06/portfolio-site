@@ -6,6 +6,7 @@ import { getCurrentPageInfo } from '../../../utils/NavUtils';
 import { selectBtnStyle, selectBtnTextStyle, lrStyle } from './NavLR.const';
 import { NavigateLRProps, NavigateLRState } from './NavLR.interface';
 import { MyPages } from '../NavDisplay/NavDisplay.const';
+import { unformatLink } from '../../../globalCSS';
 
 export default class NavigateLR extends Component<NavigateLRProps, NavigateLRState> {
     handleClickLeft: MouseEventHandler<HTMLDivElement>;
@@ -40,15 +41,15 @@ export default class NavigateLR extends Component<NavigateLRProps, NavigateLRSta
         return (
             <div>
                 <Box sx={{display: 'flex'}}>
-                    <Box sx={lrStyle} onClick={this.handleClickLeft}></Box>
-                    <Link to={this.state.linkPath}>
+                    <Box sx={lrStyle} onClick={this.handleClickLeft} />
+                    <Link to={this.state.linkPath} style={unformatLink}>
                         <Card sx={selectBtnStyle}>
                             <Box sx={selectBtnTextStyle}>
                                 SELECT
                             </Box>
                         </Card>
                     </Link>
-                    <Box sx={lrStyle} onClick={this.handleClickRight}></Box>
+                    <Box sx={lrStyle} onClick={this.handleClickRight} />
                 </Box>
             </div>
         )
