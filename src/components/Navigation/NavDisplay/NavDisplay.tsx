@@ -2,8 +2,9 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import React, { Component } from 'react'
 import { NavigationProps, outerWrapper, rowElement } from '../Navigation.interface';
-import { NavDisplayProps, screenStyle, dotStyle, highlightedDotStyle, PageInfo, MyPages } from './NavDisplay.interface';
-import { getCurrentPageInfo } from '../../../utils/DisplayUtils';
+import { screenStyle, dotStyle, highlightedDotStyle, MyPages } from './NavDisplay.const';
+import { PageInfo, NavDisplayProps } from './NavDisplay.interface';
+import { getCurrentPageInfo } from '../../../utils/NavUtils';
 
 export default class NavDisplay extends Component<NavigationProps, NavDisplayProps> {
 

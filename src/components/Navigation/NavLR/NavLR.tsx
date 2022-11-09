@@ -1,10 +1,11 @@
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import React, { Component } from 'react'
-import { triangleLeftStyle, triangleRightStyle, NavigateLRProps, NavigateLRState } from './NavLR.interface';
+import { NavigateLRProps, NavigateLRState } from './NavLR.interface';
+import { triangleLeftStyle, triangleRightStyle } from './NavLR.const';
 import { Link }from 'react-router-dom';
-import { MyPages } from '../NavDisplay/NavDisplay.interface';
-import { getCurrentPageInfo } from '../../../utils/DisplayUtils';
+import { MyPages } from '../NavDisplay/NavDisplay.const';
+import { getCurrentPageInfo } from '../../../utils/NavUtils';
 export default class NavigateLR extends Component<NavigateLRProps, NavigateLRState> {
     handleClickLeft: any;
     handleClickRight: any;
