@@ -1,4 +1,4 @@
-import PageLayout from './components/PageLayout';
+import PageLayout from './pages/PageLayout';
 
 function App() {
   return (
