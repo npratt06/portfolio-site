@@ -1,4 +1,5 @@
-import { Box } from '@mui/material'
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
 import React, { Component } from 'react'
 import { triangleLeftStyle, triangleRightStyle, NavigateLRProps, NavigateLRState } from './NavLR.interface';
 import { Link }from 'react-router-dom';
@@ -40,7 +41,7 @@ export default class NavigateLR extends Component<NavigateLRProps, NavigateLRSta
             <div>
                 <Box sx={{display: 'flex'}}>
                     <div style={triangleLeftStyle} onClick={this.handleClickLeft}></div>
-                    <Link to={this.state.linkPath}><div>SELECT</div></Link>
+                    <Link to={this.state.linkPath}><Card>SELECT</Card></Link>
                     <div style={triangleRightStyle} onClick={this.handleClickRight}></div>
                 </Box>
             </div>

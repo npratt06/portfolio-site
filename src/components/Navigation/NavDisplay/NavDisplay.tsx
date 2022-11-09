@@ -1,4 +1,5 @@
-import { Box, Card } from '@mui/material';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
 import React, { Component } from 'react'
 import { NavigationProps, outerWrapper, rowElement } from '../Navigation.interface';
 import { NavDisplayProps, screenStyle, dotStyle, highlightedDotStyle, PageInfo, MyPages } from './NavDisplay.interface';
