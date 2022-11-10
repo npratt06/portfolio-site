@@ -9,6 +9,7 @@
         "@types/node": "^16.18.3",
         "@types/react": "^18.0.25",
         "@types/react-dom": "^18.0.8",
+        "matter-js": "^0.18.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.4.3",
@@ -42,6 +43,7 @@
     },
     "devDependencies": {
         "@types/lodash": "^4.14.188",
+        "@types/matter-js": "^0.18.2",
         "@typescript-eslint/eslint-plugin": "^5.42.1",
         "@typescript-eslint/parser": "^5.42.1",
         "prettier": "2.7.1",
