@@ -11,20 +11,20 @@ const OtherPages: PageInfo[] = [
         key: 0,
         linkPath: '/resume',
         displayString: 'Resume',
-        component: <Resume />
+        component: <Resume />,
     },
     {
         key: 1,
         linkPath: '/projects',
         displayString: 'Projects',
-        component: <Projects />
+        component: <Projects />,
     },
     {
         key: 2,
         linkPath: '/about me',
         displayString: 'About Me',
-        component: <About />
-    }
+        component: <About />,
+    },
 ];
 
 export const MyPages: Pages = {
@@ -32,9 +32,9 @@ export const MyPages: Pages = {
         key: -1,
         linkPath: '/',
         displayString: 'Home',
-        component: <Home />
+        component: <Home />,
     },
-    pages: OtherPages
+    pages: OtherPages,
 };
 // Pages --- end
 
@@ -47,7 +47,7 @@ export const screenStyle: React.CSSProperties = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    filter: 'drop-shadow(5px 5px 5px #000000)'
+    filter: 'drop-shadow(5px 5px 5px #000000)',
 };
 
 const dotBase: React.CSSProperties = {
@@ -55,22 +55,22 @@ const dotBase: React.CSSProperties = {
     width: '2vw',
     borderRadius: '50%',
     display: 'inlineBlock',
-    margin: '1vw'
+    margin: '1vw',
 };
 
 export const dotStyle: React.CSSProperties = {
     backgroundColor: '#afaa98',
     ...dotBase,
-    filter: 'drop-shadow(0px 0px 5px #000000)'
+    filter: 'drop-shadow(0px 0px 5px #000000)',
 };
 
 export const highlightedDotStyle: React.CSSProperties = {
     backgroundColor: '#000000',
-    ...dotBase
+    ...dotBase,
 };
 
 export const navDisplayStringStyle = {
     ...textFontStyle,
-    fontSize: '5vw'
+    fontSize: '5vw',
 };
 // css styles --- end

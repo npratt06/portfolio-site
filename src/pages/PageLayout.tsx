@@ -4,15 +4,24 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { PageLayoutProps, PageLayoutState } from './PageLayout.interface';
 
-export default class PageLayout extends Component<PageLayoutProps, PageLayoutState> {
+export default class PageLayout extends Component<
+    PageLayoutProps,
+    PageLayoutState
+> {
     constructor(props: PageLayoutProps) {
         super(props);
         const pages: JSX.Element[] = [];
-        MyPages.pages.forEach(page => {
-            pages.push(<Route key={page.key} path={page.linkPath} element={page.component} />);
+        MyPages.pages.forEach((page) => {
+            pages.push(
+                <Route
+                    key={page.key}
+                    path={page.linkPath}
+                    element={page.component}
+                />
+            );
         });
         this.state = {
-            pages
+            pages,
         };
     }
 
@@ -24,6 +33,6 @@ export default class PageLayout extends Component<PageLayoutProps, PageLayoutSta
                     {this.state.pages}
                 </Routes>
             </BrowserRouter>
-        )
+        );
     }
 }

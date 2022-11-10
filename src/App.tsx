@@ -1,9 +1,7 @@
 import PageLayout from './pages/PageLayout';
 
 function App() {
-  return (
-    <PageLayout />
-  );
+    return <PageLayout />;
 }
 
 export default App;
