@@ -1,5 +1,3 @@
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
 import React, { Component } from 'react'
 import { outerWrapper, rowElement } from '../Navigation.interface';
 import { screenStyle, dotStyle, highlightedDotStyle, MyPages, navDisplayStringStyle } from './NavDisplay.const';
@@ -24,9 +22,9 @@ export default class NavDisplay extends Component<NavDisplayProps, NavDisplaySta
         const dots = [];
         for (let i = 0; i < this.numDisplayStrings; i++) {
             dots.push(
-                <Box>
+                <div>
                     <div style={dotStyle}></div>
-                </Box>
+                </div>
             );
         }
         return dots;
@@ -45,25 +43,25 @@ export default class NavDisplay extends Component<NavDisplayProps, NavDisplaySta
     render() {
         return (
             <div>
-                <Card sx={screenStyle}>
-                <Box sx={outerWrapper}>
-                    <Box sx={rowElement}>
-                        <Box sx={navDisplayStringStyle}>
+                <div style={screenStyle}>
+                <div style={outerWrapper}>
+                    <div style={rowElement}>
+                        <div style={navDisplayStringStyle}>
                             {this.state.navDisplayString}
-                        </Box>
-                    </Box>
-                    <Box sx={rowElement}>
+                        </div>
+                    </div>
+                    <div style={rowElement}>
                         {MyPages.pages.map((pageInfo: PageInfo) => {
                             const pageKey = pageInfo.key;
                             let currentDotStyle = dotStyle;
                             if (pageKey === this.props.navIndex) {
                                 currentDotStyle = highlightedDotStyle;
                             }
-                            return <Box key={pageKey}><div style={currentDotStyle}></div></Box>;
+                            return <div key={pageKey}><div style={currentDotStyle}></div></div>;
                         })}
-                    </Box>
-                </Box>
-                </Card>
+                    </div>
+                </div>
+                </div>
             </div>
         )
     }

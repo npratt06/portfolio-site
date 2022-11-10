@@ -1,10 +1,8 @@
-import Box from '@mui/material/Box';
 import React, { Component, MouseEventHandler } from 'react'
 import { Link }from 'react-router-dom';
 import { getCurrentPageInfo } from '../../../utils/NavUtils';
 import { NavigateLRProps, NavigateLRState } from './NavLR.interface';
 import { MyPages } from '../NavDisplay/NavDisplay.const';
-import { unformatLink } from '../../../globalCSS';
 import leftBtn from '../../../img/navLeftBtn.png';
 import rightBtn from '../../../img/navRightBtn.png';
 import selectBtn from '../../../img/selectBtn.png';
@@ -39,13 +37,13 @@ export default class NavigateLR extends Component<NavigateLRProps, NavigateLRSta
     render() {
         return (
             <div>
-                <Box sx={{display: 'flex'}}>
+                <div style={{display: 'flex'}}>
                     <NavBtn imgSrc={leftBtn} btnText={''} handleClick={this.handleClickLeft}/>
                     <Link to={this.state.linkPath}>
                         <NavBtn imgSrc={selectBtn} btnText={'SELECT'}/>
                     </Link>
                     <NavBtn imgSrc={rightBtn} btnText={''} handleClick={this.handleClickRight}/>
-                </Box>
+                </div>
             </div>
         )
     }

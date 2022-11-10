@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box'
 import React, { Component } from 'react'
 import { btnImgBaseStyle, btnImgStyleClicked, btnImgStyleHover, btnStyle, btnTextTransformBaseStyle, btnTextTransformClickedStyle } from './NavBtn.const'
 import { NavBtnProps, NavBtnState } from '../NavLR.interface';
@@ -56,10 +55,10 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
   render() {
     return (
       <div onMouseEnter={this.handleMouseEnter.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)} onMouseDown={this.handleMouseDown.bind(this)} onMouseUp={this.handleMouseUp.bind(this)}>
-        <Box sx={btnStyle} onClick={this.handleClick}>
+        <div style={btnStyle} onClick={this.handleClick}>
           <img src={this.imgSrc} alt={'NavBtn'} style={this.state.btnImgStyle}></img>
-          <Box sx={selectBtnTextStyle}><div style={this.state.btnTextTransformStyle}>{this.btnText}</div></Box>
-        </Box>
+          <div style={selectBtnTextStyle}><div style={this.state.btnTextTransformStyle}>{this.btnText}</div></div>
+        </div>
       </div>
     )
   }

@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box'
 import React, { Component } from 'react'
 import NavDisplay from './NavDisplay/NavDisplay'
 import { outerWrapper, rowElement, NavigationProps, NavigationState } from './Navigation.interface'
@@ -34,14 +33,14 @@ export default class Navigation extends Component<NavigationProps, NavigationSta
   render() {
     return (
       <div>
-        <Box sx={outerWrapper}>
-          <Box sx={rowElement}>
+        <div style={outerWrapper}>
+          <div style={rowElement}>
             <NavDisplay navIndex={this.state.navIndex}></NavDisplay>
-          </Box>
-          <Box sx={rowElement}>
+          </div>
+          <div style={rowElement}>
             <NavigateLR navIndex={this.state.navIndex} handleClickLeft={this.handleClickLeft.bind(this)} handleClickRight={this.handleClickRight.bind(this)}></NavigateLR>
-          </Box>
-        </Box>
+          </div>
+        </div>
       </div>
     )
   }
