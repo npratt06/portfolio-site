@@ -13,12 +13,37 @@ export default class Navigation extends Component<
     NavigationProps,
     NavigationState
 > {
+
     constructor(props: NavigationProps) {
         super(props);
+        const state = this.getStoredState();
+        this.setStoredState(state);
+        this.state = state;
+    }
 
-        this.state = {
-            navIndex: 0,
-        };
+    getStoredState() {
+        const rawStoredState = window.localStorage.getItem('state');
+        let state;
+        if (rawStoredState) {
+            state = JSON.parse(rawStoredState);
+        }
+        if (!state) {
+            state = {
+                navIndex: 0,
+            };
+        }
+        return state;
+    }
+
+    setStoredState(state: NavigationState) {
+        window.localStorage.setItem('state', JSON.stringify(state));
+    }
+
+    componentDidUpdate(prevState: NavigationState): void {
+        // if state.navIndex has changed, update stored state
+        if (prevState.navIndex !== this.state.navIndex) {
+            this.setStoredState(this.state);
+        }
     }
 
     handleClickLeft() {

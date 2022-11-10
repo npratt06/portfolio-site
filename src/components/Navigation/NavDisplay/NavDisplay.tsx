@@ -18,7 +18,8 @@ export default class NavDisplay extends Component<
     NavDisplayProps,
     NavDisplayState
 > {
-    numDisplayStrings: number = 0;
+
+    numDisplayStrings = 0;
     dots: JSX.Element[] = [];
 
     constructor(props: NavDisplayProps) {
@@ -28,20 +29,25 @@ export default class NavDisplay extends Component<
             props.navIndex
         ).displayString;
         this.state = {
-            navDisplayString: displayString,
+            navDisplayString: displayString
         };
         this.dots = this.getDots();
     }
 
-    getDots() {
-        const dots = [];
-        for (let i = 0; i < this.numDisplayStrings; i++) {
+    getDots(): JSX.Element[] {
+        const dots: JSX.Element[] = [];
+        MyPages.pages.forEach((pageInfo: PageInfo) => {
+            const pageKey = pageInfo.key;
+            let currentDotStyle = dotStyle;
+            if (pageKey === this.props.navIndex) {
+                currentDotStyle = highlightedDotStyle;
+            }
             dots.push(
-                <div>
-                    <div style={dotStyle}></div>
+                <div key={pageKey}>
+                    <div style={currentDotStyle}></div>
                 </div>
             );
-        }
+        });
         return dots;
     }
 
@@ -55,6 +61,7 @@ export default class NavDisplay extends Component<
                 ).displayString;
                 return { navDisplayString };
             });
+            this.dots = this.getDots();
         }
     }
 
@@ -69,18 +76,7 @@ export default class NavDisplay extends Component<
                             </div>
                         </div>
                         <div style={rowElement}>
-                            {MyPages.pages.map((pageInfo: PageInfo) => {
-                                const pageKey = pageInfo.key;
-                                let currentDotStyle = dotStyle;
-                                if (pageKey === this.props.navIndex) {
-                                    currentDotStyle = highlightedDotStyle;
-                                }
-                                return (
-                                    <div key={pageKey}>
-                                        <div style={currentDotStyle}></div>
-                                    </div>
-                                );
-                            })}
+                            {this.dots}
                         </div>
                     </div>
                 </div>

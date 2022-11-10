@@ -14,13 +14,13 @@ import { selectBtnTextStyle } from '../NavBtn/NavBtn.const';
 export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
     imgSrc: string;
     btnText: string;
-    handleClick: MouseEventHandler<HTMLDivElement>;
+    handleClick: MouseEventHandler<HTMLDivElement> | undefined;
 
     constructor(props: NavBtnProps) {
         super(props);
         this.imgSrc = props.imgSrc;
         this.btnText = props.btnText || '';
-        this.handleClick = props.handleClick || (() => {});
+        this.handleClick = props.handleClick;
         this.state = {
             btnImgStyle: btnImgBaseStyle,
             btnTextTransformStyle: btnTextTransformBaseStyle,
