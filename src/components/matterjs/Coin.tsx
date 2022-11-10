@@ -1,16 +1,25 @@
 import Matter, { Mouse } from 'matter-js';
 import React, { Component } from 'react'
-import { CoinProps } from './Coin.interface';
+import { CoinProps, CoinState, ScreenSize } from './Coin.interface';
 
-export default class Coin extends Component {
+export default class Coin extends Component<CoinProps, CoinState> {
 
     boxRef: React.RefObject<HTMLDivElement>;
     canvasRef: React.RefObject<HTMLCanvasElement>;
+    screenSize: ScreenSize;
 
     constructor(props: CoinProps) {
         super(props);
         this.boxRef = React.createRef();
         this.canvasRef = React.createRef();
+        this.screenSize = this.getScreenSize();
+        this.state = {
+            outerStyle: {
+                position: 'absolute',
+                zIndex: 99,
+                pointerEvents: 'auto'
+            }
+        }
     }
 
     componentDidMount(): void {
@@ -18,11 +27,17 @@ export default class Coin extends Component {
     }
 
     componentDidUpdate(): void {
-        this.matterjsRender();
+        console.log('coin updated')
+        this.screenSize = this.getScreenSize();
+    }
+
+    getScreenSize(): ScreenSize {
+        const screenSize = { width: window.innerWidth, height: window.innerHeight };
+        return screenSize;
     }
 
     matterjsRender() {
-        const screenSize = { width: window.innerWidth, height: window.innerHeight };
+        this.screenSize = this.getScreenSize();
         const Engine = Matter.Engine;
         const Render = Matter.Render;
         const World = Matter.World;
@@ -36,32 +51,32 @@ export default class Coin extends Component {
             engine: engine,
             canvas: this.canvasRef.current || undefined,
             options: {
-                width: screenSize.width,
-                height: screenSize.height,
+                width: this.screenSize.width,
+                height: this.screenSize.height,
                 background: 'rgba(0, 0, 0, 0)',
                 wireframes: false
             }
         });
 
-        // create and add ball
-        const ball = Bodies.circle(200, 200, 100, {
+        // create and add coin
+        const coin = Bodies.circle(200, 200, 100, {
             restitution: 0.3,
             render: {
                 fillStyle: 'gold'
             }
         });
-        World.add(engine.world, [ball]);
+        World.add(engine.world, [coin]);
 
         // create and add walls
-        const horizontalBoundWidth = screenSize.width;
+        const horizontalBoundWidth = this.screenSize.width;
         const horizontalBoundHeight = 1;
         const verticalBoundWidth = 1;
-        const verticalBoundHeight = screenSize.height;
+        const verticalBoundHeight = this.screenSize.height;
         World.add(engine.world, [
             Bodies.rectangle(horizontalBoundWidth / 2, horizontalBoundHeight / 2, horizontalBoundWidth, horizontalBoundHeight, { isStatic: true, render: { opacity: 0 } }),
-            Bodies.rectangle(horizontalBoundWidth / 2, screenSize.height - (horizontalBoundHeight / 2), horizontalBoundWidth, horizontalBoundHeight, { isStatic: true, render: { opacity: 0 } }),
+            Bodies.rectangle(horizontalBoundWidth / 2, this.screenSize.height - (horizontalBoundHeight / 2), horizontalBoundWidth, horizontalBoundHeight, { isStatic: true, render: { opacity: 0 } }),
             Bodies.rectangle(verticalBoundWidth / 2, verticalBoundHeight / 2, verticalBoundWidth, verticalBoundHeight, { isStatic: true, render: { opacity: 0 } }),
-            Bodies.rectangle(screenSize.width - (verticalBoundWidth / 2), verticalBoundHeight / 2, verticalBoundWidth, verticalBoundHeight, { isStatic: true, render: { opacity: 0 } })
+            Bodies.rectangle(this.screenSize.width - (verticalBoundWidth / 2), verticalBoundHeight / 2, verticalBoundWidth, verticalBoundHeight, { isStatic: true, render: { opacity: 0 } })
         ]);
 
 
@@ -78,24 +93,33 @@ export default class Coin extends Component {
         });
         World.add(engine.world, mouseConstraint);
 
-        // Matter.Events.on(mouseConstraint, 'mousemove', (event: Matter.IMouseEvent<Matter.MouseConstraint>) => {
-        //     const tmpResult = Matter.Query.point([ball], event.source.mouse.position);
-        //     const mouseOverBall = tmpResult.length > 0;
-        //     if (mouseOverBall) {
-        //         console.log(`mouse is over the ball!`);
-        //         setOuterStyle({
-        //             position: 'absolute',
-        //             zIndex: 99,
-        //             pointerEvents: 'auto'
-        //         });
-        //     } else {
-        //         setOuterStyle({
-        //             position: 'absolute',
-        //             zIndex: 99,
-        //             pointerEvents: 'none'
-        //         });
-        //     }
-        // });
+        Matter.Events.on(mouseConstraint, 'mousemove', (event: Matter.IMouseEvent<Matter.MouseConstraint>) => {
+            const tmpResult = Matter.Query.point([coin], event.source.mouse.position);
+            const mouseOverCoin = tmpResult.length > 0;
+            if (mouseOverCoin) {
+                console.log(`mouse is over the coin!`);
+                
+                // this.setState(() => {
+                //     return {
+                //         outerStyle: {
+                //             position: 'absolute',
+                //             zIndex: 99,
+                //             pointerEvents: 'auto'
+                //         }
+                //     };
+                // });
+            } else {
+                // this.setState(() => {
+                //     return {
+                //         outerStyle: {
+                //             position: 'absolute',
+                //             zIndex: 99,
+                //             pointerEvents: 'none'
+                //         }
+                //     };
+                // });
+            }
+        });
         Matter.Runner.run(engine);
         Render.run(render);
     }
@@ -104,11 +128,7 @@ export default class Coin extends Component {
         return (
             <div
                 ref={this.boxRef}
-                style={{
-                    position: 'absolute',
-                    zIndex: 99,
-                    pointerEvents: 'none'
-                }}
+                style={this.state.outerStyle}
             >
                 <canvas ref={this.canvasRef} />
             </div>
