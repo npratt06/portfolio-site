@@ -1,34 +1,44 @@
-import React, { useEffect, useRef, useState } from 'react';
 import Matter, { Mouse } from 'matter-js';
+import React, { Component } from 'react'
+import { CoinProps } from './Coin.interface';
 
-export default function Coin() {
-    const boxRef = useRef(null);
-    const canvasRef = useRef(null);
-    
-    const [outerStyle, setOuterStyle] = useState<React.CSSProperties>({
-        position: 'absolute',
-        zIndex: 99,
-        pointerEvents: 'auto'
-    });
+export default class Coin extends Component {
 
-    useEffect(() => {
+    boxRef: React.RefObject<HTMLDivElement>;
+    canvasRef: React.RefObject<HTMLCanvasElement>;
+
+    constructor(props: CoinProps) {
+        super(props);
+        this.boxRef = React.createRef();
+        this.canvasRef = React.createRef();
+    }
+
+    componentDidMount(): void {
+        this.matterjsRender();
+    }
+
+    componentDidUpdate(): void {
+        this.matterjsRender();
+    }
+
+    matterjsRender() {
         const screenSize = { width: window.innerWidth, height: window.innerHeight };
         const Engine = Matter.Engine;
         const Render = Matter.Render;
         const World = Matter.World;
         const Bodies = Matter.Bodies;
-        
+
         const engine = Engine.create({});
         engine.gravity = { x: 0, y: 1, scale: 0.003 };
 
         const render = Render.create({
-            element: boxRef.current || undefined,
+            element: this.boxRef.current || undefined,
             engine: engine,
-            canvas: canvasRef.current || undefined,
+            canvas: this.canvasRef.current || undefined,
             options: {
                 width: screenSize.width,
                 height: screenSize.height,
-                background: 'rgba(255, 0, 0, 0)',
+                background: 'rgba(0, 0, 0, 0)',
                 wireframes: false
             }
         });
@@ -60,10 +70,10 @@ export default function Coin() {
         const mouseConstraint = Matter.MouseConstraint.create(engine, { //Create Constraint
             mouse: mouse,
             constraint: {
-              render: {
-                visible: false
-              },
-              stiffness: 1
+                render: {
+                    visible: false
+                },
+                stiffness: 1
             }
         });
         World.add(engine.world, mouseConstraint);
@@ -88,14 +98,20 @@ export default function Coin() {
         // });
         Matter.Runner.run(engine);
         Render.run(render);
-    }, []);
+    }
 
-    return (
-        <div
-            ref={boxRef}
-            style={outerStyle}
-        >
-            <canvas ref={canvasRef} />
-        </div>
-    );
+    render() {
+        return (
+            <div
+                ref={this.boxRef}
+                style={{
+                    position: 'absolute',
+                    zIndex: 99,
+                    pointerEvents: 'none'
+                }}
+            >
+                <canvas ref={this.canvasRef} />
+            </div>
+        )
+    }
 }
