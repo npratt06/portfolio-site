@@ -68,9 +68,11 @@ export default class Navigation extends Component<
         return (
             <div>
                 <div style={outerWrapper}>
-                    <Draggable>
-                        <div style={{width: '200px', height: '200px', zIndex: '99'}}><img style={{width: 'auto', height: 'inherit', pointerEvents: 'none'}} src={coin} /></div>
-                    </Draggable>
+                    <div style={{position: 'absolute', zIndex: '99', top: 0, left: 0}}>
+                        <Draggable>
+                            <div style={{width: '200px', height: '200px'}}><img style={{width: 'auto', height: 'inherit', pointerEvents: 'none'}} src={coin} /></div>
+                        </Draggable>
+                    </div>
                     <div style={rowElement}>
                         <NavDisplay navIndex={this.state.navIndex}></NavDisplay>
                     </div>

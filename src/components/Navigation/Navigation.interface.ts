@@ -3,6 +3,7 @@ export const outerWrapper: React.CSSProperties = {
     justifyContent: 'center',
     flexWrap: 'wrap',
     backgroundColor: '#gggggg',
+    position: 'relative'
 };
 
 export const rowElement: React.CSSProperties = {
