@@ -8,6 +8,8 @@ import {
 } from './Navigation.interface';
 import NavigateLR from './NavLR/NavLR';
 import { MyPages } from './NavDisplay/NavDisplay.const';
+import Draggable from 'react-draggable';
+import coin from '../../img/coin.png';
 
 export default class Navigation extends Component<
     NavigationProps,
@@ -66,6 +68,9 @@ export default class Navigation extends Component<
         return (
             <div>
                 <div style={outerWrapper}>
+                    <Draggable>
+                        <div style={{width: '200px', height: '200px', zIndex: '99'}}><img style={{width: 'auto', height: 'inherit', pointerEvents: 'none'}} src={coin} /></div>
+                    </Draggable>
                     <div style={rowElement}>
                         <NavDisplay navIndex={this.state.navIndex}></NavDisplay>
                     </div>

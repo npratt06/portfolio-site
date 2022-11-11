@@ -17,7 +17,7 @@ export default class Coin extends Component<CoinProps, CoinState> {
             outerStyle: {
                 position: 'absolute',
                 zIndex: 99,
-                pointerEvents: 'auto'
+                pointerEvents: 'none'
             }
         }
     }

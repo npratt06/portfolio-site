@@ -46,8 +46,7 @@ export const screenStyle: React.CSSProperties = {
     margin: '3em',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
-    filter: 'drop-shadow(5px 5px 5px #000000)',
+    alignItems: 'center'
 };
 
 const dotBase: React.CSSProperties = {
