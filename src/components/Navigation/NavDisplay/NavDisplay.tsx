@@ -6,6 +6,9 @@ import {
     highlightedDotStyle,
     MyPages,
     navDisplayStringStyle,
+    screenImgStyle,
+    recordImgStyle,
+    recordImgWrapperStyle,
 } from './NavDisplay.const';
 import {
     PageInfo,
@@ -13,6 +16,8 @@ import {
     NavDisplayState,
 } from './NavDisplay.interface';
 import { getCurrentPageInfo } from '../../../utils/NavUtils';
+import screenImg from '../../../img/screen.png';
+import recordImg from '../../../img/record_test.png';
 
 export default class NavDisplay extends Component<
     NavDisplayProps,
@@ -21,6 +26,7 @@ export default class NavDisplay extends Component<
 
     numDisplayStrings = 0;
     dots: JSX.Element[] = [];
+    currentRecordImgStyle: React.CSSProperties = recordImgStyle;
 
     constructor(props: NavDisplayProps) {
         super(props);
@@ -28,8 +34,11 @@ export default class NavDisplay extends Component<
             MyPages.pages,
             props.navIndex
         ).displayString;
+        const degToRotate = 360 / MyPages.pages.length;
+        const recordRotation = props.navIndex * degToRotate;
         this.state = {
-            navDisplayString: displayString
+            navDisplayString: displayString,
+            recordRotation
         };
         this.dots = this.getDots();
     }
@@ -51,32 +60,56 @@ export default class NavDisplay extends Component<
         return dots;
     }
 
-    componentDidUpdate(prevProps: Readonly<NavDisplayProps>): void {
+    componentDidUpdate(prevProps: Readonly<NavDisplayProps>, prevState: NavDisplayState): void {
         // if navIndex has changed, update navDisplayString
         if (prevProps.navIndex !== this.props.navIndex) {
             this.setState(() => {
+                // nav display string
                 const navDisplayString = getCurrentPageInfo(
                     MyPages.pages,
                     this.props.navIndex
                 ).displayString;
-                return { navDisplayString };
+                // record rotation
+                const degToRotate = 360 / MyPages.pages.length;
+                let recordRotation = 0;
+                const loopedToBeginning = (this.props.navIndex === 0 && prevProps.navIndex === MyPages.pages.length - 1);
+                const loopedToEnd = ((this.props.navIndex === MyPages.pages.length - 1 && prevProps.navIndex === 0));
+                if (loopedToBeginning) {
+                    recordRotation = prevState.recordRotation + degToRotate;
+                } else if (loopedToEnd) {
+                    recordRotation = prevState.recordRotation - degToRotate;
+                } else if (prevProps.navIndex < this.props.navIndex) {
+                    recordRotation = prevState.recordRotation + degToRotate;
+
+                } else {
+                    recordRotation = prevState.recordRotation - degToRotate;
+                }
+                return { navDisplayString, recordRotation };
             });
             this.dots = this.getDots();
         }
     }
 
+    determineRecordRotation() {
+        return 0;
+    }
+
     render() {
         return (
-            <div>
-                <div style={screenStyle}>
-                    <div style={outerWrapper}>
-                        <div style={rowElement}>
-                            <div style={navDisplayStringStyle}>
-                                {this.state.navDisplayString}
-                            </div>
+            <div style={screenStyle}>
+                <img src={screenImg} alt='screenImg' style={screenImgStyle} />
+                <div style={outerWrapper}>
+                    <div style={rowElement}>
+                        <div style={navDisplayStringStyle}>
+                            {this.state.navDisplayString}
                         </div>
-                        <div style={rowElement}>
-                            {this.dots}
+                    </div>
+                    <div style={rowElement}>
+                        {this.dots}
+                    </div>
+                    <div style={rowElement}>
+                        <div style={recordImgWrapperStyle}>
+                            <img src={recordImg} alt='recordImg' style={{...this.currentRecordImgStyle, rotate: `${this.state.recordRotation}deg`}}/>
                         </div>
                     </div>
                 </div>

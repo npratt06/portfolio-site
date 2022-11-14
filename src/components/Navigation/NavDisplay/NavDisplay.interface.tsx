@@ -16,4 +16,5 @@ export interface NavDisplayProps {
 
 export interface NavDisplayState {
     navDisplayString: string;
+    recordRotation: number;
 }

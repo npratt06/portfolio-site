@@ -35,7 +35,6 @@ export const btnImgStyleClicked: React.CSSProperties = {
 // select button styles --- start
 export const selectBtnTextStyle: React.CSSProperties = {
     ...textFontStyle,
-    color: '#000000',
     fontSize: '3vw',
     position: 'absolute',
     top: '50%',
@@ -45,7 +44,9 @@ export const selectBtnTextStyle: React.CSSProperties = {
 // select button styles --- end
 
 // button text styles for dynamic transforms --- start
-export const btnTextTransformBaseStyle: React.CSSProperties = {};
+export const btnTextTransformBaseStyle: React.CSSProperties = {
+    color: 'black'
+};
 
 export const btnTextTransformClickedStyle: React.CSSProperties = {
     transform: 'translate(5px, 5px)',

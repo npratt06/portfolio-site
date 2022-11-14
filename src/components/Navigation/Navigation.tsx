@@ -15,12 +15,16 @@ export default class Navigation extends Component<
     NavigationProps,
     NavigationState
 > {
+    // var is used for a workaround to avoid findDOMNode warning when using react-draggable
+    nodeRef;
 
     constructor(props: NavigationProps) {
         super(props);
         const state = this.getStoredState();
         this.setStoredState(state);
         this.state = state;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        this.nodeRef = React.createRef() as any;
     }
 
     getStoredState() {
@@ -66,23 +70,21 @@ export default class Navigation extends Component<
 
     render() {
         return (
-            <div>
-                <div style={outerWrapper}>
-                    <div style={{position: 'absolute', zIndex: '99', top: 0, left: 0}}>
-                        <Draggable>
-                            <div style={{width: '200px', height: '200px'}}><img style={{width: 'auto', height: 'inherit', pointerEvents: 'none'}} src={coin} /></div>
-                        </Draggable>
-                    </div>
-                    <div style={rowElement}>
-                        <NavDisplay navIndex={this.state.navIndex}></NavDisplay>
-                    </div>
-                    <div style={rowElement}>
-                        <NavigateLR
-                            navIndex={this.state.navIndex}
-                            handleClickLeft={this.handleClickLeft.bind(this)}
-                            handleClickRight={this.handleClickRight.bind(this)}
-                        ></NavigateLR>
-                    </div>
+            <div style={outerWrapper}>
+                <div style={{position: 'absolute', zIndex: '99', top: 0, left: 0}}>
+                    <Draggable nodeRef={this.nodeRef}>
+                        <div ref={this.nodeRef} style={{width: '200px', height: '200px'}}><img style={{width: 'auto', height: 'inherit', pointerEvents: 'none'}} src={coin} /></div>
+                    </Draggable>
+                </div>
+                <div style={rowElement}>
+                    <NavDisplay navIndex={this.state.navIndex}></NavDisplay>
+                </div>
+                <div style={rowElement}>
+                    <NavigateLR
+                        navIndex={this.state.navIndex}
+                        handleClickLeft={this.handleClickLeft.bind(this)}
+                        handleClickRight={this.handleClickRight.bind(this)}
+                    ></NavigateLR>
                 </div>
             </div>
         );

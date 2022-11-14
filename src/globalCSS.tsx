@@ -1,5 +1,5 @@
 export const textFontStyle: React.CSSProperties = {
-    fontFamily: 'Marker Felt, fantasy',
+    fontFamily: 'OCR A Std, monospace',
 };
 
 // not currently used... keeping around just in case

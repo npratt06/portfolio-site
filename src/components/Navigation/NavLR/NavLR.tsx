@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { getCurrentPageInfo } from '../../../utils/NavUtils';
 import { NavigateLRProps, NavigateLRState } from './NavLR.interface';
 import { MyPages } from '../NavDisplay/NavDisplay.const';
-import leftBtn from '../../../img/navLeftBtn.png';
-import rightBtn from '../../../img/navRightBtn.png';
-import selectBtn from '../../../img/selectBtn.png';
+import leftBtn from '../../../img/navLeftBtn_grey.png';
+import rightBtn from '../../../img/navRightBtn_grey.png';
+import selectBtn from '../../../img/selectBtn_grey.png';
 import NavBtn from './NavBtn/NavBtn';
 
 export default class NavigateLR extends Component<
@@ -42,22 +42,20 @@ export default class NavigateLR extends Component<
 
     render() {
         return (
-            <div>
-                <div style={{ display: 'flex' }}>
-                    <NavBtn
-                        imgSrc={leftBtn}
-                        btnText={''}
-                        handleClick={this.handleClickLeft}
-                    />
-                    <Link to={this.state.linkPath}>
-                        <NavBtn imgSrc={selectBtn} btnText={'SELECT'} />
-                    </Link>
-                    <NavBtn
-                        imgSrc={rightBtn}
-                        btnText={''}
-                        handleClick={this.handleClickRight}
-                    />
-                </div>
+            <div style={{ display: 'flex' }}>
+                <NavBtn
+                    imgSrc={leftBtn}
+                    btnText={''}
+                    handleClick={this.handleClickLeft}
+                />
+                <Link to={this.state.linkPath}>
+                    <NavBtn imgSrc={selectBtn} btnText={'SELECT'} />
+                </Link>
+                <NavBtn
+                    imgSrc={rightBtn}
+                    btnText={''}
+                    handleClick={this.handleClickRight}
+                />
             </div>
         );
     }

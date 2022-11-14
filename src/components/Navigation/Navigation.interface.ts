@@ -1,8 +1,4 @@
 export const outerWrapper: React.CSSProperties = {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    backgroundColor: '#gggggg',
     position: 'relative'
 };
 
