@@ -1,7 +1,7 @@
 import { MyPages } from '../components/Navigation/NavDisplay/NavDisplay.const';
 import Home from './Home/Home';
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import { PageLayoutProps, PageLayoutState } from './PageLayout.interface';
 
 export default class PageLayout extends Component<
@@ -27,12 +27,12 @@ export default class PageLayout extends Component<
 
     render() {
         return (
-            <BrowserRouter>
+            <HashRouter>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     {this.state.pages}
                 </Routes>
-            </BrowserRouter>
+            </HashRouter>
         );
     }
 }
