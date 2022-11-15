@@ -71,8 +71,8 @@ export const recordImgStyle: React.CSSProperties = {
 }
 
 const dotBase: React.CSSProperties = {
-    height: '2vw',
-    width: '2vw',
+    height: '1.25vw',
+    width: '1.25vw',
     borderRadius: '50%',
     display: 'inlineBlock',
     margin: '1vw',
@@ -92,7 +92,8 @@ export const highlightedDotStyle: React.CSSProperties = {
 export const navDisplayStringStyle: React.CSSProperties = {
     ...textFontStyle,
     fontSize: '5vw',
-    color: 'black'
+    color: 'black',
+    opacity: 0
     
 };
 // css styles --- end

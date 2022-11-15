@@ -14,6 +14,8 @@ export default class NavigateLR extends Component<
 > {
     handleClickLeft: MouseEventHandler<HTMLDivElement>;
     handleClickRight: MouseEventHandler<HTMLDivElement>;
+    handleMouseDown: (()=> void) | undefined;
+    handleMouseUp: (()=> void) | undefined;
     navIndex: number;
 
     constructor(props: NavigateLRProps) {
@@ -21,6 +23,8 @@ export default class NavigateLR extends Component<
         this.navIndex = props.navIndex;
         this.handleClickLeft = props.handleClickLeft;
         this.handleClickRight = props.handleClickRight;
+        this.handleMouseDown = props.handleMouseDown;
+        this.handleMouseUp = props.handleMouseUp;
         const page = getCurrentPageInfo(MyPages.pages, this.navIndex);
         this.state = {
             linkPath: page.linkPath,
@@ -47,6 +51,8 @@ export default class NavigateLR extends Component<
                     imgSrc={leftBtn}
                     btnText={''}
                     handleClick={this.handleClickLeft}
+                    handleMouseDown={this.handleMouseDown}
+                    handleMouseUp={this.handleMouseUp}
                 />
                 <Link to={this.state.linkPath}>
                     <NavBtn imgSrc={selectBtn} btnText={'SELECT'} />
@@ -55,6 +61,8 @@ export default class NavigateLR extends Component<
                     imgSrc={rightBtn}
                     btnText={''}
                     handleClick={this.handleClickRight}
+                    handleMouseDown={this.handleMouseDown}
+                    handleMouseUp={this.handleMouseUp}
                 />
             </div>
         );

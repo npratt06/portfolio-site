@@ -12,9 +12,18 @@ export interface Pages {
 
 export interface NavDisplayProps {
     navIndex: number;
+    isMouseDownOnNavBtn: boolean;
 }
 
 export interface NavDisplayState {
     navDisplayString: string;
     recordRotation: number;
+    isMouseDownOnNavBtn: boolean;
+}
+
+export interface RecordRotationInputs {
+    degToRotate: number;
+    prevProps: NavDisplayProps;
+    prevState: NavDisplayState;
+    props: NavDisplayProps;
 }

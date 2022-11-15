@@ -15,4 +15,5 @@ export interface NavigationProps {
 
 export interface NavigationState {
     navIndex: number;
+    isMouseDownOnNavBtn: boolean;
 }

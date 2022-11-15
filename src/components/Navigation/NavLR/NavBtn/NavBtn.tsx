@@ -15,12 +15,16 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
     imgSrc: string;
     btnText: string;
     handleClick: MouseEventHandler<HTMLDivElement> | undefined;
-
+    handleMouseDownProp: (()=> void) | undefined;
+    handleMouseUpProp: (()=> void) | undefined;
+    
     constructor(props: NavBtnProps) {
         super(props);
         this.imgSrc = props.imgSrc;
         this.btnText = props.btnText || '';
         this.handleClick = props.handleClick;
+        this.handleMouseDownProp = props.handleMouseDown;
+        this.handleMouseUpProp = props.handleMouseUp;
         this.state = {
             btnImgStyle: btnImgBaseStyle,
             btnTextTransformStyle: btnTextTransformBaseStyle,
@@ -44,6 +48,9 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
     }
 
     handleMouseDown() {
+        if (this.handleMouseDownProp) {
+            this.handleMouseDownProp();
+        }
         this.setState(() => {
             const btnImgStyle = btnImgStyleClicked;
             const btnTextTransformStyle = btnTextTransformClickedStyle;
@@ -52,6 +59,9 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
     }
 
     handleMouseUp() {
+        if (this.handleMouseUpProp) {
+            this.handleMouseUpProp();
+        }
         this.setState(() => {
             const btnImgStyle = btnImgStyleHover;
             const btnTextTransformStyle = btnTextTransformBaseStyle;
