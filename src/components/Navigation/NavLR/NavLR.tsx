@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { getCurrentPageInfo } from '../../../utils/NavUtils';
 import { NavigateLRProps, NavigateLRState } from './NavLR.interface';
 import { MyPages } from '../NavDisplay/NavDisplay.const';
-import leftBtn from '../../../img/navLeftBtn.png';
-import rightBtn from '../../../img/navRightBtn.png';
-import selectBtn from '../../../img/selectBtn.png';
+import leftBtn from '../../../img/navLeftBtn_grey.png';
+import rightBtn from '../../../img/navRightBtn_grey.png';
+import selectBtn from '../../../img/selectBtn_grey.png';
 import NavBtn from './NavBtn/NavBtn';
 
 export default class NavigateLR extends Component<
@@ -14,6 +14,8 @@ export default class NavigateLR extends Component<
 > {
     handleClickLeft: MouseEventHandler<HTMLDivElement>;
     handleClickRight: MouseEventHandler<HTMLDivElement>;
+    handleMouseDown: (()=> void) | undefined;
+    handleMouseUp: (()=> void) | undefined;
     navIndex: number;
 
     constructor(props: NavigateLRProps) {
@@ -21,6 +23,8 @@ export default class NavigateLR extends Component<
         this.navIndex = props.navIndex;
         this.handleClickLeft = props.handleClickLeft;
         this.handleClickRight = props.handleClickRight;
+        this.handleMouseDown = props.handleMouseDown;
+        this.handleMouseUp = props.handleMouseUp;
         const page = getCurrentPageInfo(MyPages.pages, this.navIndex);
         this.state = {
             linkPath: page.linkPath,
@@ -42,22 +46,24 @@ export default class NavigateLR extends Component<
 
     render() {
         return (
-            <div>
-                <div style={{ display: 'flex' }}>
-                    <NavBtn
-                        imgSrc={leftBtn}
-                        btnText={''}
-                        handleClick={this.handleClickLeft}
-                    />
-                    <Link to={this.state.linkPath}>
-                        <NavBtn imgSrc={selectBtn} btnText={'SELECT'} />
-                    </Link>
-                    <NavBtn
-                        imgSrc={rightBtn}
-                        btnText={''}
-                        handleClick={this.handleClickRight}
-                    />
-                </div>
+            <div style={{ display: 'flex' }}>
+                <NavBtn
+                    imgSrc={leftBtn}
+                    btnText={''}
+                    handleClick={this.handleClickLeft}
+                    handleMouseDown={this.handleMouseDown}
+                    handleMouseUp={this.handleMouseUp}
+                />
+                <Link to={this.state.linkPath}>
+                    <NavBtn imgSrc={selectBtn} btnText={'SELECT'} />
+                </Link>
+                <NavBtn
+                    imgSrc={rightBtn}
+                    btnText={''}
+                    handleClick={this.handleClickRight}
+                    handleMouseDown={this.handleMouseDown}
+                    handleMouseUp={this.handleMouseUp}
+                />
             </div>
         );
     }
