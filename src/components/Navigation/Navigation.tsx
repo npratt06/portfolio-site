@@ -93,10 +93,10 @@ export default class Navigation extends Component<
     render() {
         return (
             <div style={outerWrapper}>
-                <div style={{position: 'absolute', zIndex: '99', top: 0, left: 0}}>
+                <div style={{position: 'absolute', zIndex: '99', top: '100vh', left: '100vw', transform: 'translate(-105%, -105%)'}}>
                     {/* nodeRef is used for a workaround to avoid findDOMNode warning when using react-draggable*/}
                     <Draggable nodeRef={this.nodeRef}>
-                        <div ref={this.nodeRef} style={{width: '200px', height: '200px'}}><img style={{width: 'auto', height: 'inherit', pointerEvents: 'none'}} src={coin} /></div>
+                        <div ref={this.nodeRef} style={{width: '13vw', height: '13vw'}}><img style={{width: 'inherit', height: 'auto', pointerEvents: 'none'}} src={coin} /></div>
                     </Draggable>
                 </div>
                 <div style={rowElement}>
