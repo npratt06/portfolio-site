@@ -20,7 +20,6 @@ import {
 import { getCurrentPageInfo } from '../../../utils/NavUtils';
 import screenImg from '../../../img/screen.png';
 import recordImg from '../../../img/record_real.png';
-import _ from 'lodash';
 
 export default class NavDisplay extends Component<
     NavDisplayProps,
