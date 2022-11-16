@@ -15,6 +15,7 @@ import {
     NavDisplayProps,
     NavDisplayState,
     RecordRotationInputs,
+    NavDisplayStringStyleDynamic,
 } from './NavDisplay.interface';
 import { getCurrentPageInfo } from '../../../utils/NavUtils';
 import screenImg from '../../../img/screen.png';
@@ -29,6 +30,7 @@ export default class NavDisplay extends Component<
     numDisplayStrings = 0;
     dots: JSX.Element[] = [];
     currentRecordImgStyle: React.CSSProperties = recordImgStyle;
+    navDisplayStringStyleDynamic: NavDisplayStringStyleDynamic = { opacity: 100, transition: '' };
 
     constructor(props: NavDisplayProps) {
         super(props);
@@ -44,6 +46,7 @@ export default class NavDisplay extends Component<
             isMouseDownOnNavBtn: props.isMouseDownOnNavBtn
         };
         this.dots = this.getDots();
+        this.setNavDisplayStringStyleDynamicValues(props.isMouseDownOnNavBtn);
     }
 
     componentDidUpdate(prevProps: Readonly<NavDisplayProps>, prevState: NavDisplayState): void {
@@ -104,10 +107,16 @@ export default class NavDisplay extends Component<
         return recordRotation;
     }
 
+    setNavDisplayStringStyleDynamicValues(isMouseDownOnNavBtn: boolean) {
+        this.navDisplayStringStyleDynamic = {
+            opacity: isMouseDownOnNavBtn ? 0 :  100,
+            transition: isMouseDownOnNavBtn ? '' : 'opacity 0.6s ease-in-out'
+        }
+    }
+
     render() {
-        const opacity = this.state.isMouseDownOnNavBtn ? 0 :  100;
-        const transition = this.state.isMouseDownOnNavBtn ? '' : 'all 0.6s ease-in-out';
-        const navDisplayStringStyleRendered = {...navDisplayStringStyle, transition: `${transition}`, opacity: `${opacity}`} as React.CSSProperties;
+        this.setNavDisplayStringStyleDynamicValues(this.state.isMouseDownOnNavBtn);
+        const navDisplayStringStyleRendered = {...navDisplayStringStyle, transition: `${this.navDisplayStringStyleDynamic.transition}`, opacity: `${this.navDisplayStringStyleDynamic.opacity}`} as React.CSSProperties;
         return (
             <div style={screenStyle}>
                 <img src={screenImg} alt='screenImg' style={screenImgStyle} />

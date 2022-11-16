@@ -6,6 +6,7 @@ export interface NavigateLRProps {
     handleClickRight: MouseEventHandler<HTMLDivElement>;
     handleMouseDown: ()=> void;
     handleMouseUp: ()=> void;
+    handleMouseLeave: ()=> void;
 }
 
 export interface NavigateLRState {
@@ -18,6 +19,7 @@ export interface NavBtnProps {
     handleClick?: MouseEventHandler<HTMLDivElement>;
     handleMouseDown?: ()=> void;
     handleMouseUp?: ()=> void;
+    handleMouseLeave?: ()=> void;
 }
 
 export interface NavBtnState {

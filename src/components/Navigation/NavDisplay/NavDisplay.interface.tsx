@@ -27,3 +27,8 @@ export interface RecordRotationInputs {
     prevState: NavDisplayState;
     props: NavDisplayProps;
 }
+
+export interface NavDisplayStringStyleDynamic {
+    opacity: number,
+    transition: string
+}

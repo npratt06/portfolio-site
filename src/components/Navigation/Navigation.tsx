@@ -20,8 +20,9 @@ export default class Navigation extends Component<
 
     constructor(props: NavigationProps) {
         super(props);
-        const state = this.getStoredState();
+        const state = this.getStoredState() as NavigationState;
         this.setStoredState(state);
+        state.isMouseDownOnNavBtn = false;
         this.state = state;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this.nodeRef = React.createRef() as any;
@@ -82,6 +83,13 @@ export default class Navigation extends Component<
         });
     }
 
+    handleMouseLeave() {
+        console.log(`Navigation handleMouseLeave called!`);
+        this.setState(() => {
+            return { navIndex: this.state.navIndex, isMouseDownOnNavBtn: false};
+        });
+    }
+
     render() {
         return (
             <div style={outerWrapper}>
@@ -101,6 +109,7 @@ export default class Navigation extends Component<
                         handleClickRight={this.handleClickRight.bind(this)}
                         handleMouseDown={this.handleMouseDown.bind(this)}
                         handleMouseUp={this.handleMouseUp.bind(this)}
+                        handleMouseLeave={this.handleMouseLeave.bind(this)}
                     ></NavigateLR>
                 </div>
             </div>

@@ -40,7 +40,7 @@ export const MyPages: Pages = {
 
 // css styles --- start
 export const screenStyle: React.CSSProperties = {
-    width: '70vw',
+    width: '85vw',
     height: '30vw',
     display: 'flex',
     justifyContent: 'center',
@@ -49,7 +49,7 @@ export const screenStyle: React.CSSProperties = {
 };
 
 export const screenImgStyle: React.CSSProperties = {
-    width: 'auto',
+    width: 'inherit',
     height: 'inherit',
     position: 'absolute'
 };
@@ -67,7 +67,7 @@ export const recordImgStyle: React.CSSProperties = {
     position: 'absolute',
     bottom: '-50%',
     transform: 'scale(1.3)',
-    transition: 'all 0.6s ease-in-out'
+    transition: 'rotate 0.6s ease-in-out'
 }
 
 const dotBase: React.CSSProperties = {

@@ -3,5 +3,6 @@ export const homeStyle: React.CSSProperties = {
     height: '100vh',
     backgroundColor: '#523814',
     position: 'relative',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    WebkitOverflowScrolling: 'touch'
 };
