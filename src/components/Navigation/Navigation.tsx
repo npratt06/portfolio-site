@@ -93,12 +93,6 @@ export default class Navigation extends Component<
     render() {
         return (
             <div style={outerWrapper}>
-                <div style={{position: 'absolute', zIndex: '99', top: '100vh', left: '100vw', transform: 'translate(-105%, -105%)'}}>
-                    {/* nodeRef is used for a workaround to avoid findDOMNode warning when using react-draggable*/}
-                    <Draggable nodeRef={this.nodeRef}>
-                        <div ref={this.nodeRef} style={{width: '13vw', height: '13vw'}}><img style={{width: 'inherit', height: 'auto', pointerEvents: 'none'}} src={coin} /></div>
-                    </Draggable>
-                </div>
                 <div style={rowElement}>
                     <NavDisplay navIndex={this.state.navIndex} isMouseDownOnNavBtn={this.state.isMouseDownOnNavBtn}></NavDisplay>
                 </div>
@@ -111,6 +105,9 @@ export default class Navigation extends Component<
                         handleMouseUp={this.handleMouseUp.bind(this)}
                         handleMouseLeave={this.handleMouseLeave.bind(this)}
                     ></NavigateLR>
+                    <Draggable nodeRef={this.nodeRef}>
+                        <div ref={this.nodeRef} style={{width: '10vw', height: '10vw', position: 'absolute', right: '7.5vw', marginTop: '1vh'}}><img style={{width: 'inherit', height: 'auto', pointerEvents: 'none'}} src={coin} /></div>
+                    </Draggable>
                 </div>
             </div>
         );
