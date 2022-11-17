@@ -32,7 +32,7 @@ export const MyPages: Pages = {
         key: -1,
         linkPath: '/',
         displayString: 'Home',
-        component: <Home />,
+        component: <Home deviceType={'Desktop'}/>,
     },
     pages: OtherPages,
 };
