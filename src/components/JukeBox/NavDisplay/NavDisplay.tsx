@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { outerWrapper, rowElement } from '../Navigation.interface';
+import { outerWrapper, rowElement } from '../JukeBox.interface';
 import {
     screenStyle,
     dotStyle,

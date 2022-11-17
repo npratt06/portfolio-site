@@ -1,4 +1,4 @@
-import { MyPages } from '../components/Navigation/NavDisplay/NavDisplay.const';
+import { MyPages } from '../components/JukeBox/NavDisplay/NavDisplay.const';
 import Home from './Home/Home';
 import React, { Component } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';

@@ -9,11 +9,11 @@ export const rowElement: React.CSSProperties = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface NavigationProps {
+export interface JukeBoxProps {
     // add as needed
 }
 
-export interface NavigationState {
+export interface JukeBoxState {
     navIndex: number;
     isMouseDownOnNavBtn: boolean;
 }

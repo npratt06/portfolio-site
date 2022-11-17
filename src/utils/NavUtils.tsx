@@ -1,4 +1,4 @@
-import { PageInfo } from '../components/Navigation/NavDisplay/NavDisplay.interface';
+import { PageInfo } from '../components/JukeBox/NavDisplay/NavDisplay.interface';
 
 export function getCurrentPageInfo(
     pages: PageInfo[],

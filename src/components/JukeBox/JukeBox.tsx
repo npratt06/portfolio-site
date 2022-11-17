@@ -3,24 +3,24 @@ import NavDisplay from './NavDisplay/NavDisplay';
 import {
     outerWrapper,
     rowElement,
-    NavigationProps,
-    NavigationState,
-} from './Navigation.interface';
+    JukeBoxProps,
+    JukeBoxState,
+} from './JukeBox.interface';
 import NavigateLR from './NavLR/NavLR';
 import { MyPages } from './NavDisplay/NavDisplay.const';
 import Draggable from 'react-draggable';
 import coin from '../../img/coin.png';
 
-export default class Navigation extends Component<
-    NavigationProps,
-    NavigationState
+export default class JukeBox extends Component<
+    JukeBoxProps,
+    JukeBoxState
 > {
     // nodeRef is used for a workaround to avoid findDOMNode warning when using react-draggable
     nodeRef;
 
-    constructor(props: NavigationProps) {
+    constructor(props: JukeBoxProps) {
         super(props);
-        const state = this.getStoredState() as NavigationState;
+        const state = this.getStoredState() as JukeBoxState;
         this.setStoredState(state);
         state.isMouseDownOnNavBtn = false;
         this.state = state;
@@ -42,11 +42,11 @@ export default class Navigation extends Component<
         return state;
     }
 
-    setStoredState(state: NavigationState) {
+    setStoredState(state: JukeBoxState) {
         window.localStorage.setItem('state', JSON.stringify(state));
     }
 
-    componentDidUpdate(prevState: NavigationState): void {
+    componentDidUpdate(prevState: JukeBoxState): void {
         // if state.navIndex has changed, update stored state
         if (prevState.navIndex !== this.state.navIndex) {
             this.setStoredState(this.state);
@@ -70,21 +70,21 @@ export default class Navigation extends Component<
     }
 
     handleMouseDown() {
-        console.log(`Navigation handleMouseDown called!`);
+        console.log(`JukeBox handleMouseDown called!`);
         this.setState(() => {
             return { navIndex: this.state.navIndex, isMouseDownOnNavBtn: true};
         });
     }
 
     handleMouseUp() {
-        console.log(`Navigation handleMouseUp called!`);
+        console.log(`JukeBox handleMouseUp called!`);
         this.setState(() => {
             return { navIndex: this.state.navIndex, isMouseDownOnNavBtn: false};
         });
     }
 
     handleMouseLeave() {
-        console.log(`Navigation handleMouseLeave called!`);
+        console.log(`JukeBox handleMouseLeave called!`);
         this.setState(() => {
             return { navIndex: this.state.navIndex, isMouseDownOnNavBtn: false};
         });
