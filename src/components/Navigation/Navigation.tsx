@@ -90,6 +90,22 @@ export default class Navigation extends Component<
         });
     }
 
+    getStyleSet(deviceType: string) {
+        const styleSet = {
+            desktop: {
+
+            },
+            mobile: {
+
+            }
+        };
+        let currentStyleSet = styleSet.desktop;
+        if (deviceType !== 'Desktop') {
+            currentStyleSet = styleSet.mobile
+        }
+        return currentStyleSet;
+    }
+
     render() {
         return (
             <div style={outerWrapper}>
