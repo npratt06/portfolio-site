@@ -40,8 +40,8 @@ export default class PageLayout extends Component<
     }
 
     updateDimensions() {
-        const windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
-        const windowHeight = typeof window !== "undefined" ? window.innerHeight : 0;
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
 
         console.log(`width: ${windowWidth}`);
         console.log(`height: ${windowHeight}`);
