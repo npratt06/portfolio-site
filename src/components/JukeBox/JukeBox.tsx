@@ -75,21 +75,18 @@ export default class JukeBox extends Component<
     }
 
     handleMouseDown() {
-        console.log(`JukeBox handleMouseDown called!`);
         this.setState(() => {
             return { navIndex: this.state.navIndex, isMouseDownOnNavBtn: true};
         });
     }
 
     handleMouseUp() {
-        console.log(`JukeBox handleMouseUp called!`);
         this.setState(() => {
             return { navIndex: this.state.navIndex, isMouseDownOnNavBtn: false};
         });
     }
 
     handleMouseLeave() {
-        console.log(`JukeBox handleMouseLeave called!`);
         this.setState(() => {
             return { navIndex: this.state.navIndex, isMouseDownOnNavBtn: false};
         });

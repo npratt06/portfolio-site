@@ -12,19 +12,19 @@ const OtherPages: PageInfo[] = [
         key: 0,
         linkPath: '/resume',
         displayString: 'Resume',
-        component: <Resume />,
+        component: <Resume deviceType={DEVICE_TYPES.DESKTOP}/>,
     },
     {
         key: 1,
         linkPath: '/projects',
         displayString: 'Projects',
-        component: <Projects />,
+        component: <Projects deviceType={DEVICE_TYPES.DESKTOP}/>,
     },
     {
         key: 2,
         linkPath: '/about me',
         displayString: 'About Me',
-        component: <About />,
+        component: <About deviceType={DEVICE_TYPES.DESKTOP}/>,
     },
 ];
 

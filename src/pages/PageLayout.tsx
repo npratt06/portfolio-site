@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { PageLayoutProps, PageLayoutState } from './PageLayout.interface';
 import { DEVICE_TYPES } from '../global.const';
+import About from './About/About';
+import Projects from './Projects/Projects';
+import Resume from './Resume/Resume';
 
 export default class PageLayout extends Component<
     PageLayoutProps,
@@ -39,6 +42,31 @@ export default class PageLayout extends Component<
         window.removeEventListener("resize", this.updateDimensions);
     }
 
+    componentDidUpdate(prevProps: Readonly<PageLayoutProps>, prevState: Readonly<PageLayoutState>): void {
+        // this isn't ideal to match on the displayString... TODO make this better
+        if (prevState.deviceType !== this.state.deviceType) {
+            const updatedPages: JSX.Element[] = [];
+            MyPages.pages.forEach((page) => {
+                let routeElement: JSX.Element = <Home deviceType={this.state.deviceType} />;
+                if (page.displayString === 'About Me') {
+                    routeElement = <About deviceType={this.state.deviceType} />;
+                } else if (page.displayString === 'Projects') {
+                    routeElement = <Projects deviceType={this.state.deviceType} />;                 
+                } else if (page.displayString === 'Resume') {
+                    routeElement = <Resume deviceType={this.state.deviceType} />;
+                }
+                updatedPages.push(
+                    <Route
+                        key={page.key}
+                        path={page.linkPath}
+                        element={routeElement}
+                    />
+                );
+            });
+            this.setState({ pages: updatedPages, windowWidth: this.state.windowWidth, windowHeight: this.state.windowHeight, deviceType: this.state.deviceType })
+        }
+    }
+
     updateDimensions() {
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
@@ -54,6 +82,10 @@ export default class PageLayout extends Component<
 
     getDeviceType(windowWidth: number, windowHeight: number) {
         let deviceType = DEVICE_TYPES.DESKTOP;
+        if (windowWidth < (windowHeight * 0.95)) {
+            deviceType = DEVICE_TYPES.MOBILE;
+        }
+        return deviceType;
         // this didn't seem to be accurate for my iphone 8.. going to use width relative to height instead
         // if (windowWidth > 1024 && windowWidth <= 1200) {
         //     deviceType = DEVICE_TYPES.LAPTOP;
@@ -62,10 +94,6 @@ export default class PageLayout extends Component<
         // } else if (windowWidth > 480 && windowWidth <= 768) {
         //     deviceType = DEVICE_TYPES.MOBILE;
         // }
-        if (windowWidth < (windowHeight * 0.95)) {
-            deviceType = DEVICE_TYPES.MOBILE;
-        }
-        return deviceType;
     }
 
     render() {
