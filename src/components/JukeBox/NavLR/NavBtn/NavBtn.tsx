@@ -3,13 +3,15 @@ import {
     btnImgBaseStyle,
     btnImgStyleClicked,
     btnImgStyleHover,
-    btnStyle,
     btnTextTransformBaseStyle,
     btnTextTransformClickedStyle,
+    NAV_BTN_STYLE_SETS,
 } from './NavBtn.const';
 import { NavBtnProps, NavBtnState } from '../NavLR.interface';
 import { MouseEventHandler } from 'react';
 import { selectBtnTextStyle } from '../NavBtn/NavBtn.const';
+import { DEVICE_TYPES } from '../../../../global.const';
+import { StyleSet } from '../../NavDisplay/NavDisplay.interface';
 
 export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
     imgSrc: string;
@@ -18,7 +20,8 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
     handleMouseDownProp: (()=> void) | undefined;
     handleMouseUpProp: (()=> void) | undefined;
     handleMouseLeaveProp: (()=> void) | undefined;
-    
+    styleSet: StyleSet;
+
     constructor(props: NavBtnProps) {
         super(props);
         this.imgSrc = props.imgSrc;
@@ -31,7 +34,19 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
         this.state = {
             btnImgStyle: btnImgBaseStyle,
             btnTextTransformStyle: btnTextTransformBaseStyle,
+            deviceType: props.deviceType
         };
+        
+        this.styleSet = this.getStyleSet(props.deviceType);
+    }
+
+    componentDidUpdate(prevProps: Readonly<NavBtnProps>): void {
+        if (prevProps.deviceType !== this.props.deviceType) {
+            this.setState(() => {
+                return { deviceType: this.props.deviceType };
+            });
+            this.styleSet = this.getStyleSet(this.props.deviceType);
+        }
     }
 
     handleMouseEnter() {
@@ -75,6 +90,26 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
         });
     }
 
+    
+    getStyleSet(deviceType: string) {
+        let currentStyleSet = NAV_BTN_STYLE_SETS.Desktop;
+        if (deviceType !== DEVICE_TYPES.DESKTOP) {
+            currentStyleSet = NAV_BTN_STYLE_SETS.Mobile;
+        }
+        switch (deviceType) {
+            case DEVICE_TYPES.DESKTOP:
+                currentStyleSet = NAV_BTN_STYLE_SETS[DEVICE_TYPES.DESKTOP];
+                break;
+            case DEVICE_TYPES.MOBILE:
+                currentStyleSet = NAV_BTN_STYLE_SETS[DEVICE_TYPES.MOBILE];
+                break;
+            default:
+                currentStyleSet = NAV_BTN_STYLE_SETS[DEVICE_TYPES.DESKTOP];
+                break;
+        }
+        return currentStyleSet;
+    }
+
     render() {
         return (
             <div
@@ -83,7 +118,7 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
                 onMouseDown={this.handleMouseDown.bind(this)}
                 onMouseUp={this.handleMouseUp.bind(this)}
             >
-                <div style={btnStyle} onClick={this.handleClick}>
+                <div style={this.styleSet.btnStyle} onClick={this.handleClick}>
                     <img
                         src={this.imgSrc}
                         alt={'NavBtn'}

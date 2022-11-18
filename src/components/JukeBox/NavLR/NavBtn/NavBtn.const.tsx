@@ -1,13 +1,6 @@
+import { DEVICE_TYPES } from '../../../../global.const';
 import { textFontStyle } from '../../../../globalCSS';
-
-const btnHeight = '10vw';
-
-export const btnStyle: React.CSSProperties = {
-    height: btnHeight,
-    marginLeft: '20px',
-    marginRight: '20px',
-    position: 'relative',
-};
+import { StyleSets } from '../../NavDisplay/NavDisplay.interface';
 
 // button image styles for dynamic transforms --- start
 export const btnImgBaseStyle: React.CSSProperties = {
@@ -52,3 +45,23 @@ export const btnTextTransformClickedStyle: React.CSSProperties = {
     transform: 'translate(5px, 5px)',
 };
 // button text styles for dynamic transforms --- end
+
+
+export const NAV_BTN_STYLE_SETS: StyleSets = {
+    [DEVICE_TYPES.DESKTOP]: {
+        btnStyle: {
+            height: '10vw',
+            marginLeft: '20px',
+            marginRight: '20px',
+            position: 'relative',
+        }
+    },
+    [DEVICE_TYPES.MOBILE]: {
+        btnStyle: {
+            height: '20vw',
+            marginLeft: '20px',
+            marginRight: '20px',
+            position: 'relative',
+        }
+    }
+}

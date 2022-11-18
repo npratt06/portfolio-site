@@ -30,6 +30,7 @@ export default class NavigateLR extends Component<
         const page = getCurrentPageInfo(MyPages.pages, this.navIndex);
         this.state = {
             linkPath: page.linkPath,
+            deviceType: props.deviceType
         };
     }
 
@@ -44,6 +45,11 @@ export default class NavigateLR extends Component<
                 return { linkPath };
             });
         }
+        if (prevProps.deviceType !== this.props.deviceType) {
+            this.setState(() => {
+                return { deviceType: this.props.deviceType };
+            });
+        }
     }
 
     render() {
@@ -56,9 +62,10 @@ export default class NavigateLR extends Component<
                     handleMouseDown={this.handleMouseDown}
                     handleMouseUp={this.handleMouseUp}
                     handleMouseLeave={this.handleMouseLeave}
+                    deviceType={this.state.deviceType}
                 />
                 <Link to={this.state.linkPath}>
-                    <NavBtn imgSrc={selectBtn} btnText={'SELECT'} />
+                    <NavBtn imgSrc={selectBtn} btnText={'SELECT'} deviceType={this.state.deviceType} />
                 </Link>
                 <NavBtn
                     imgSrc={rightBtn}
@@ -67,6 +74,7 @@ export default class NavigateLR extends Component<
                     handleMouseDown={this.handleMouseDown}
                     handleMouseUp={this.handleMouseUp}
                     handleMouseLeave={this.handleMouseLeave}
+                    deviceType={this.state.deviceType}
                 />
             </div>
         );

@@ -7,10 +7,12 @@ export interface NavigateLRProps {
     handleMouseDown: ()=> void;
     handleMouseUp: ()=> void;
     handleMouseLeave: ()=> void;
+    deviceType: string;
 }
 
 export interface NavigateLRState {
     linkPath: string;
+    deviceType: string;
 }
 
 export interface NavBtnProps {
@@ -20,9 +22,11 @@ export interface NavBtnProps {
     handleMouseDown?: ()=> void;
     handleMouseUp?: ()=> void;
     handleMouseLeave?: ()=> void;
+    deviceType: string;
 }
 
 export interface NavBtnState {
     btnImgStyle: React.CSSProperties;
     btnTextTransformStyle: React.CSSProperties;
+    deviceType: string;
 }
