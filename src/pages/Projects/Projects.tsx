@@ -14,7 +14,6 @@ export default class Projects extends Component<ProjectsProps, ProjectsState> {
     }
 
     componentDidUpdate(prevProps: Readonly<ProjectsProps>): void {
-        // if navIndex has changed, update navDisplayString
         if (prevProps.deviceType !== this.props.deviceType) {
             this.setState(() => {
                 return { deviceType: this.props.deviceType };

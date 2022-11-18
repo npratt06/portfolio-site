@@ -1,7 +1,9 @@
+import { backgroundColorStyle, textFontStyle } from "../../globalCSS";
+
 export const projectsStyle: React.CSSProperties = {
-    backgroundColor: '#523814',
+    ...backgroundColorStyle,
     position: 'relative',
-    WebkitOverflowScrolling: 'touch',
     width: '100vw',
-    height: '100vh'
+    height: '100vh',
+    ...textFontStyle
 };

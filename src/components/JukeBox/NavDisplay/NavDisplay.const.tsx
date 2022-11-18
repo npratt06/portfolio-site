@@ -1,10 +1,11 @@
-import { PageInfo, Pages, StyleSets } from './NavDisplay.interface';
+import { PageInfo, Pages } from './NavDisplay.interface';
 import Resume from '../../../pages/Resume/Resume';
 import Projects from '../../../pages/Projects/Projects';
 import About from '../../../pages/About/About';
 import Home from '../../../pages/Home/Home';
 import { textFontStyle } from '../../../globalCSS';
 import { DEVICE_TYPES } from '../../../global.const';
+import { StyleSets } from '../../componentHelpers';
 
 // Pages --- start
 const OtherPages: PageInfo[] = [

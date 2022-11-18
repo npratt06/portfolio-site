@@ -36,14 +36,3 @@ export interface NavDisplayStringStyleDynamic {
     opacity: number,
     transition: string
 }
-
-export interface StyleSet {
-    [styleObject: string] : React.CSSProperties;
-}
-
-export interface StyleSets {
-    [DEVICE_TYPES.DESKTOP]: StyleSet
-    [DEVICE_TYPES.LAPTOP]?: StyleSet
-    [DEVICE_TYPES.TABLET]?: StyleSet
-    [DEVICE_TYPES.MOBILE]: StyleSet
-}

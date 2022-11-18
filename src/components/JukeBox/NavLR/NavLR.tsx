@@ -35,7 +35,6 @@ export default class NavigateLR extends Component<
     }
 
     componentDidUpdate(prevProps: Readonly<NavigateLRProps>): void {
-        // if navIndex has changed, update navDisplayString
         if (prevProps.navIndex !== this.props.navIndex) {
             this.setState(() => {
                 const linkPath = getCurrentPageInfo(

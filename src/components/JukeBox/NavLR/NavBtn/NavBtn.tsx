@@ -10,8 +10,7 @@ import {
 import { NavBtnProps, NavBtnState } from '../NavLR.interface';
 import { MouseEventHandler } from 'react';
 import { selectBtnTextStyle } from '../NavBtn/NavBtn.const';
-import { DEVICE_TYPES } from '../../../../global.const';
-import { StyleSet } from '../../NavDisplay/NavDisplay.interface';
+import { getStyleSet, StyleSet } from '../../../componentHelpers';
 
 export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
     imgSrc: string;
@@ -37,7 +36,7 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
             deviceType: props.deviceType
         };
         
-        this.styleSet = this.getStyleSet(props.deviceType);
+        this.styleSet = getStyleSet(props.deviceType, NAV_BTN_STYLE_SETS);
     }
 
     componentDidUpdate(prevProps: Readonly<NavBtnProps>): void {
@@ -45,7 +44,7 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
             this.setState(() => {
                 return { deviceType: this.props.deviceType };
             });
-            this.styleSet = this.getStyleSet(this.props.deviceType);
+            this.styleSet = getStyleSet(this.props.deviceType, NAV_BTN_STYLE_SETS);
         }
     }
 
@@ -88,26 +87,6 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
             const btnTextTransformStyle = btnTextTransformBaseStyle;
             return { btnImgStyle, btnTextTransformStyle };
         });
-    }
-
-    
-    getStyleSet(deviceType: string) {
-        let currentStyleSet = NAV_BTN_STYLE_SETS.Desktop;
-        if (deviceType !== DEVICE_TYPES.DESKTOP) {
-            currentStyleSet = NAV_BTN_STYLE_SETS.Mobile;
-        }
-        switch (deviceType) {
-            case DEVICE_TYPES.DESKTOP:
-                currentStyleSet = NAV_BTN_STYLE_SETS[DEVICE_TYPES.DESKTOP];
-                break;
-            case DEVICE_TYPES.MOBILE:
-                currentStyleSet = NAV_BTN_STYLE_SETS[DEVICE_TYPES.MOBILE];
-                break;
-            default:
-                currentStyleSet = NAV_BTN_STYLE_SETS[DEVICE_TYPES.DESKTOP];
-                break;
-        }
-        return currentStyleSet;
     }
 
     render() {

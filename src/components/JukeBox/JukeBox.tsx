@@ -8,8 +8,8 @@ import {
 } from './JukeBox.interface';
 import NavigateLR from './NavLR/NavLR';
 import { MyPages } from './NavDisplay/NavDisplay.const';
-import Draggable from 'react-draggable';
-import coin from '../../img/coin.png';
+// import Draggable from 'react-draggable';
+// import coin from '../../img/coin.png';
 import { DEVICE_TYPES } from '../../global.const';
 
 export default class JukeBox extends Component<
@@ -106,9 +106,10 @@ export default class JukeBox extends Component<
                     handleMouseLeave={this.handleMouseLeave.bind(this)}
                     deviceType={this.state.deviceType}
                 ></NavigateLR>
-                <Draggable nodeRef={this.nodeRef}>
+                {/* commenting out for now until I have time to implement coin functionality */}
+                {/* <Draggable nodeRef={this.nodeRef}>
                     <div ref={this.nodeRef} style={{ width: '10vw', height: '10vw', position: 'absolute', right: '7.5vw', marginTop: '1vh' }}><img style={{ width: 'inherit', height: 'auto', pointerEvents: 'none' }} src={coin} /></div>
-                </Draggable>
+                </Draggable> */}
             </div>
         );
         if (this.state.deviceType === DEVICE_TYPES.MOBILE) {
@@ -123,9 +124,10 @@ export default class JukeBox extends Component<
                         handleMouseLeave={this.handleMouseLeave.bind(this)}
                         deviceType={this.state.deviceType}
                     ></NavigateLR>
-                    <Draggable nodeRef={this.nodeRef}>
+                    {/* commenting out for now until I have time to implement coin functionality */}
+                    {/* <Draggable nodeRef={this.nodeRef}>
                         <div ref={this.nodeRef} style={{ width: '10vw', height: '10vw', position: 'absolute', right: '7.5vw', marginTop: '1vh' }}><img style={{ width: 'inherit', height: 'auto', pointerEvents: 'none' }} src={coin} /></div>
-                    </Draggable>
+                    </Draggable> */}
                 </div>
             );
         }

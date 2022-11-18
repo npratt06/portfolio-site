@@ -1,6 +1,6 @@
 import { DEVICE_TYPES } from '../../../../global.const';
 import { textFontStyle } from '../../../../globalCSS';
-import { StyleSets } from '../../NavDisplay/NavDisplay.interface';
+import { StyleSets } from '../../../componentHelpers';
 
 // button image styles for dynamic transforms --- start
 export const btnImgBaseStyle: React.CSSProperties = {
@@ -45,7 +45,6 @@ export const btnTextTransformClickedStyle: React.CSSProperties = {
     transform: 'translate(5px, 5px)',
 };
 // button text styles for dynamic transforms --- end
-
 
 export const NAV_BTN_STYLE_SETS: StyleSets = {
     [DEVICE_TYPES.DESKTOP]: {

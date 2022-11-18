@@ -1,9 +1,58 @@
+import { StyleSets } from "../../components/componentHelpers";
+import { DEVICE_TYPES } from "../../global.const";
+import { backgroundColorStyle, textFontStyle } from "../../globalCSS";
 import { ResumeContent } from "./Resume.interface";
 
 export const resumeStyle: React.CSSProperties = {
-    backgroundColor: '#523814',
+    width: '100vw',
+    height: '100vh',
+    ...backgroundColorStyle,
     position: 'relative',
-    WebkitOverflowScrolling: 'touch',
+    overflow: 'auto',
+    ...textFontStyle
+};
+
+export const resumeRowStyle: React.CSSProperties = {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%'
+};
+
+export const resumeRowContentStyle: React.CSSProperties = {
+    display: 'flex',
+    justifyContent: 'left',
+    width: '50vw'
+};
+
+export const resumeSectionHeaderStyle: React.CSSProperties = {
+    fontSize: '175%',
+    textDecoration: 'underline',
+    marginBottom: '30px'
+};
+
+export const RESUME_STYLE_SETS: StyleSets = {
+    [DEVICE_TYPES.DESKTOP]: {
+        resumeRowContentStyle: {
+            display: 'flex',
+            justifyContent: 'left',
+            width: '50vw'
+        },
+        hrStyle: {
+            width: '52vw',
+            margin: '3vh'
+        }
+    },
+    [DEVICE_TYPES.MOBILE]: {
+        resumeRowContentStyle: {
+            display: 'flex',
+            justifyContent: 'left',
+            width: '85vw'
+        },
+        hrStyle: {
+            width: '87vw',
+            margin: '3vh'
+        }
+    }
 };
 
 export const MyResumeContent: ResumeContent = {

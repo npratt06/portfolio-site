@@ -6,13 +6,12 @@ import {
     NavDisplayProps,
     NavDisplayState,
     RecordRotationInputs,
-    NavDisplayStringStyleDynamic,
-    StyleSet,
+    NavDisplayStringStyleDynamic
 } from './NavDisplay.interface';
 import { getCurrentPageInfo } from '../../../utils/NavUtils';
 import screenImg from '../../../img/screen.png';
 import recordImg from '../../../img/record_real.png';
-import { DEVICE_TYPES } from '../../../global.const';
+import { getStyleSet, StyleSet } from '../../componentHelpers';
 
 export default class NavDisplay extends Component<
     NavDisplayProps,
@@ -39,12 +38,11 @@ export default class NavDisplay extends Component<
             deviceType: props.deviceType
         };
         this.setNavDisplayStringStyleDynamicValues(props.isMouseDownOnNavBtn);
-        this.styleSet = this.getStyleSet(props.deviceType);
+        this.styleSet = getStyleSet(props.deviceType, NAV_DISPLAY_STYLE_SETS);
         this.dots = this.getDots();
     }
 
     componentDidUpdate(prevProps: Readonly<NavDisplayProps>, prevState: NavDisplayState): void {
-        // if navIndex has changed, update navDisplayString
         if (prevProps.isMouseDownOnNavBtn !== this.props.isMouseDownOnNavBtn) {
             this.setState(() => {
                 return { navDisplayString: this.state.navDisplayString, recordRotation: this.state.recordRotation, isMouseDownOnNavBtn: this.props.isMouseDownOnNavBtn };
@@ -69,7 +67,7 @@ export default class NavDisplay extends Component<
             this.setState(() => {
                 return { navDisplayString: this.state.navDisplayString, recordRotation: this.state.recordRotation, isMouseDownOnNavBtn: this.state.isMouseDownOnNavBtn, deviceType: this.props.deviceType };
             });
-            this.styleSet = this.getStyleSet(this.props.deviceType);
+            this.styleSet = getStyleSet(this.props.deviceType, NAV_DISPLAY_STYLE_SETS);
         }
     }
 
@@ -112,25 +110,6 @@ export default class NavDisplay extends Component<
             opacity: isMouseDownOnNavBtn ? 0 :  100,
             transition: isMouseDownOnNavBtn ? '' : 'opacity 0.6s ease-in-out'
         }
-    }
-
-    getStyleSet(deviceType: string) {
-        let currentStyleSet = NAV_DISPLAY_STYLE_SETS.Desktop;
-        if (deviceType !== DEVICE_TYPES.DESKTOP) {
-            currentStyleSet = NAV_DISPLAY_STYLE_SETS.Mobile;
-        }
-        switch (deviceType) {
-            case DEVICE_TYPES.DESKTOP:
-                currentStyleSet = NAV_DISPLAY_STYLE_SETS[DEVICE_TYPES.DESKTOP];
-                break;
-            case DEVICE_TYPES.MOBILE:
-                currentStyleSet = NAV_DISPLAY_STYLE_SETS[DEVICE_TYPES.MOBILE];
-                break;
-            default:
-                currentStyleSet = NAV_DISPLAY_STYLE_SETS[DEVICE_TYPES.DESKTOP];
-                break;
-        }
-        return currentStyleSet;
     }
     
     render() {
