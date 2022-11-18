@@ -1,25 +1,18 @@
 import React, { Component } from 'react';
 import { outerWrapper, rowElement } from '../JukeBox.interface';
-import {
-    screenStyle,
-    dotStyle,
-    highlightedDotStyle,
-    MyPages,
-    navDisplayStringStyle,
-    screenImgStyle,
-    recordImgStyle,
-    recordImgWrapperStyle,
-} from './NavDisplay.const';
+import { NAV_DISPLAY_STYLE_SETS, MyPages } from './NavDisplay.const';
 import {
     PageInfo,
     NavDisplayProps,
     NavDisplayState,
     RecordRotationInputs,
     NavDisplayStringStyleDynamic,
+    StyleSet,
 } from './NavDisplay.interface';
 import { getCurrentPageInfo } from '../../../utils/NavUtils';
 import screenImg from '../../../img/screen.png';
 import recordImg from '../../../img/record_real.png';
+import { DEVICE_TYPES } from '../../../global.const';
 
 export default class NavDisplay extends Component<
     NavDisplayProps,
@@ -28,8 +21,8 @@ export default class NavDisplay extends Component<
 
     numDisplayStrings = 0;
     dots: JSX.Element[] = [];
-    currentRecordImgStyle: React.CSSProperties = recordImgStyle;
     navDisplayStringStyleDynamic: NavDisplayStringStyleDynamic = { opacity: 100, transition: '' };
+    styleSet: StyleSet;
 
     constructor(props: NavDisplayProps) {
         super(props);
@@ -42,10 +35,12 @@ export default class NavDisplay extends Component<
         this.state = {
             navDisplayString: displayString,
             recordRotation,
-            isMouseDownOnNavBtn: props.isMouseDownOnNavBtn
+            isMouseDownOnNavBtn: props.isMouseDownOnNavBtn,
+            deviceType: props.deviceType
         };
-        this.dots = this.getDots();
         this.setNavDisplayStringStyleDynamicValues(props.isMouseDownOnNavBtn);
+        this.styleSet = this.getStyleSet(props.deviceType);
+        this.dots = this.getDots();
     }
 
     componentDidUpdate(prevProps: Readonly<NavDisplayProps>, prevState: NavDisplayState): void {
@@ -70,15 +65,21 @@ export default class NavDisplay extends Component<
             });
             this.dots = this.getDots();
         }
+        if (prevProps.deviceType !== this.props.deviceType) {
+            this.setState(() => {
+                return { navDisplayString: this.state.navDisplayString, recordRotation: this.state.recordRotation, isMouseDownOnNavBtn: this.state.isMouseDownOnNavBtn, deviceType: this.props.deviceType };
+            });
+            this.styleSet = this.getStyleSet(this.props.deviceType);
+        }
     }
 
     getDots(): JSX.Element[] {
         const dots: JSX.Element[] = [];
         MyPages.pages.forEach((pageInfo: PageInfo) => {
             const pageKey = pageInfo.key;
-            let currentDotStyle = dotStyle;
+            let currentDotStyle = this.styleSet.dotStyle;
             if (pageKey === this.props.navIndex) {
-                currentDotStyle = highlightedDotStyle;
+                currentDotStyle = this.styleSet.highlightedDotStyle;
             }
             dots.push(
                 <div key={pageKey}>
@@ -113,12 +114,33 @@ export default class NavDisplay extends Component<
         }
     }
 
+    getStyleSet(deviceType: string) {
+        let currentStyleSet = NAV_DISPLAY_STYLE_SETS.Desktop;
+        if (deviceType !== DEVICE_TYPES.DESKTOP) {
+            currentStyleSet = NAV_DISPLAY_STYLE_SETS.Mobile;
+        }
+        switch (deviceType) {
+            case DEVICE_TYPES.DESKTOP:
+                currentStyleSet = NAV_DISPLAY_STYLE_SETS[DEVICE_TYPES.DESKTOP];
+                break;
+            case DEVICE_TYPES.MOBILE:
+                currentStyleSet = NAV_DISPLAY_STYLE_SETS[DEVICE_TYPES.MOBILE];
+                break;
+            default:
+                currentStyleSet = NAV_DISPLAY_STYLE_SETS[DEVICE_TYPES.DESKTOP];
+                break;
+        }
+        console.log(`got style set for ${deviceType}`)
+        console.log(`${JSON.stringify(currentStyleSet, null, 1)}`)
+        return currentStyleSet;
+    }
+    
     render() {
         this.setNavDisplayStringStyleDynamicValues(this.state.isMouseDownOnNavBtn);
-        const navDisplayStringStyleRendered = {...navDisplayStringStyle, transition: `${this.navDisplayStringStyleDynamic.transition}`, opacity: `${this.navDisplayStringStyleDynamic.opacity}`} as React.CSSProperties;
+        const navDisplayStringStyleRendered = {...this.styleSet.navDisplayStringStyle, transition: `${this.navDisplayStringStyleDynamic.transition}`, opacity: `${this.navDisplayStringStyleDynamic.opacity}`} as React.CSSProperties;
         return (
-            <div style={screenStyle}>
-                <img src={screenImg} alt='screenImg' style={screenImgStyle} />
+            <div style={this.styleSet.screenStyle}>
+                <img src={screenImg} alt='screenImg' style={this.styleSet.screenImgStyle} />
                 <div style={outerWrapper}>
                     <div style={rowElement}>
                         <div style={navDisplayStringStyleRendered}>
@@ -129,8 +151,8 @@ export default class NavDisplay extends Component<
                         {this.dots}
                     </div>
                     <div style={rowElement}>
-                        <div style={recordImgWrapperStyle}>
-                            <img src={recordImg} alt='recordImg' style={{...this.currentRecordImgStyle, rotate: `${this.state.recordRotation}deg`}}/>
+                        <div style={this.styleSet.recordImgWrapperStyle}>
+                            <img src={recordImg} alt='recordImg' style={{...this.styleSet.recordImgStyle, rotate: `${this.state.recordRotation}deg`}}/>
                         </div>
                     </div>
                 </div>

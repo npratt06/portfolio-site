@@ -21,6 +21,7 @@ export default class JukeBox extends Component<
     constructor(props: JukeBoxProps) {
         super(props);
         const state = this.getStoredState() as JukeBoxState;
+        state.deviceType = props.deviceType;
         this.setStoredState(state);
         state.isMouseDownOnNavBtn = false;
         this.state = state;
@@ -46,9 +47,13 @@ export default class JukeBox extends Component<
         window.localStorage.setItem('state', JSON.stringify(state));
     }
 
-    componentDidUpdate(prevState: JukeBoxState): void {
+    componentDidUpdate(prevProps: JukeBoxProps, prevState: JukeBoxState): void {
         // if state.navIndex has changed, update stored state
-        if (prevState.navIndex !== this.state.navIndex) {
+        if (prevState.navIndex !== this.state.navIndex || prevState.deviceType !== this.state.deviceType) {
+            this.setStoredState(this.state);
+        }
+        if (this.props.deviceType !== prevProps.deviceType) {
+            this.setState({ navIndex: this.state.navIndex, isMouseDownOnNavBtn: this.state.isMouseDownOnNavBtn, deviceType: this.props.deviceType });
             this.setStoredState(this.state);
         }
     }
@@ -90,27 +95,11 @@ export default class JukeBox extends Component<
         });
     }
 
-    getStyleSet(deviceType: string) {
-        const styleSet = {
-            desktop: {
-
-            },
-            mobile: {
-
-            }
-        };
-        let currentStyleSet = styleSet.desktop;
-        if (deviceType !== 'Desktop') {
-            currentStyleSet = styleSet.mobile
-        }
-        return currentStyleSet;
-    }
-
     render() {
         return (
             <div style={outerWrapper}>
                 <div style={rowElement}>
-                    <NavDisplay navIndex={this.state.navIndex} isMouseDownOnNavBtn={this.state.isMouseDownOnNavBtn}></NavDisplay>
+                    <NavDisplay navIndex={this.state.navIndex} isMouseDownOnNavBtn={this.state.isMouseDownOnNavBtn} deviceType={this.state.deviceType}></NavDisplay>
                 </div>
                 <div style={rowElement}>
                     <NavigateLR

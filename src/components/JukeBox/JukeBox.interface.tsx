@@ -8,12 +8,12 @@ export const rowElement: React.CSSProperties = {
     width: '100%',
 };
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface JukeBoxProps {
-    // add as needed
+    deviceType: string;
 }
 
 export interface JukeBoxState {
     navIndex: number;
     isMouseDownOnNavBtn: boolean;
+    deviceType: string;
 }

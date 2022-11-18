@@ -1,3 +1,5 @@
+import { DEVICE_TYPES } from "../../../global.const";
+
 export interface PageInfo {
     key: number;
     linkPath: string;
@@ -13,12 +15,14 @@ export interface Pages {
 export interface NavDisplayProps {
     navIndex: number;
     isMouseDownOnNavBtn: boolean;
+    deviceType: string;
 }
 
 export interface NavDisplayState {
     navDisplayString: string;
     recordRotation: number;
     isMouseDownOnNavBtn: boolean;
+    deviceType: string;
 }
 
 export interface RecordRotationInputs {
@@ -31,4 +35,15 @@ export interface RecordRotationInputs {
 export interface NavDisplayStringStyleDynamic {
     opacity: number,
     transition: string
+}
+
+export interface StyleSet {
+    [styleObject: string] : React.CSSProperties;
+}
+
+export interface StyleSets {
+    [DEVICE_TYPES.DESKTOP]: StyleSet
+    [DEVICE_TYPES.LAPTOP]?: StyleSet
+    [DEVICE_TYPES.TABLET]?: StyleSet
+    [DEVICE_TYPES.MOBILE]: StyleSet
 }

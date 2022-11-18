@@ -3,6 +3,7 @@ import Home from './Home/Home';
 import React, { Component } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { PageLayoutProps, PageLayoutState } from './PageLayout.interface';
+import { DEVICE_TYPES } from '../global.const';
 
 export default class PageLayout extends Component<
     PageLayoutProps,
@@ -24,7 +25,7 @@ export default class PageLayout extends Component<
             pages,
             windowWidth: 0,
             windowHeight: 0,
-            deviceType: 'Desktop'
+            deviceType: DEVICE_TYPES.DESKTOP
         };
         this.updateDimensions = this.updateDimensions.bind(this);
     }
@@ -52,13 +53,13 @@ export default class PageLayout extends Component<
     }
 
     getDeviceType(windowWidth: number) {
-        let deviceType = 'Desktop';
+        let deviceType = DEVICE_TYPES.DESKTOP;
         if (windowWidth > 1024 && windowWidth <= 1200) {
-            deviceType = 'Laptop';
+            deviceType = DEVICE_TYPES.LAPTOP;
         } else if (windowWidth > 768 && windowWidth <= 1024) {
-            deviceType = 'Tablet';
+            deviceType = DEVICE_TYPES.TABLET;
         } else if (windowWidth > 480 && windowWidth <= 768) {
-            deviceType = 'Mobile';
+            deviceType = DEVICE_TYPES.MOBILE;
         }
         return deviceType;
     }
