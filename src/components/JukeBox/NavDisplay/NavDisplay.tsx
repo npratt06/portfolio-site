@@ -130,8 +130,6 @@ export default class NavDisplay extends Component<
                 currentStyleSet = NAV_DISPLAY_STYLE_SETS[DEVICE_TYPES.DESKTOP];
                 break;
         }
-        console.log(`got style set for ${deviceType}`)
-        console.log(`${JSON.stringify(currentStyleSet, null, 1)}`)
         return currentStyleSet;
     }
     

@@ -46,19 +46,23 @@ export default class PageLayout extends Component<
         console.log(`width: ${windowWidth}`);
         console.log(`height: ${windowHeight}`);
 
-        const deviceType = this.getDeviceType(windowWidth);
+        const deviceType = this.getDeviceType(windowWidth, windowHeight);
 
         console.log(`deviceType: ${deviceType}`);
         this.setState({ pages: this.state.pages, windowWidth, windowHeight, deviceType });
     }
 
-    getDeviceType(windowWidth: number) {
+    getDeviceType(windowWidth: number, windowHeight: number) {
         let deviceType = DEVICE_TYPES.DESKTOP;
-        if (windowWidth > 1024 && windowWidth <= 1200) {
-            deviceType = DEVICE_TYPES.LAPTOP;
-        } else if (windowWidth > 768 && windowWidth <= 1024) {
-            deviceType = DEVICE_TYPES.TABLET;
-        } else if (windowWidth > 480 && windowWidth <= 768) {
+        // this didn't seem to be accurate for my iphone 8.. going to use width relative to height instead
+        // if (windowWidth > 1024 && windowWidth <= 1200) {
+        //     deviceType = DEVICE_TYPES.LAPTOP;
+        // } else if (windowWidth > 768 && windowWidth <= 1024) {
+        //     deviceType = DEVICE_TYPES.TABLET;
+        // } else if (windowWidth > 480 && windowWidth <= 768) {
+        //     deviceType = DEVICE_TYPES.MOBILE;
+        // }
+        if (windowWidth < (windowHeight * 0.95)) {
             deviceType = DEVICE_TYPES.MOBILE;
         }
         return deviceType;
