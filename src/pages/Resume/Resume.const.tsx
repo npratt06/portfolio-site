@@ -21,6 +21,10 @@ export const resumeRowContentStyle: React.CSSProperties = {
     width: '50vw'
 };
 
+export const resumeTitleStyle: React.CSSProperties = {
+    textAlign: 'center'
+};
+
 export const resumeSectionHeaderStyle: React.CSSProperties = {
     fontSize: '175%',
     textDecoration: 'underline',

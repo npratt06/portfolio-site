@@ -7,9 +7,12 @@ export default class Project extends Component {
         this.state = {
         }
     }
+    
     render() {
         return (
-            <div style={{ margin: '2vw', width: '35vw', height: '25vh', textAlign: 'center', backgroundColor: '#402c10' }}>Project 1</div>
+            <div style={{ width: '40vw', height: '35vh', textAlign: 'center', backgroundColor: '#000000' }}>
+                Project 1
+            </div>
         );
     }
 }

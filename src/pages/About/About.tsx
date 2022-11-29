@@ -42,7 +42,7 @@ export default class About extends Component<AboutProps, AboutState> {
                     <div style={{ marginTop: '50px' }} />
                     <div style={aboutRowStyle}>
                         <div style={this.styleSet.aboutTitleStyle}>
-                            <div style={{ fontSize: '225%'}}>About Me</div>
+                            <div style={{ fontSize: '225%' }}>About Me</div>
                         </div>
                     </div>
                     <div style={aboutRowStyle}>
