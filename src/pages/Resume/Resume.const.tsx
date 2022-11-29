@@ -4,10 +4,7 @@ import { backgroundColorStyle, textFontStyle } from "../../globalCSS";
 import { ResumeContent } from "./Resume.interface";
 
 export const resumeStyle: React.CSSProperties = {
-    width: '100vw',
-    height: '100vh',
     ...backgroundColorStyle,
-    position: 'relative',
     overflow: 'auto',
     ...textFontStyle
 };
