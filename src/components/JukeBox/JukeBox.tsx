@@ -93,9 +93,8 @@ export default class JukeBox extends Component<
         });
     }
 
-    render() {
-        // TODO REFACTOR THIS
-        let JukeBoxComponents: JSX.Element = (
+    getComponents(): JSX.Element {
+        let components: JSX.Element = (
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginLeft: '7.5vw', marginRight: '7.5vw', marginTop: '3vw' }}>
                 <NavigateLR
                     navIndex={this.state.navIndex}
@@ -113,7 +112,7 @@ export default class JukeBox extends Component<
             </div>
         );
         if (this.state.deviceType === DEVICE_TYPES.MOBILE) {
-            JukeBoxComponents = (
+            components = (
                 <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3vw' }}>
                     <NavigateLR
                         navIndex={this.state.navIndex}
@@ -131,6 +130,11 @@ export default class JukeBox extends Component<
                 </div>
             );
         }
+        return components;
+    }
+
+    render() {
+        const JukeBoxComponents: JSX.Element = this.getComponents();
         return (
             <div style={outerWrapper}>
                 <div style={rowElement}>

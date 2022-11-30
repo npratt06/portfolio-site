@@ -2,16 +2,23 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { outerWrapper } from '../../components/JukeBox/JukeBox.interface';
 import Project from './Project/Project';
-import { hrStyle, projectsRowStyle, projectsStyle } from './Projects.const';
+import { hrStyle, MyProjects, projectsRowStyle, projectsStyle, projectStyle, PROJECTS_STYLE_SETS } from './Projects.const';
 import { ProjectsProps, ProjectsState } from './Projects.interface';
+import { getStyleSet, StyleSet } from '../../components/componentHelpers';
+import { ProjectInfo } from './Project/Project.interface';
 
 export default class Projects extends Component<ProjectsProps, ProjectsState> {
 
+    styleSet: StyleSet;
+    projects: JSX.Element[];
+    
     constructor(props: ProjectsProps) {
         super(props);
         this.state = {
             deviceType: props.deviceType
         };
+        this.styleSet = getStyleSet(props.deviceType, PROJECTS_STYLE_SETS);
+        this.projects = this.getProjects(MyProjects, props.deviceType);
     }
 
     componentDidUpdate(prevProps: Readonly<ProjectsProps>): void {
@@ -19,7 +26,20 @@ export default class Projects extends Component<ProjectsProps, ProjectsState> {
             this.setState(() => {
                 return { deviceType: this.props.deviceType };
             });
+            this.styleSet = getStyleSet(this.props.deviceType, PROJECTS_STYLE_SETS);
+            this.projects = this.getProjects(MyProjects, this.props.deviceType);
         }
+    }
+
+    getProjects(myProjects: ProjectInfo[], deviceType: string) {
+        const projects = myProjects.map(currentProject => {
+            return (
+                <div key={currentProject.name} style={projectStyle}>
+                    <Project deviceType={deviceType} imgSrc={currentProject.imgSrc} name={currentProject.name} link={currentProject.link} description={currentProject.description}></Project>
+                </div>
+            );
+        });
+        return projects;
     }
 
     render() {
@@ -36,12 +56,7 @@ export default class Projects extends Component<ProjectsProps, ProjectsState> {
                     <div style={projectsRowStyle}>
                         <hr style={hrStyle}></hr>
                     </div>
-                    <div style={{...projectsRowStyle, marginBottom: '1vw' }}>
-                        <Project></Project>
-                    </div>
-                    <div style={{...projectsRowStyle, marginBottom: '1vw' }}>
-                        <Project></Project>
-                    </div>
+                    {this.projects}
                 </div>
             </div>
         );
