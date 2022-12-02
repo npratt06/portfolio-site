@@ -6,7 +6,8 @@ import { ResumeContent } from "./Resume.interface";
 export const resumeStyle: React.CSSProperties = {
     ...backgroundColorStyle,
     overflow: 'auto',
-    ...textFontStyle
+    ...textFontStyle,
+    minHeight: '100vh'
 };
 
 export const resumeRowStyle: React.CSSProperties = {

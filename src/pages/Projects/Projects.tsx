@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { outerWrapper } from '../../components/JukeBox/JukeBox.interface';
 import Project from './Project/Project';
-import { hrStyle, MyProjects, projectsRowStyle, projectsStyle, projectStyle, PROJECTS_STYLE_SETS } from './Projects.const';
+import { MyProjects, projectsRowStyle, projectsStyle, PROJECTS_STYLE_SETS } from './Projects.const';
 import { ProjectsProps, ProjectsState } from './Projects.interface';
 import { getStyleSet, StyleSet } from '../../components/componentHelpers';
 import { ProjectInfo } from './Project/Project.interface';
@@ -32,10 +32,24 @@ export default class Projects extends Component<ProjectsProps, ProjectsState> {
     }
 
     getProjects(myProjects: ProjectInfo[], deviceType: string) {
-        const projects = myProjects.map(currentProject => {
+        const numProjects = myProjects.length;
+        const projects = myProjects.map((currentProject, index) => {
+            const isLastProj = index === numProjects - 1;
+            let hrElement = (
+                <div style={{...projectsRowStyle, visibility: isLastProj ? 'hidden' : 'visible'}}>
+                    <hr style={this.styleSet.hrStyle}></hr>
+                </div>
+            );
+            // make hr element empty if we are on the last project in the list
+            if (isLastProj) {
+                hrElement = (<div />)
+            }
             return (
-                <div key={currentProject.name} style={projectStyle}>
-                    <Project deviceType={deviceType} imgSrc={currentProject.imgSrc} name={currentProject.name} link={currentProject.link} description={currentProject.description}></Project>
+                <div key={currentProject.name}>
+                    <div style={this.styleSet.projectStyle}>
+                        <Project deviceType={deviceType} imgSrc={currentProject.imgSrc} name={currentProject.name} link={currentProject.link} description={currentProject.description}></Project>
+                    </div>
+                    {hrElement}
                 </div>
             );
         });
@@ -54,7 +68,7 @@ export default class Projects extends Component<ProjectsProps, ProjectsState> {
                         <div style={{ fontSize: '225%' }}>Projects</div>
                     </div>
                     <div style={projectsRowStyle}>
-                        <hr style={hrStyle}></hr>
+                        <hr style={this.styleSet.hrStyle}></hr>
                     </div>
                     {this.projects}
                 </div>

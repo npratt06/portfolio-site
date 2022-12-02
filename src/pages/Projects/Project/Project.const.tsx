@@ -53,7 +53,8 @@ export const PROJECT_STYLE_SETS: StyleSets = {
             marginBottom: '3vw'
         },
         ProjectDescriptionStyle: {
-            fontSize: '3.75vw'
+            fontSize: '3.75vw',
+            marginTop: '3vw'
         }
     }
 }

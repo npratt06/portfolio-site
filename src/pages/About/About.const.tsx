@@ -5,7 +5,8 @@ import { backgroundColorStyle, textFontStyle } from "../../globalCSS";
 export const aboutStyle: React.CSSProperties = {
     ...backgroundColorStyle,
     overflow: 'auto',
-    ...textFontStyle
+    ...textFontStyle,
+    minHeight: '100vh'
 };
 
 export const aboutRowStyle: React.CSSProperties = {

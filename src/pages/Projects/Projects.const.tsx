@@ -8,25 +8,15 @@ import zomboozled from '../../img/zomboozled.png';
 export const projectsStyle: React.CSSProperties = {
     ...backgroundColorStyle,
     ...textFontStyle,
-    height: '100vh',
     overflowY: 'auto',
-    overflowX: 'hidden'
+    overflowX: 'hidden',
+    minHeight: '100vh'
 };
 
 export const projectsRowStyle: React.CSSProperties = {
     display: 'flex',
     justifyContent: 'center',
     width: '100%'
-};
-
-export const projectStyle: React.CSSProperties = {
-    ...projectsRowStyle,
-    marginBottom: '4vw'
-}
-
-export const hrStyle: React.CSSProperties = {
-    width: '65vw',
-    margin: '3vh'
 };
 
 export const MyProjects: ProjectInfo[] = [
@@ -56,7 +46,24 @@ export const MyProjects: ProjectInfo[] = [
 
 export const PROJECTS_STYLE_SETS: StyleSets = {
     [DEVICE_TYPES.DESKTOP]: {
+        hrStyle: {
+            width: '65vw',
+            margin: '3vh'
+        },
+        projectStyle: {
+            ...projectsRowStyle,
+            margin: '2vw'
+        }
     },
     [DEVICE_TYPES.MOBILE]: {
+        hrStyle: {
+            width: '90vw',
+            margin: '3vh'
+        },
+        projectStyle: {
+            ...projectsRowStyle,
+            marginTop: '3vh',
+            marginBottom: '3vh'
+        }
     }
 }

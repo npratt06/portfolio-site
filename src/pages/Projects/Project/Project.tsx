@@ -61,7 +61,7 @@ export default class Project extends Component<ProjectProps, ProjectState> {
                         <a href={this.link} style={{ width: 'inherit', height: 'auto' }}>
                             <img style={{ width: 'inherit', height: 'auto', border: '5px solid #ffffff'}} src={this.imgSrc}/>
                         </a>
-                        <div style={{paddingLeft: '1vw', paddingRight: '1vw'}}>
+                        <div style={{paddingLeft: '1vw', paddingRight: '1vw' }}>
                             <div style={this.styleSet.ProjectDescriptionStyle}>
                                 {this.description} 
                             </div>
