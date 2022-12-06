@@ -58,6 +58,12 @@ export default class About extends Component<AboutProps, AboutState> {
                     </div>
                     <div style={{ marginBottom: '3vw' }} />
                     <div style={aboutRowStyle}>
+                        <div style={{...this.styleSet.aboutRowContentStyle, ...this.styleSet.aboutTxtWrapperStyle}}>
+                            Here are a few pics of some of the people/things I love.
+                        </div>
+                    </div>
+                    <div style={{ marginBottom: '3vw' }} />
+                    <div style={aboutRowStyle}>
                         <div style={this.styleSet.aboutImgWrapperStyle}>
                             <img style={aboutImgStyle} src={lilAndScoob}></img>
                         </div>

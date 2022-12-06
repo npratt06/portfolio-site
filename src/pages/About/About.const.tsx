@@ -40,10 +40,10 @@ export const ABOUT_STYLE_SETS: StyleSets = {
             margin: '3vh'
         },
         aboutImgWrapperStyle: {
-            width: '25vw'
+            width: '20vw'
         },
         aboutTxtWrapperStyle: {
-            fontSize: '1.75vw',
+            fontSize: '1.5vw',
             padding: '1vw'
         }
     },
@@ -68,7 +68,7 @@ export const ABOUT_STYLE_SETS: StyleSets = {
             width: '40vw'
         },
         aboutTxtWrapperStyle: {
-            fontSize: '3.2vw',
+            fontSize: '2.75vw',
             padding: '1vw'
         }
     }
@@ -76,14 +76,15 @@ export const ABOUT_STYLE_SETS: StyleSets = {
 
 export const aboutContentOne = `
 My name is Nate Pratt and I am a software engineer based in Columbus, Ohio.
-I enjoy music, sports, tech, and spending time with my friends, my girlfriend, and our animals.
-I am always learning new things and love to problem solve.
+Some of my hobbies include music, sports and tech. You can find me playing
+volleyball, video games, instruments and/or spending time with the people I love.
+I enjoy learning new things and solving problems along the way.
 `;
 
 export const aboutContentTwo = `
-Lily and Scoob adventuring in North Carolina
+My girlfriend Lily and our pup Scoob adventuring in North Carolina
 `;
 
 export const aboutContentThree = `
-The fur-children - Toast, Toulouse and Scoob
+The fur children - Toast, Toulouse and Scoob
 `;

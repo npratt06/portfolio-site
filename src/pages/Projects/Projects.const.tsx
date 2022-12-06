@@ -27,8 +27,8 @@ export const MyProjects: ProjectInfo[] = [
         `
             Spinball is a competitive couch multiplayer video game that some friends and I created.
             It was originally built with JavaScript and can be purchased on Steam. I contributed to
-            the game design, completed programming tasks, and helped create some art assets. I also created
-            the soundtrack 🎵!
+            the game design, completed programming tasks, and helped create art assets. I also created
+            the soundtrack! 🎵
         `,
         imgSrc: spinball
     },
@@ -37,8 +37,8 @@ export const MyProjects: ProjectInfo[] = [
         link: '',
         description: `
             Zomboozled is a small video game that I created by myself in college as a challenge to see what I could fit into
-            a single HTML file. I created this game using pure HTML/JavaScript. It was a very fun project and I would love
-            to go back and refactor/build upon it.
+            a single HTML file. I created this game using pure HTML/JavaScript. It was a very fun project to build from scratch
+            to test my creativity.
         `,
         imgSrc: zomboozled
     }
