@@ -1,12 +1,13 @@
 {
   "files": {
     "main.css": "./static/css/main.ba98f2ca.css",
-    "main.js": "./static/js/main.2b0ba7ca.js",
+    "main.js": "./static/js/main.c639a48e.js",
     "static/js/496.0432cc2e.chunk.js": "./static/js/496.0432cc2e.chunk.js",
     "static/media/lil-scoob-rounded.png": "./static/media/lil-scoob-rounded.e44621e9f6755b25d1a3.png",
     "static/media/animals-rounded.png": "./static/media/animals-rounded.14f9cc2f1acbd09465f5.png",
     "static/media/record_real.png": "./static/media/record_real.d0b7c2909e14ffda3829.png",
     "static/media/nate-headshot-rounded.png": "./static/media/nate-headshot-rounded.c36b5ab741a5ca178d69.png",
+    "static/media/portfolio-site.png": "./static/media/portfolio-site.7e34c3e8d92365015428.png",
     "static/media/zomboozled.png": "./static/media/zomboozled.67d3e036814da7ca80e3.png",
     "static/media/spinball-screenshot.jpg": "./static/media/spinball-screenshot.d8639414da6832f20346.jpg",
     "static/media/navLeftBtn_grey.png": "./static/media/navLeftBtn_grey.750a8515e34f048b902e.png",
@@ -14,11 +15,11 @@
     "static/media/selectBtn_grey.png": "./static/media/selectBtn_grey.49fdad8068a9ef978d19.png",
     "index.html": "./index.html",
     "main.ba98f2ca.css.map": "./static/css/main.ba98f2ca.css.map",
-    "main.2b0ba7ca.js.map": "./static/js/main.2b0ba7ca.js.map",
+    "main.c639a48e.js.map": "./static/js/main.c639a48e.js.map",
     "496.0432cc2e.chunk.js.map": "./static/js/496.0432cc2e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ba98f2ca.css",
-    "static/js/main.2b0ba7ca.js"
+    "static/js/main.c639a48e.js"
   ]
 }
