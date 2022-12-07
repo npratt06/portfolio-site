@@ -10,6 +10,12 @@ export const ProjectColumnStyle: React.CSSProperties = {
     height: '100%'
 }
 
+export const ProjectImgStyle: React.CSSProperties = {
+    width: 'inherit',
+    height: 'auto',
+    border: '2px solid #ffffff'
+}
+
 export const PROJECT_STYLE_SETS: StyleSets = {
     [DEVICE_TYPES.DESKTOP]: {
         ProjectStyle: {

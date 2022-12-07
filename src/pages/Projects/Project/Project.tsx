@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { ProjectProps, ProjectState } from './Project.interface';
-import { PROJECT_STYLE_SETS } from './Project.const';
+import { ProjectImgStyle, PROJECT_STYLE_SETS } from './Project.const';
 import { getStyleSet, StyleSet } from '../../../components/componentHelpers';
 import { DEVICE_TYPES } from '../../../global.const';
 
@@ -37,7 +37,7 @@ export default class Project extends Component<ProjectProps, ProjectState> {
         let components: JSX.Element = (
             <div style={this.styleSet.ProjectStyle}>
                 <a href={this.link} style={this.styleSet.ProjectColumnStyle}>
-                    <img style={{ width: 'inherit', height: 'auto', border: '5px solid #ffffff'}} src={this.imgSrc}/>
+                    <img style={ProjectImgStyle} src={this.imgSrc}/>
                 </a>
                 <div style={this.styleSet.ProjectColumnStyle}>
                     <div style={{paddingLeft: '4vw', paddingRight: '4vw'}}>
@@ -59,7 +59,7 @@ export default class Project extends Component<ProjectProps, ProjectState> {
                             <a href={this.link}>{this.name}</a>
                         </div>
                         <a href={this.link} style={{ width: 'inherit', height: 'auto' }}>
-                            <img style={{ width: 'inherit', height: 'auto', border: '5px solid #ffffff'}} src={this.imgSrc}/>
+                            <img style={ProjectImgStyle} src={this.imgSrc}/>
                         </a>
                         <div style={{paddingLeft: '1vw', paddingRight: '1vw' }}>
                             <div style={this.styleSet.ProjectDescriptionStyle}>
