@@ -11,6 +11,7 @@ import { MyPages } from './NavDisplay/NavDisplay.const';
 // import Draggable from 'react-draggable';
 // import coin from '../../img/coin.png';
 import { DEVICE_TYPES } from '../../global.const';
+import plaque from '../../img/plaque.png';
 
 export default class JukeBox extends Component<
     JukeBoxProps,
@@ -95,7 +96,7 @@ export default class JukeBox extends Component<
 
     getComponents(): JSX.Element {
         let components: JSX.Element = (
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginLeft: '7.5vw', marginRight: '7.5vw', marginTop: '3vw' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-evenly', marginLeft: '7.5vw', marginRight: '7.5vw', marginTop: '3vw' }}>
                 <NavigateLR
                     navIndex={this.state.navIndex}
                     handleClickLeft={this.handleClickLeft.bind(this)}
@@ -105,6 +106,9 @@ export default class JukeBox extends Component<
                     handleMouseLeave={this.handleMouseLeave.bind(this)}
                     deviceType={this.state.deviceType}
                 ></NavigateLR>
+                <div style={{ height: '10vw' }}>
+                    <img style={{ width: 'auto', height: 'inherit' }} src={plaque}/>
+                </div>
                 {/* commenting out for now until I have time to implement coin functionality */}
                 {/* <Draggable nodeRef={this.nodeRef}>
                     <div ref={this.nodeRef} style={{ width: '10vw', height: '10vw', position: 'absolute', right: '7.5vw', marginTop: '1vh' }}><img style={{ width: 'inherit', height: 'auto', pointerEvents: 'none' }} src={coin} /></div>
@@ -113,20 +117,27 @@ export default class JukeBox extends Component<
         );
         if (this.state.deviceType === DEVICE_TYPES.MOBILE) {
             components = (
-                <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3vw' }}>
-                    <NavigateLR
-                        navIndex={this.state.navIndex}
-                        handleClickLeft={this.handleClickLeft.bind(this)}
-                        handleClickRight={this.handleClickRight.bind(this)}
-                        handleMouseDown={this.handleMouseDown.bind(this)}
-                        handleMouseUp={this.handleMouseUp.bind(this)}
-                        handleMouseLeave={this.handleMouseLeave.bind(this)}
-                        deviceType={this.state.deviceType}
-                    ></NavigateLR>
-                    {/* commenting out for now until I have time to implement coin functionality */}
-                    {/* <Draggable nodeRef={this.nodeRef}>
-                        <div ref={this.nodeRef} style={{ width: '10vw', height: '10vw', position: 'absolute', right: '7.5vw', marginTop: '1vh' }}><img style={{ width: 'inherit', height: 'auto', pointerEvents: 'none' }} src={coin} /></div>
-                    </Draggable> */}
+                <div>
+                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3vw' }}>
+                        <div style={{ width: '80vw'}}>
+                            <img style={{ width: 'inherit', height: 'auto' }} src={plaque}/>
+                        </div>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3vw' }}>
+                        <NavigateLR
+                            navIndex={this.state.navIndex}
+                            handleClickLeft={this.handleClickLeft.bind(this)}
+                            handleClickRight={this.handleClickRight.bind(this)}
+                            handleMouseDown={this.handleMouseDown.bind(this)}
+                            handleMouseUp={this.handleMouseUp.bind(this)}
+                            handleMouseLeave={this.handleMouseLeave.bind(this)}
+                            deviceType={this.state.deviceType}
+                        ></NavigateLR>
+                        {/* commenting out for now until I have time to implement coin functionality */}
+                        {/* <Draggable nodeRef={this.nodeRef}>
+                            <div ref={this.nodeRef} style={{ width: '10vw', height: '10vw', position: 'absolute', right: '7.5vw', marginTop: '1vh' }}><img style={{ width: 'inherit', height: 'auto', pointerEvents: 'none' }} src={coin} /></div>
+                        </Draggable> */}
+                    </div>
                 </div>
             );
         }

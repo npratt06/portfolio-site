@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import {
     btnImgBaseStyle,
     btnImgStyleClicked,
-    btnImgStyleHover,
     btnTextTransformBaseStyle,
     btnTextTransformClickedStyle,
     NAV_BTN_STYLE_SETS,
 } from './NavBtn.const';
 import { NavBtnProps, NavBtnState } from '../NavLR.interface';
 import { MouseEventHandler } from 'react';
-import { selectBtnTextStyle } from '../NavBtn/NavBtn.const';
 import { getStyleSet, StyleSet } from '../../../componentHelpers';
 
 export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
@@ -50,7 +48,7 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
 
     handleMouseEnter() {
         this.setState(() => {
-            const btnImgStyle = btnImgStyleHover;
+            const btnImgStyle = btnImgBaseStyle;
             const btnTextTransformStyle = btnTextTransformBaseStyle;
             return { btnImgStyle, btnTextTransformStyle };
         });
@@ -83,7 +81,7 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
             this.handleMouseUpProp();
         }
         this.setState(() => {
-            const btnImgStyle = btnImgStyleHover;
+            const btnImgStyle = btnImgBaseStyle;
             const btnTextTransformStyle = btnTextTransformBaseStyle;
             return { btnImgStyle, btnTextTransformStyle };
         });
@@ -96,6 +94,8 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
                 onMouseLeave={this.handleMouseLeave.bind(this)}
                 onMouseDown={this.handleMouseDown.bind(this)}
                 onMouseUp={this.handleMouseUp.bind(this)}
+                onTouchStart={this.handleMouseDown.bind(this)}
+                onTouchEnd={this.handleMouseUp.bind(this)}
             >
                 <div style={this.styleSet.btnStyle} onClick={this.handleClick}>
                     <img
@@ -104,7 +104,7 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
                         style={this.state.btnImgStyle}
                         draggable={'false'}
                     ></img>
-                    <div style={selectBtnTextStyle}>
+                    <div style={this.styleSet.selectBtnTextStyle}>
                         <div style={this.state.btnTextTransformStyle}>
                             {this.btnText}
                         </div>

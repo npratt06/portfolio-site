@@ -25,17 +25,6 @@ export const btnImgStyleClicked: React.CSSProperties = {
 };
 // button image styles for dynamic transforms --- end
 
-// select button styles --- start
-export const selectBtnTextStyle: React.CSSProperties = {
-    ...textFontStyle,
-    fontSize: '3vw',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-};
-// select button styles --- end
-
 // button text styles for dynamic transforms --- start
 export const btnTextTransformBaseStyle: React.CSSProperties = {
     color: 'black'
@@ -53,6 +42,14 @@ export const NAV_BTN_STYLE_SETS: StyleSets = {
             marginLeft: '20px',
             marginRight: '20px',
             position: 'relative',
+        },
+        selectBtnTextStyle: {
+            ...textFontStyle,
+            fontSize: '2.6vw',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
         }
     },
     [DEVICE_TYPES.MOBILE]: {
@@ -61,6 +58,14 @@ export const NAV_BTN_STYLE_SETS: StyleSets = {
             marginLeft: '20px',
             marginRight: '20px',
             position: 'relative',
+        },
+        selectBtnTextStyle: {
+            ...textFontStyle,
+            fontSize: '5vw',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
         }
     }
 }
