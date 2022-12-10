@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PageLayout from './pages/PageLayout';
+import 'animate.css/animate.compat.css'
 
 export default class App extends Component {
 

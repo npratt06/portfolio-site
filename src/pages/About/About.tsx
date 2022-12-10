@@ -7,6 +7,7 @@ import { AboutProps, AboutState } from './About.interface';
 import nateHeadshot from '../../img/nate-headshot-rounded.png';
 import lilAndScoob from '../../img/lil-scoob-rounded.png';
 import animals from '../../img/animals-rounded.png';
+import ScrollAnimation from 'react-animate-on-scroll';
 
 export default class About extends Component<AboutProps, AboutState> {
 
@@ -48,36 +49,42 @@ export default class About extends Component<AboutProps, AboutState> {
                     <div style={aboutRowStyle}>
                         <hr style={this.styleSet.hrStyle}></hr>
                     </div>
-                    <div style={aboutRowStyle}>
-                        <div style={{...this.styleSet.aboutRowContentStyle, ...this.styleSet.aboutTxtWrapperStyle}}>
-                            {aboutContentOne}
+                    <ScrollAnimation initiallyVisible={true} animateIn="jackInTheBox">
+                        <div style={aboutRowStyle}>
+                            <div style={{...this.styleSet.aboutRowContentStyle, ...this.styleSet.aboutTxtWrapperStyle}}>
+                                {aboutContentOne}
+                            </div>
+                            <div style={this.styleSet.aboutImgWrapperStyle}>
+                                <img style={aboutImgStyle} src={nateHeadshot}></img>
+                            </div>
                         </div>
-                        <div style={this.styleSet.aboutImgWrapperStyle}>
-                            <img style={aboutImgStyle} src={nateHeadshot}></img>
-                        </div>
-                    </div>
-                    <div style={aboutRowStyle}>
-                        <hr style={this.styleSet.hrStyle}></hr>
-                    </div>
-                    <div style={aboutRowStyle}>
-                        <div style={this.styleSet.aboutImgWrapperStyle}>
-                            <img style={aboutImgStyle} src={lilAndScoob}></img>
-                        </div>
-                        <div style={{...this.styleSet.aboutRowContentStyle, ...this.styleSet.aboutTxtWrapperStyle}}>
-                            {aboutContentTwo}
-                        </div>
-                    </div>
+                    </ScrollAnimation>
                     <div style={aboutRowStyle}>
                         <hr style={this.styleSet.hrStyle}></hr>
                     </div>
+                    <ScrollAnimation offset={50} initiallyVisible={true} animateIn="headShake">
+                        <div style={aboutRowStyle}>
+                            <div style={this.styleSet.aboutImgWrapperStyle}>
+                                <img style={aboutImgStyle} src={lilAndScoob}></img>
+                            </div>
+                            <div style={{...this.styleSet.aboutRowContentStyle, ...this.styleSet.aboutTxtWrapperStyle}}>
+                                {aboutContentTwo}
+                            </div>
+                        </div>
+                    </ScrollAnimation>
                     <div style={aboutRowStyle}>
-                        <div style={{...this.styleSet.aboutRowContentStyle, ...this.styleSet.aboutTxtWrapperStyle}}>
-                            {aboutContentThree}
-                        </div>
-                        <div style={this.styleSet.aboutImgWrapperStyle}>
-                            <img style={aboutImgStyle} src={animals}></img>
-                        </div>
+                        <hr style={this.styleSet.hrStyle}></hr>
                     </div>
+                    <ScrollAnimation initiallyVisible={true} animateIn="headShake">
+                        <div style={aboutRowStyle}>
+                            <div style={{...this.styleSet.aboutRowContentStyle, ...this.styleSet.aboutTxtWrapperStyle}}>
+                                {aboutContentThree}
+                            </div>
+                            <div style={this.styleSet.aboutImgWrapperStyle}>
+                                <img style={aboutImgStyle} src={animals}></img>
+                            </div>
+                        </div>
+                    </ScrollAnimation>
                     <div style={{ marginBottom: '3vw' }} />
                 </div>
             </div>

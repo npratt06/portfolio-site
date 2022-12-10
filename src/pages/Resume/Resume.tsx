@@ -4,6 +4,7 @@ import { Job, ResumeProps, ResumeState } from './Resume.interface';
 import { MyResumeContent, resumeRowStyle, resumeStyle, resumeSectionHeaderStyle, RESUME_STYLE_SETS, resumeTitleStyle } from './Resume.const';
 import { outerWrapper } from '../../components/JukeBox/JukeBox.interface';
 import { getStyleSet, StyleSet } from '../../components/componentHelpers';
+import ScrollAnimation from 'react-animate-on-scroll';
 
 export default class Resume extends Component<ResumeProps, ResumeState> {
 
@@ -86,46 +87,50 @@ export default class Resume extends Component<ResumeProps, ResumeState> {
                     <div style={resumeRowStyle}>
                         <hr style={this.styleSet.hrStyle}></hr>
                     </div>
-                    <div style={resumeRowStyle}>
-                        <div style={this.styleSet.resumeRowContentStyle}>
-                            <div style={resumeSectionHeaderStyle}>Experience</div>
-                        </div>
-                    </div>
-                    <div style={resumeRowStyle}>
-                        <div style={this.styleSet.resumeRowContentStyle}>
-                            <div>
-                                {jobs}
+                    <ScrollAnimation duration={5} animateIn='fadeIn'>
+                        <div style={resumeRowStyle}>
+                            <div style={this.styleSet.resumeRowContentStyle}>
+                                <div style={resumeSectionHeaderStyle}>Experience</div>
                             </div>
                         </div>
-                    </div>
+                        <div style={resumeRowStyle}>
+                            <div style={this.styleSet.resumeRowContentStyle}>
+                                <div>
+                                    {jobs}
+                                </div>
+                            </div>
+                        </div>
+                    </ScrollAnimation>
                     <div style={resumeRowStyle}>
                         <hr style={this.styleSet.hrStyle}></hr>
                     </div>
-                    <div style={resumeRowStyle}>
-                        <div style={this.styleSet.resumeRowContentStyle}>
-                            <div style={resumeSectionHeaderStyle}>Education</div>
+                    <ScrollAnimation duration={5} animateIn='fadeIn'>
+                        <div style={resumeRowStyle}>
+                            <div style={this.styleSet.resumeRowContentStyle}>
+                                <div style={resumeSectionHeaderStyle}>Education</div>
+                            </div>
                         </div>
-                    </div>
-                    <div style={resumeRowStyle}>
-                        <div style={this.styleSet.resumeRowContentStyle}>
-                            <div>{MyResumeContent.education.UniversityName}</div>
+                        <div style={resumeRowStyle}>
+                            <div style={this.styleSet.resumeRowContentStyle}>
+                                <div>{MyResumeContent.education.UniversityName}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div style={resumeRowStyle}>
-                        <div style={this.styleSet.resumeRowContentStyle}>
-                            <div>{MyResumeContent.education.Location}</div>
+                        <div style={resumeRowStyle}>
+                            <div style={this.styleSet.resumeRowContentStyle}>
+                                <div>{MyResumeContent.education.Location}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div style={resumeRowStyle}>
-                        <div style={this.styleSet.resumeRowContentStyle}>
-                            <div>{MyResumeContent.education.Degree}</div>
+                        <div style={resumeRowStyle}>
+                            <div style={this.styleSet.resumeRowContentStyle}>
+                                <div>{MyResumeContent.education.Degree}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div style={resumeRowStyle}>
-                        <div style={this.styleSet.resumeRowContentStyle}>
-                            <div>{MyResumeContent.education.GradDate}</div>
+                        <div style={resumeRowStyle}>
+                            <div style={this.styleSet.resumeRowContentStyle}>
+                                <div>{MyResumeContent.education.GradDate}</div>
+                            </div>
                         </div>
-                    </div>
+                    </ScrollAnimation>
                     <div style={resumeRowStyle}>
                         <hr style={this.styleSet.hrStyle}></hr>
                     </div>
