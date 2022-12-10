@@ -36,7 +36,7 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
         
         this.styleSet = getStyleSet(props.deviceType, NAV_BTN_STYLE_SETS);
     }
-
+    
     componentDidUpdate(prevProps: Readonly<NavBtnProps>): void {
         if (prevProps.deviceType !== this.props.deviceType) {
             this.setState(() => {
@@ -94,8 +94,6 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
                 onMouseLeave={this.handleMouseLeave.bind(this)}
                 onMouseDown={this.handleMouseDown.bind(this)}
                 onMouseUp={this.handleMouseUp.bind(this)}
-                onTouchStart={this.handleMouseDown.bind(this)}
-                onTouchEnd={this.handleMouseUp.bind(this)}
             >
                 <div style={this.styleSet.btnStyle} onClick={this.handleClick}>
                     <img

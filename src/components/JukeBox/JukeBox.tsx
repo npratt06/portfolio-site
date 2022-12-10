@@ -11,7 +11,7 @@ import { MyPages } from './NavDisplay/NavDisplay.const';
 // import Draggable from 'react-draggable';
 // import coin from '../../img/coin.png';
 import { DEVICE_TYPES } from '../../global.const';
-import plaque from '../../img/plaque.png';
+import plaque from '../../img/plaqueLong.png';
 
 export default class JukeBox extends Component<
     JukeBoxProps,
