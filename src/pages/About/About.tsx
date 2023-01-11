@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getStyleSet, StyleSet } from '../../components/componentHelpers';
 import { outerWrapper } from '../../components/JukeBox/JukeBox.interface';
-import { aboutContentOne, aboutContentThree, aboutContentTwo, aboutImgStyle, aboutRowStyle, aboutStyle, ABOUT_STYLE_SETS } from './About.const';
+import { aboutContentOne, aboutContentTwo, aboutContentThree, aboutContentFour, aboutImgStyle, aboutRowStyle, aboutStyle, ABOUT_STYLE_SETS } from './About.const';
 import { AboutProps, AboutState } from './About.interface';
 import nateHeadshot from '../../img/nate-headshot-rounded.png';
 import lilAndScoob from '../../img/lil-scoob-rounded.png';
 import animals from '../../img/animals-rounded.png';
+import lilScoobMe from '../../img/lil-scoob-me-rounded.png';
 
 export default class About extends Component<AboutProps, AboutState> {
 
@@ -76,6 +77,17 @@ export default class About extends Component<AboutProps, AboutState> {
                         </div>
                         <div style={this.styleSet.aboutImgWrapperStyle}>
                             <img style={aboutImgStyle} src={animals}></img>
+                        </div>
+                    </div>
+                    <div style={aboutRowStyle}>
+                        <hr style={this.styleSet.hrStyle}></hr>
+                    </div>
+                    <div style={aboutRowStyle}>
+                        <div style={this.styleSet.aboutImgWrapperStyle}>
+                            <img style={aboutImgStyle} src={lilScoobMe}></img>
+                        </div>
+                        <div style={{...this.styleSet.aboutRowContentStyle, ...this.styleSet.aboutTxtWrapperStyle}}>
+                            {aboutContentFour}
                         </div>
                     </div>
                     <div style={{ marginBottom: '3vw' }} />

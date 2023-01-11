@@ -28,20 +28,19 @@ export const MyProjects: ProjectInfo[] = [
         link: 'https://store.steampowered.com/app/943920/Spinball/',
         description:
         `
-            Spinball is a competitive couch multiplayer video game that some friends and I created.
-            It was originally built with JavaScript and can be purchased on Steam. I contributed to
-            the game design, completed programming tasks, and helped create art assets. I also created
+            Spinball is a competitive couch multiplayer video game that a few of friends and I created.
+            It was built with JavaScript and can be purchased on Steam. I contributed to the game design,
+            completed various programming tasks, and helped create art assets. I also created
             the soundtrack! 🎵
         `,
         imgSrc: spinball
     },
     {
         name: 'Zomboozled',
-        link: './',
+        link: isDev ? 'http://localhost:3000/#/projects' : 'https://npratt06.github.io/portfolio-site/#/projects', // trick for making the link do nothing
         description: `
             Zomboozled is a small video game that I created by myself in college as a challenge to see what I could fit into
-            a single HTML file. I created this game using pure HTML/JavaScript. It was a very fun project to build from scratch
-            to test my creativity.
+            a single HTML file. I created this game using pure HTML/JavaScript.
         `,
         imgSrc: zomboozled
     },
@@ -50,9 +49,8 @@ export const MyProjects: ProjectInfo[] = [
         link: isDev ? 'http://localhost:3000' : 'https://npratt06.github.io/portfolio-site/',
         description: `
             Look familiar? I created this portfolio site to reorient myself with front-end development and to learn React.
-            I considered copying a template and plugging my information in, but ended up deciding to make my site from the ground up.
-            I got to learn the basics of React while designing something more aligned with my personality.
-
+            I decided to make the site from scratch in order to better learn the basics of React and allow myself more creative
+            flexibility.
         `,
         imgSrc: portfolioSite
     }

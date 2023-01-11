@@ -10,7 +10,7 @@ import {
 } from './NavDisplay.interface';
 import { getCurrentPageInfo } from '../../../utils/NavUtils';
 import screenImg from '../../../img/screen.png';
-import recordImg from '../../../img/record_real.png';
+import recordImg from '../../../img/record_text.png';
 import { getStyleSet, StyleSet } from '../../componentHelpers';
 
 export default class NavDisplay extends Component<

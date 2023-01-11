@@ -58,7 +58,7 @@ export const RESUME_STYLE_SETS: StyleSets = {
 };
 
 export const MyResumeContent: ResumeContent = {
-    professionalSummary: 'Software engineer with leadership experience who excels in collaborative problem solving. Enjoys brainstorming with other talented engineers to produce high quality, creative solutions',
+    professionalSummary: 'Software engineer with 5+ years experience, including 1 year of  management experience.. Enjoys brainstorming with others to produce high quality, creative solutions. Strives to design optimal solutions for challenging software problems while following principles such as SOLID and DRY.',
     jobs: [
         {
             CompanyName: 'Olive AI',
@@ -77,10 +77,11 @@ export const MyResumeContent: ResumeContent = {
                 {
                     title: 'Software Engineering Manager Role',
                     subBullets: [
-                        'Led a team of Software Engineers that developed and maintained the claim status automation product',
-                        'Learned people management and Agile skills',
-                        'Guided team to improve code quality and testing processes',
-                        'Successfully managed high priority inter-team product integration initiative'
+                        'Led a team of Software Engineers that developed and maintained Olive\'s claim status automation product',
+                        'Improved people management and Agile skills while facilitating feature development and maintenance of the product',
+                        'Drove code quality and testing improvement initiatives (test coverage increased by >50%)',
+                        'Successfully managed high priority, fast-paced, multi-team product integrations',
+                        'Supported team members during force reductions and times of uncertainty'
                     ]
                 }
             ]
@@ -147,7 +148,7 @@ export const MyResumeContent: ResumeContent = {
         GradDate: 'December 2018'
     },
     techKnowledge: {
-        'Languages': 'JavaScript, TypeScript, Python, C#, C++, Java, SQL, HTML/CSS',
-        'Technologies': 'MongoDB, VS Code, AWS, Jenkins, Git, GitHub, GitLab, Bitbucket, JIRA, Confluence, Rundeck, Nexus'
+        'Languages': 'TypeScript, JavaScript, React, HTML/CSS, Python, C#, C++, Java, SQL',
+        'Technologies': 'AWS, MongoDB, VS Code, Git, GitHub, GitLab, Bitbucket, Jenkins, JIRA'
     }
 }

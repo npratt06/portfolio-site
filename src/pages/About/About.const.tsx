@@ -76,16 +76,20 @@ export const ABOUT_STYLE_SETS: StyleSets = {
 
 export const aboutContentOne = `
 My name is Nate Pratt and I am a software engineer based in Columbus, Ohio.
-Some of my hobbies include music, sports and tech. You can find me playing
+Some of my interests include music, sports and tech. You can find me playing
 volleyball, video games, instruments and/or spending time with the people I love.
-I like learning new things and solving problems along the way. Please enjoy the
-gallery del Nate below.
+I am always trying to learn new things, and I enjoy solving problems along the way.
+Please enjoy the following glimpse into my life 👇
 `;
 
 export const aboutContentTwo = `
-My girlfriend Lily and our pup Scoob adventuring in North Carolina
+Lily and our pup Scoob enjoying a view in the Blue Ridge Mountains of North Carolina 🌄
 `;
 
 export const aboutContentThree = `
-The fur children - Toast, Toulouse and Scoob
+The fur children - Toast, Toulouse and Scoob 🐕🐈
+`;
+
+export const aboutContentFour = `
+Out on a walk with my squad 😁
 `;
