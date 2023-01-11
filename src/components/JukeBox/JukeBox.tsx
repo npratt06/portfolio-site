@@ -95,48 +95,54 @@ export default class JukeBox extends Component<
     }
 
     getComponents(): JSX.Element {
+        const navDisplayComponent: JSX.Element = (
+            <NavDisplay navIndex={this.state.navIndex} isMouseDownOnNavBtn={this.state.isMouseDownOnNavBtn} deviceType={this.state.deviceType}></NavDisplay>
+        );
+        const navLRComponent: JSX.Element = (
+            <NavigateLR
+                navIndex={this.state.navIndex}
+                handleClickLeft={this.handleClickLeft.bind(this)}
+                handleClickRight={this.handleClickRight.bind(this)}
+                handleMouseDown={this.handleMouseDown.bind(this)}
+                handleMouseUp={this.handleMouseUp.bind(this)}
+                handleMouseLeave={this.handleMouseLeave.bind(this)}
+                deviceType={this.state.deviceType}
+            ></NavigateLR>
+        );
         let components: JSX.Element = (
-            <div style={{ display: 'flex', justifyContent: 'space-evenly', marginLeft: '7.5vw', marginRight: '7.5vw', marginTop: '3vw' }}>
-                <NavigateLR
-                    navIndex={this.state.navIndex}
-                    handleClickLeft={this.handleClickLeft.bind(this)}
-                    handleClickRight={this.handleClickRight.bind(this)}
-                    handleMouseDown={this.handleMouseDown.bind(this)}
-                    handleMouseUp={this.handleMouseUp.bind(this)}
-                    handleMouseLeave={this.handleMouseLeave.bind(this)}
-                    deviceType={this.state.deviceType}
-                ></NavigateLR>
-                <div style={{ height: '10vw' }}>
-                    <img style={{ width: 'auto', height: 'inherit' }} src={plaque}/>
+            <div>
+                <div style={rowElement}>
+                    {navDisplayComponent}
                 </div>
-                {/* commenting out for now until I have time to implement coin functionality */}
-                {/* <Draggable nodeRef={this.nodeRef}>
-                    <div ref={this.nodeRef} style={{ width: '10vw', height: '10vw', position: 'absolute', right: '7.5vw', marginTop: '1vh' }}><img style={{ width: 'inherit', height: 'auto', pointerEvents: 'none' }} src={coin} /></div>
-                </Draggable> */}
+                <div style={{ display: 'flex', justifyContent: 'space-evenly', marginLeft: '7.5vw', marginRight: '7.5vw', marginTop: '3vw' }}>
+                    {navLRComponent}
+                    <div style={{ height: '10vw' }}>
+                        <img style={{ width: 'auto', height: 'inherit' }} src={plaque}/>
+                    </div>
+                    {/* commenting out for now until I have time to implement coin functionality */}
+                    {/* <Draggable nodeRef={this.nodeRef}>
+                        <div ref={this.nodeRef} style={{ width: '10vw', height: '10vw', position: 'absolute', right: '7.5vw', marginTop: '1vh' }}><img style={{ width: 'inherit', height: 'auto', pointerEvents: 'none' }} src={coin} /></div>
+                    </Draggable> */}
+                </div>
             </div>
         );
         if (this.state.deviceType === DEVICE_TYPES.MOBILE) {
             components = (
-                <div>
-                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3vw' }}>
-                        <div style={{ width: '80vw'}}>
-                            <img style={{ width: 'inherit', height: 'auto' }} src={plaque}/>
+                <div style={{height: '100%'}}>
+                    <div style={rowElement}>
+                        {navDisplayComponent}
+                    </div>
+                    <div style={rowElement}>
+                        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3vw' }}>
+                            <div style={{ width: '80vw'}}>
+                                <img style={{ width: 'inherit', height: 'auto' }} src={plaque}/>
+                            </div>
                         </div>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3vw' }}>
-                        <NavigateLR
-                            navIndex={this.state.navIndex}
-                            handleClickLeft={this.handleClickLeft.bind(this)}
-                            handleClickRight={this.handleClickRight.bind(this)}
-                            handleMouseDown={this.handleMouseDown.bind(this)}
-                            handleMouseUp={this.handleMouseUp.bind(this)}
-                            handleMouseLeave={this.handleMouseLeave.bind(this)}
-                            deviceType={this.state.deviceType}
-                        ></NavigateLR>
-                        {/* commenting out for now until I have time to implement coin functionality */}
-                        {/* <Draggable nodeRef={this.nodeRef}>
-                            <div ref={this.nodeRef} style={{ width: '10vw', height: '10vw', position: 'absolute', right: '7.5vw', marginTop: '1vh' }}><img style={{ width: 'inherit', height: 'auto', pointerEvents: 'none' }} src={coin} /></div>
-                        </Draggable> */}
+                    <div style={rowElement}>
+                        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3vw', position: 'absolute', bottom: '5vw' }}>
+                            {navLRComponent}
+                        </div>
                     </div>
                 </div>
             );
@@ -148,9 +154,6 @@ export default class JukeBox extends Component<
         const JukeBoxComponents: JSX.Element = this.getComponents();
         return (
             <div style={outerWrapper}>
-                <div style={rowElement}>
-                    <NavDisplay navIndex={this.state.navIndex} isMouseDownOnNavBtn={this.state.isMouseDownOnNavBtn} deviceType={this.state.deviceType}></NavDisplay>
-                </div>
                 {JukeBoxComponents}
             </div>
         );

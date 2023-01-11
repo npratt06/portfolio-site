@@ -1,5 +1,6 @@
 export const outerWrapper: React.CSSProperties = {
-    position: 'relative'
+    position: 'relative',
+    height: '100%'
 };
 
 export const rowElement: React.CSSProperties = {
