@@ -27,11 +27,10 @@ export default class Resume extends Component<ResumeProps, ResumeState> {
         }
     }
     
-    render() {
+    getComponents(): JSX.Element {
         let bulletContent: JSX.Element[] = [];
         let subBulletContent: JSX.Element[] = [];
-        let jobs: JSX.Element[] = [];
-        jobs = MyResumeContent.jobs.map((job: Job, index) => {
+        const jobs: JSX.Element[] = MyResumeContent.jobs.map((job: Job, index) => {
             bulletContent = job.Bullets.map((jobBullet, index) => {
                 subBulletContent = jobBullet.subBullets.map((subBullet, index) => {
                     return (
@@ -56,6 +55,17 @@ export default class Resume extends Component<ResumeProps, ResumeState> {
                 </div>
             );
         });
+
+        const techKnowledge: JSX.Element[] = Object.keys(MyResumeContent.techKnowledge).map(category => {
+            return (
+                <div style={resumeRowStyle} key={`techKnowledge${category}`}>
+                    <div style={this.styleSet.resumeRowContentStyle}>
+                        <div>{category}: {MyResumeContent.techKnowledge[category]}</div>
+                    </div>
+                </div>
+            );
+        });
+
         return (
             <div style={resumeStyle}>
                 <div style={outerWrapper}>
@@ -134,18 +144,18 @@ export default class Resume extends Component<ResumeProps, ResumeState> {
                             <div style={resumeSectionHeaderStyle}>Tech Knowledge</div>
                         </div>
                     </div>
-                    <div style={resumeRowStyle}>
-                        <div style={this.styleSet.resumeRowContentStyle}>
-                            <div>{MyResumeContent.techKnowledge.Languages}</div>
-                        </div>
-                    </div>
-                    <div style={resumeRowStyle}>
-                        <div style={this.styleSet.resumeRowContentStyle}>
-                            <div>{MyResumeContent.techKnowledge.Technologies}</div>
-                        </div>
-                    </div>
+                    {techKnowledge}
                     <div style={{ marginBottom: '3vw' }} />
                 </div>
+            </div>
+        );
+    }
+
+    render() {
+        const resumeComponents = this.getComponents();
+        return (
+            <div>
+                {resumeComponents}
             </div>
         );
     }

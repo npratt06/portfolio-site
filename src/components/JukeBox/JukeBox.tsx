@@ -140,7 +140,7 @@ export default class JukeBox extends Component<
                         </div>
                     </div>
                     <div style={rowElement}>
-                        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3vw', position: 'absolute', bottom: '25vw' }}>
+                        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3vw', position: 'absolute', bottom: '30vw' }}>
                             {navLRComponent}
                         </div>
                     </div>

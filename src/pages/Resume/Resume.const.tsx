@@ -58,7 +58,7 @@ export const RESUME_STYLE_SETS: StyleSets = {
 };
 
 export const MyResumeContent: ResumeContent = {
-    professionalSummary: 'Software engineer with 5+ years experience, including 1 year of  management experience.. Enjoys brainstorming with others to produce high quality, creative solutions. Strives to design optimal solutions for challenging software problems while following principles such as SOLID and DRY.',
+    professionalSummary: 'Software engineer with 5+ years experience, including 1 year of  management experience. Enjoys brainstorming with others to produce high quality, maintainable software. Strives to design optimal solutions for challenging software problems while following principles such as SOLID and DRY.',
     jobs: [
         {
             CompanyName: 'Olive AI',
@@ -81,7 +81,7 @@ export const MyResumeContent: ResumeContent = {
                         'Improved people management and Agile skills while facilitating feature development and maintenance of the product',
                         'Drove code quality and testing improvement initiatives (test coverage increased by >50%)',
                         'Successfully managed high priority, fast-paced, multi-team product integrations',
-                        'Supported team members during force reductions and times of uncertainty'
+                        'Reduced company’s resource and vendor costs through various software enhancements (costs reduced by approximately $4,000,000 per year)'
                     ]
                 }
             ]
