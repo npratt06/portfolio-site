@@ -152,11 +152,7 @@ export default class Resume extends Component<ResumeProps, ResumeState> {
     }
 
     render() {
-        const resumeComponents = this.getComponents();
-        return (
-            <div>
-                {resumeComponents}
-            </div>
-        );
+        const components: JSX.Element = this.getComponents();
+        return (<div>{components}</div>);
     }
 }

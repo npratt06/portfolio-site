@@ -74,7 +74,7 @@ export default class Project extends Component<ProjectProps, ProjectState> {
     }
 
     render() {
-        const ProjectComponents = this.getComponents();
-        return ProjectComponents;
+        const components: JSX.Element = this.getComponents();
+        return components;
     }
 }

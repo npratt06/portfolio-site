@@ -87,7 +87,7 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
         });
     }
 
-    render() {
+    getComponents(): JSX.Element {
         return (
             <div
                 onMouseEnter={this.handleMouseEnter.bind(this)}
@@ -110,5 +110,10 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
                 </div>
             </div>
         );
+    }
+
+    render() {
+        const components: JSX.Element = this.getComponents();
+        return (<div>{components}</div>);
     }
 }

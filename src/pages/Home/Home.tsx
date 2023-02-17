@@ -19,11 +19,16 @@ export default class Home extends Component<HomeProps, HomeState> {
         }
     }
 
-    render() {
+    getComponents(): JSX.Element {
         return (
             <div style={homeStyle}>
                 <JukeBox deviceType={this.state.deviceType}/>
             </div>
         );
+    }
+
+    render() {
+        const components: JSX.Element = this.getComponents();
+        return (<div>{components}</div>);
     }
 }

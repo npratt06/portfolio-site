@@ -94,22 +94,8 @@ export default class JukeBox extends Component<
         });
     }
 
-    getComponents(): JSX.Element {
-        const navDisplayComponent: JSX.Element = (
-            <NavDisplay navIndex={this.state.navIndex} isMouseDownOnNavBtn={this.state.isMouseDownOnNavBtn} deviceType={this.state.deviceType}></NavDisplay>
-        );
-        const navLRComponent: JSX.Element = (
-            <NavigateLR
-                navIndex={this.state.navIndex}
-                handleClickLeft={this.handleClickLeft.bind(this)}
-                handleClickRight={this.handleClickRight.bind(this)}
-                handleMouseDown={this.handleMouseDown.bind(this)}
-                handleMouseUp={this.handleMouseUp.bind(this)}
-                handleMouseLeave={this.handleMouseLeave.bind(this)}
-                deviceType={this.state.deviceType}
-            ></NavigateLR>
-        );
-        let components: JSX.Element = (
+    getDesktopComponents(navDisplayComponent: JSX.Element, navLRComponent: JSX.Element): JSX.Element {
+        const components: JSX.Element = (
             <div>
                 <div style={rowElement}>
                     {navDisplayComponent}
@@ -126,35 +112,61 @@ export default class JukeBox extends Component<
                 </div>
             </div>
         );
-        if (this.state.deviceType === DEVICE_TYPES.MOBILE) {
-            components = (
-                <div style={{height: '100%'}}>
-                    <div style={rowElement}>
-                        {navDisplayComponent}
-                    </div>
-                    <div style={rowElement}>
-                        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3vw' }}>
-                            <div style={{ width: '80vw'}}>
-                                <img style={{ width: 'inherit', height: 'auto' }} src={plaque}/>
-                            </div>
-                        </div>
-                    </div>
-                    <div style={rowElement}>
-                        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3vw', position: 'absolute', bottom: '30vw' }}>
-                            {navLRComponent}
+        return components;
+    }
+
+    getMobileComponents(navDisplayComponent: JSX.Element, navLRComponent: JSX.Element): JSX.Element {
+        const components = (
+            <div style={{height: '100%'}}>
+                <div style={rowElement}>
+                    {navDisplayComponent}
+                </div>
+                <div style={rowElement}>
+                    <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3vw' }}>
+                        <div style={{ width: '80vw'}}>
+                            <img style={{ width: 'inherit', height: 'auto' }} src={plaque}/>
                         </div>
                     </div>
                 </div>
-            );
+                <div style={rowElement}>
+                    <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3vw', position: 'absolute', bottom: '30vw' }}>
+                        {navLRComponent}
+                    </div>
+                </div>
+            </div>
+        );
+        return components;
+    }
+
+    getComponents(): JSX.Element {
+        const navDisplayComponent: JSX.Element = (
+            <NavDisplay navIndex={this.state.navIndex} isMouseDownOnNavBtn={this.state.isMouseDownOnNavBtn} deviceType={this.state.deviceType}></NavDisplay>
+        );
+        const navLRComponent: JSX.Element = (
+            <NavigateLR
+                navIndex={this.state.navIndex}
+                handleClickLeft={this.handleClickLeft.bind(this)}
+                handleClickRight={this.handleClickRight.bind(this)}
+                handleMouseDown={this.handleMouseDown.bind(this)}
+                handleMouseUp={this.handleMouseUp.bind(this)}
+                handleMouseLeave={this.handleMouseLeave.bind(this)}
+                deviceType={this.state.deviceType}
+            ></NavigateLR>
+        );
+        let components: JSX.Element = (<div></div>);
+        if (this.state.deviceType === DEVICE_TYPES.MOBILE) {
+            components = this.getMobileComponents(navDisplayComponent, navLRComponent);
+        } else {
+            components = this.getDesktopComponents(navDisplayComponent, navLRComponent);
         }
         return components;
     }
 
     render() {
-        const JukeBoxComponents: JSX.Element = this.getComponents();
+        const components: JSX.Element = this.getComponents();
         return (
             <div style={{...outerWrapper, overflow: 'hidden'}}>
-                {JukeBoxComponents}
+                {components}
             </div>
         );
     }

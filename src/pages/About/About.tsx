@@ -31,7 +31,7 @@ export default class About extends Component<AboutProps, AboutState> {
         }
     }
 
-    render() {
+    getComponents(): JSX.Element {
         return (
             <div style={aboutStyle}>
                 <div style={outerWrapper}>
@@ -94,5 +94,10 @@ export default class About extends Component<AboutProps, AboutState> {
                 </div>
             </div>
         );
+    }
+
+    render() {
+        const components: JSX.Element = this.getComponents();
+        return (<div>{components}</div>);
     }
 }

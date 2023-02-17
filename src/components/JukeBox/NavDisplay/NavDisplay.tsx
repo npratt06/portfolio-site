@@ -112,9 +112,13 @@ export default class NavDisplay extends Component<
         }
     }
     
-    render() {
+    getComponents(): JSX.Element {
         this.setNavDisplayStringStyleDynamicValues(this.state.isMouseDownOnNavBtn);
-        const navDisplayStringStyleRendered = {...this.styleSet.navDisplayStringStyle, transition: `${this.navDisplayStringStyleDynamic.transition}`, opacity: `${this.navDisplayStringStyleDynamic.opacity}`} as React.CSSProperties;
+        const navDisplayStringStyleRendered = {
+            ...this.styleSet.navDisplayStringStyle,
+            transition: `${this.navDisplayStringStyleDynamic.transition}`,
+            opacity: `${this.navDisplayStringStyleDynamic.opacity}`
+        } as React.CSSProperties;
         return (
             <div style={this.styleSet.screenStyle}>
                 <img src={screenImg} alt='screenImg' style={this.styleSet.screenImgStyle} />
@@ -135,6 +139,11 @@ export default class NavDisplay extends Component<
                 </div>
             </div>
         );
+    }
+
+    render() {
+        const components = this.getComponents();
+        return (<div>{components}</div>);
     }
 }
 

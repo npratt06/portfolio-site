@@ -96,7 +96,7 @@ export default class PageLayout extends Component<
         // }
     }
 
-    render() {
+    getComponents(): JSX.Element {
         return (
             <HashRouter>
                 <Routes>
@@ -105,5 +105,10 @@ export default class PageLayout extends Component<
                 </Routes>
             </HashRouter>
         );
+    }
+
+    render() {
+        const components: JSX.Element = this.getComponents();
+        return (<div>{components}</div>);
     }
 }

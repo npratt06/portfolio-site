@@ -81,7 +81,7 @@ export const MyResumeContent: ResumeContent = {
                         'Improved people management and Agile skills while facilitating feature development and maintenance of the product',
                         'Drove code quality and testing improvement initiatives (test coverage increased by >50%)',
                         'Successfully managed high priority, fast-paced, multi-team product integrations',
-                        'Reduced company’s resource and vendor costs through various software enhancements (costs reduced by approximately $4,000,000 per year)'
+                        'Reduced company\'s resource and vendor costs through various software enhancements (costs reduced by approximately $4,000,000 per year)'
                     ]
                 }
             ]

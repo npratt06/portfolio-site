@@ -51,7 +51,7 @@ export default class NavigateLR extends Component<
         }
     }
 
-    render() {
+    getComponents(): JSX.Element {
         return (
             <div style={{ display: 'flex' }}>
                 <NavBtn
@@ -77,5 +77,10 @@ export default class NavigateLR extends Component<
                 />
             </div>
         );
+    }
+
+    render() {
+        const components: JSX.Element = this.getComponents();
+        return (<div>{components}</div>);
     }
 }

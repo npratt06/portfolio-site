@@ -56,7 +56,7 @@ export default class Projects extends Component<ProjectsProps, ProjectsState> {
         return projects;
     }
 
-    render() {
+    getComponents(): JSX.Element {
         return (
             <div style={projectsStyle}>
                 <div style={outerWrapper}>
@@ -74,5 +74,10 @@ export default class Projects extends Component<ProjectsProps, ProjectsState> {
                 </div>
             </div>
         );
+    }
+
+    render() {
+        const components: JSX.Element = this.getComponents();
+        return (<div>{components}</div>);
     }
 }
