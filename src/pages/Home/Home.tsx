@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import JukeBox from '../../components/JukeBox/JukeBox';
 import { homeStyle } from './Home.const';
 import { HomeProps, HomeState } from './Home.interface';
+import ZTest from '../../components/Zomboozled/ZTest';
 
 export default class Home extends Component<HomeProps, HomeState> {
 
@@ -28,7 +29,8 @@ export default class Home extends Component<HomeProps, HomeState> {
     }
 
     render() {
-        const components: JSX.Element = this.getComponents();
-        return (<div>{components}</div>);
+        // const components: JSX.Element = this.getComponents();
+        // return (<div>{components}</div>);
+        return (<div><ZTest></ZTest></div>);
     }
 }
