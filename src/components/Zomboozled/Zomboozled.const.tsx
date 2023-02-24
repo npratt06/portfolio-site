@@ -1,4 +1,3 @@
-export const CANVAS_ID = 'game-canvas';
 export const GAME_WRAPPER_ID = 'game-wrapper';
 //input keycodes
 export const KEY = {
