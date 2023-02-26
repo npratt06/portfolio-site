@@ -1,4 +1,9 @@
+import { Weapons } from "./Zomboozled.interface";
+
 export const GAME_WRAPPER_ID = 'game-wrapper';
+
+export const PLAYER_SPEED = 5;
+
 //input keycodes
 export const KEY = {
     BACKSPACE: 8,
@@ -27,7 +32,7 @@ export const GAME_STATES = {
     GAME_OVER: 3
 };
 
-export const WEAPONS = {
+export const WEAPONS: Weapons = {
     BAT : {
         id: 'bat',
         ammoString: 'AMMO: N/A',
@@ -51,7 +56,6 @@ export const WEAPONS = {
         shootingSpriteR: document.getElementById('twoPistolsFireR'),
     }
 };
-
 
 export const getRandomSpawnXY = (width: number, height: number, canvasWidth: number, canvasHeight: number) => {
     const pair = { x: 0, y: 0 }
