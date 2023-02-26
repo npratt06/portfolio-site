@@ -1,4 +1,4 @@
-import { WEAPONS } from "./Zomboozled.const";
+import { PLAYER_SPEED, WEAPONS } from "./Zomboozled.const";
 import { Weapon } from "./Zomboozled.interface";
 
 export default class Player {
@@ -10,7 +10,7 @@ export default class Player {
     degrees = 0;
 	width = 0;
 	height = 0;
-	image = document.getElementById('bat');
+	image: HTMLImageElement;
 	x: number;
 	y: number;
     killCount = 0;
@@ -18,15 +18,32 @@ export default class Player {
 	input = { up: false, down: false, left: false, right: false, space: false }
     
     constructor(width: number, height: number, x: number, y: number) {
-        console.log('Player created');
         this.width = width;
         this.height = height;
         this.x = x;
         this.y = y;
+        this.image = document.getElementById('bat') as HTMLImageElement;
+        console.log('Player created');
     }
-    
-    update(context: CanvasRenderingContext2D) {
-        const img = this.image as HTMLCanvasElement;
+
+    determineMovement(canvas: HTMLCanvasElement){
+        if(this.input.up&&this.y > 0){
+            this.y-=PLAYER_SPEED;
+        }
+        if(this.input.down&&this.y < canvas.height-this.height){
+            this.y+=PLAYER_SPEED;
+        }
+        if(this.input.left&&this.x > 0){
+            this.x-=PLAYER_SPEED;
+        }
+        if(this.input.right&&this.x < canvas.width-this.width){
+            this.x+=PLAYER_SPEED;
+        }
+    }
+
+    update(context: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
+        this.determineMovement(canvas);
+        const img = this.image as HTMLImageElement;
         if (!img) throw 'Error updating player, image was null';
         context.save(); 
         if(this.weapon.id=='bat') context.translate(this.x, this.y);
