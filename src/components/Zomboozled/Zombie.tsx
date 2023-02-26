@@ -1,5 +1,4 @@
 import Player from "./Player";
-import { GAME_STATES, getRandomSpawnXY } from "./Zomboozled.const";
 
 export default class Zombie {
     degrees = 0;
@@ -82,8 +81,6 @@ export default class Zombie {
         else collision = Math.abs(zx-px) < pw/2 && Math.abs(zy-py) < ph/2;
         if(collision){
             this.killedPlayer = true;
-            // player.dead = true;
-            // this.game.state = GAME_STATES.GAME_OVER;
         }
     }
 }
