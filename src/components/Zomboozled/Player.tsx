@@ -1,5 +1,6 @@
-import { PLAYER_SPEED, WEAPONS } from "./Zomboozled.const";
+import { playerHeight, playerWidth, PLAYER_SPEED, WEAPONS } from "./Zomboozled.const";
 import { Weapon } from "./Zomboozled.interface";
+import HUD from './HUD';
 
 export default class Player {
 
@@ -41,6 +42,26 @@ export default class Player {
         }
     }
 
+    checkForGunUpgrade (HUD: HUD) {
+        switch(this.killCount){
+            case 1:
+                this.width = playerWidth;
+                this.height = playerHeight;
+                this.weapon = WEAPONS.PISTOL;
+                HUD.ammoCount = this.weapon.ammoCount;
+                HUD.ammoString = this.weapon.ammoString;
+                HUD.upgrade = true;
+                break;                
+            case 3:
+                this.weapon = WEAPONS.TWOPISTOLS;
+                HUD.ammoCount = this.weapon.ammoCount;
+                HUD.ammoString = this.weapon.ammoString;
+                HUD.upgrade = true;
+                break;
+        }
+        return HUD;
+    }
+    
     update(context: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
         this.determineMovement(canvas);
         const img = this.image as HTMLImageElement;

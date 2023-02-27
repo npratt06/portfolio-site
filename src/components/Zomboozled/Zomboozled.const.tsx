@@ -4,6 +4,12 @@ export const GAME_WRAPPER_ID = 'game-wrapper';
 
 export const PLAYER_SPEED = 5;
 
+
+export const batWidth = 212;
+export const batHeight = 198;
+export const playerWidth = 100;
+export const playerHeight = 125;
+
 //input keycodes
 export const KEY = {
     BACKSPACE: 8,
@@ -37,23 +43,31 @@ export const WEAPONS: Weapons = {
         id: 'bat',
         ammoString: 'AMMO: N/A',
         ammoCount: 999999,
-        standingSprite: document.getElementById('bat'),
-        swingingSprite: document.getElementById('batSwing'),
+        standingSpriteImgID: 'bat',
+        swingingSpriteImgID: 'batSwing',
+        shootingSpriteImgID: '',
+        shootingSpriteLImgID: '',
+        shootingSpriteRImgID: ''
     },
     PISTOL : {
         id: 'pistol',
         ammoString: 'AMMO: | | | | | | ',
         ammoCount: 6,
-        standingSprite: document.getElementById('onePistol'),
-        shootingSprite: document.getElementById('onePistolFire'),
+        standingSpriteImgID: 'onePistol',
+        swingingSpriteImgID: '',
+        shootingSpriteImgID: 'onePistolFire',
+        shootingSpriteLImgID: '',
+        shootingSpriteRImgID: ''
     },
     TWOPISTOLS : {
         id: 'twoPistols',
         ammoString: 'AMMO: | | | | | | | | | | | | ',
         ammoCount: 12,
-        standingSprite: document.getElementById('twoPistols'),
-        shootingSpriteL: document.getElementById('twoPistolsFireL'),
-        shootingSpriteR: document.getElementById('twoPistolsFireR'),
+        standingSpriteImgID: 'twoPistols',
+        swingingSpriteImgID: '',
+        shootingSpriteImgID: '',
+        shootingSpriteLImgID: 'twoPistolsFireL',
+        shootingSpriteRImgID: 'twoPistolsFireR',
     }
 };
 

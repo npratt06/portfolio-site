@@ -11,9 +11,9 @@ export interface Weapon {
     id: string,
     ammoString: string,
     ammoCount: number,
-    standingSprite?: HTMLElement | null,
-    swingingSprite?: HTMLElement | null,
-    shootingSprite?: HTMLElement | null,
-    shootingSpriteL?: HTMLElement | null,
-    shootingSpriteR?: HTMLElement | null
+    standingSpriteImgID: string,
+    swingingSpriteImgID: string,
+    shootingSpriteImgID: string,
+    shootingSpriteLImgID: string,
+    shootingSpriteRImgID: string
 }

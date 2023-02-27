@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-this-alias */
 import Player from "./Player";
 import { GAME_STATES } from "./Zomboozled.const";
 
@@ -7,14 +8,17 @@ export default class HUD {
     upgrade = false;
     signCounter = -200;
     upgradeSignY = -200;
-    ammoString = '';
-    ammoCount = 0;
+    ammoString: string;
+    ammoCount: number;
 
     upgradeSignImg: HTMLImageElement;
 
-    constructor() {
+    constructor(player: Player, upgradeSignImg: HTMLImageElement) {
         console.log(`HUD created`);
-        this.upgradeSignImg = document.getElementById('upgradeSign') as HTMLImageElement;
+        this.ammoString = player.weapon.ammoString;
+        this.ammoCount = player.weapon.ammoCount;
+
+        this.upgradeSignImg = upgradeSignImg;
     }
 
     update(context: CanvasRenderingContext2D, canvas: HTMLCanvasElement, player: Player, gameState: number){

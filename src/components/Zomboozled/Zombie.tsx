@@ -21,13 +21,13 @@ export default class Zombie {
 
 	image: HTMLImageElement;
     
-    constructor(width: number, height: number, x: number, y: number, type: string) {
+    constructor(width: number, height: number, x: number, y: number, imgID: string, type: string) {
         console.log(`Zombie created`);
         this.width = width;
         this.height = height;
         this.x = x;
         this.y = y;
-        this.image = document.getElementById("crawlZomb0") as HTMLImageElement;
+        this.image = document.getElementById(imgID) as HTMLImageElement;
         this.type = type || 'ns';
     }
 
@@ -57,11 +57,11 @@ export default class Zombie {
         
         context.restore();
 
-        // if(this.shot) {
-        //     displayControls = false;
-        //     if(this.dead) context.drawImage(document.getElementById('splat'), this.cX-75, this.cY-75, 150, 150);
-        //     else context.drawImage(document.getElementById('splat'), this.cX-20, this.cY-20, 40, 40);            
-        // }
+        if(this.shot) {
+            // displayControls = false;
+            if(this.dead) context.drawImage(document.getElementById('splat') as HTMLImageElement, this.cX-75, this.cY-75, 150, 150);
+            else context.drawImage(document.getElementById('splat') as HTMLImageElement, this.cX-20, this.cY-20, 40, 40);            
+        }
     }
 
     findPlayer(player: Player) {
