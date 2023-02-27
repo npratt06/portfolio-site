@@ -4,7 +4,6 @@ export const GAME_WRAPPER_ID = 'game-wrapper';
 
 export const PLAYER_SPEED = 5;
 
-
 export const batWidth = 212;
 export const batHeight = 198;
 export const playerWidth = 100;

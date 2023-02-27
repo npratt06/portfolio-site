@@ -1,4 +1,4 @@
-import { MyPages } from '../components/JukeBox/NavDisplay/NavDisplay.const';
+import { MyPages, ZomboozledPage } from '../components/JukeBox/NavDisplay/NavDisplay.const';
 import Home from './Home/Home';
 import React, { Component } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { DEVICE_TYPES } from '../global.const';
 import About from './About/About';
 import Projects from './Projects/Projects';
 import Resume from './Resume/Resume';
+import Zomboozled from '../components/Zomboozled/Zomboozled';
 
 export default class PageLayout extends Component<
     PageLayoutProps,
@@ -24,6 +25,13 @@ export default class PageLayout extends Component<
                 />
             );
         });
+        pages.push(
+            <Route key={ZomboozledPage.key}
+                path={ZomboozledPage.linkPath}
+                element={ZomboozledPage.component}
+            />
+        );
+
         this.state = {
             pages,
             windowWidth: 0,
@@ -63,6 +71,13 @@ export default class PageLayout extends Component<
                     />
                 );
             });
+            const routeElement = <Zomboozled />;
+            updatedPages.push(
+                <Route key={ZomboozledPage.key}
+                    path={ZomboozledPage.linkPath}
+                    element={routeElement}
+                />
+            );
             this.setState({ pages: updatedPages, windowWidth: this.state.windowWidth, windowHeight: this.state.windowHeight, deviceType: this.state.deviceType })
         }
     }

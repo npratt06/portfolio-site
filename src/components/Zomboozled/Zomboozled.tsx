@@ -223,8 +223,8 @@ export default class Zomboozled extends Component {
     const self = this;
     this.canvas = canvasRef.current;
     if (!this.canvas) throw 'Error initializing canvas';
-    this.canvas.width = window.innerWidth - 4;
-    this.canvas.height = window.innerHeight - 4;
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
     this.canvas.addEventListener('mousemove', function (ev) { self.determinePlayerRotation(ev); });
     this.canvas.addEventListener('mousedown', function (ev) {
       self.shoot(ev);
@@ -254,8 +254,8 @@ export default class Zomboozled extends Component {
 
     window.addEventListener('resize', function () {
       self.canvas = self.getCanvas();
-      self.canvas.width = window.innerWidth - 4;
-      self.canvas.height = window.innerHeight - 4;
+      self.canvas.width = window.innerWidth;
+      self.canvas.height = window.innerHeight;
     });
 
     const playerX = (this.canvas.width / 2) - playerWidth / 2 - 35;
@@ -340,7 +340,7 @@ export default class Zomboozled extends Component {
 
   render() {
     return (
-      <div id={GAME_WRAPPER_ID}>
+      <div style={{ overflow: 'hidden', height: '100vh'}} id={GAME_WRAPPER_ID}>
         <div>
           <img id="onePistol" src={onePistol} style={{ display: 'none' }} />
           <img id="onePistolFire" src={onePistolFire} style={{ display: 'none' }} />

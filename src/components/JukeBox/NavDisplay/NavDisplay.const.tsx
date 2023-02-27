@@ -6,6 +6,7 @@ import Home from '../../../pages/Home/Home';
 import { textFontStyle } from '../../../globalCSS';
 import { DEVICE_TYPES } from '../../../global.const';
 import { StyleSets } from '../../componentHelpers';
+import Zomboozled from '../../Zomboozled/Zomboozled';
 
 // Pages --- start
 const OtherPages: PageInfo[] = [
@@ -28,6 +29,13 @@ const OtherPages: PageInfo[] = [
         component: <About deviceType={DEVICE_TYPES.DESKTOP}/>,
     },
 ];
+
+export const ZomboozledPage: PageInfo = {
+    key: 3,
+    linkPath: '/zomboozled',
+    displayString: 'Zomboozled',
+    component: <Zomboozled />,
+};
 
 export const MyPages: Pages = {
     home: {
