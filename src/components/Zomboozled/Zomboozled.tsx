@@ -153,7 +153,6 @@ export default class Zomboozled extends Component {
         this.fireDelay = true;
 
         // this.player.batSwingSound.play();
-        this.determineSprite('shooting', self);
         this.shotsFired();
         let timeout = 100;
         if (this.player.weapon.id == 'bat') timeout = 250;
@@ -167,6 +166,7 @@ export default class Zomboozled extends Component {
         for (let i = 0; i < this.zombies.length; i++) {
           this.checkShot(ev.clientX, ev.clientY, this.zombies[i], this.player);
         }
+        self.determineSprite('shooting', self);
       }
     }
   }
@@ -194,7 +194,7 @@ export default class Zomboozled extends Component {
     const midY = zombie.y + (zombie.height / 2);
     let shot = Math.abs(clickX - midX) < zombie.width / 2 && Math.abs(clickY - midY) < zombie.height / 2;
     const tmp = Math.abs((player.x + (player.width / 2)) - midX);
-    if (player.weapon.id == 'bat') shot = shot && tmp < 180;
+    if (player.weapon.id == 'bat') shot = shot && tmp < player.height * 1.3;
     if (shot) {
       // player.batSwingHitSound.play();
       zombie.health--;
@@ -318,10 +318,6 @@ export default class Zomboozled extends Component {
   resetGame() {
     this.canvas = this.getCanvas();
 
-    const batWidth = 212;
-    const batHeight = 198;
-    const playerWidth = 100;
-    const playerHeight = 125;
     const playerX = (this.canvas.width / 2) - playerWidth / 2 - 35;
     const playerY = (this.canvas.height / 2) - (playerHeight / 2) + 20;
     this.player = new Player(batWidth, batHeight, playerX, playerY);

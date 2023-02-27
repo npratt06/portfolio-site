@@ -9,8 +9,8 @@ export default class Player {
     weapon: Weapon = WEAPONS.BAT;
     swinging = false;
     degrees = 0;
-	width = 0;
-	height = 0;
+	width;
+	height;
 	image: HTMLImageElement;
 	x: number;
 	y: number;
@@ -66,19 +66,34 @@ export default class Player {
         this.determineMovement(canvas);
         const img = this.image as HTMLImageElement;
         if (!img) throw 'Error updating player, image was null';
-        context.save(); 
+        context.save();
         if(this.weapon.id=='bat') context.translate(this.x, this.y);
         else context.translate(this.x, this.y); 
         
         context.translate(this.width/2, this.height/2); 
         
-        context.rotate(this.degrees*Math.PI/180); 
-        if(this.weapon.id=='bat') context.drawImage(img, -this.width/2, (-this.height/2)-100, this.width, this.height);
-        else context.drawImage(img, -this.width/2, -this.height/2, this.width, this.height);
+        context.rotate(this.degrees*Math.PI/180);
+
+        let w = this.width;
+        let h = this.height;
+        let x = -this.width/2;
+        let y = -this.height/2;
+        if(this.weapon.id=='bat') {
+            if (this.swinging) {
+                w *= 0.48;
+                h -= 0;
+                console.log(x)
+                x += (Math.abs(x) * 0.53);
+            }
+            y -= 100;
+            context.drawImage(img, x, y, w, h);
+        } else {
+            context.drawImage(img, x, y, w, h);
+        }
         // context.strokeStyle = '#ff0000';
-        // context.strokeRect(-this.width/2, -this.height/2, this.width, this.height);
+        // context.strokeRect(x, y, w, h);
         // context.strokeStyle = '#ff0000';
-        // context.strokeRect(-this.width/2, -this.height/2, 4, 4);
+        // context.strokeRect(x + (w / 2) - 10, y + (h / 2) - 10, 20, 20);
 
         context.restore();
     }

@@ -20,7 +20,7 @@ export default class Zombie {
     killedPlayer = false;
 
 	image: HTMLImageElement;
-    
+
     constructor(width: number, height: number, x: number, y: number, imgID: string, type: string) {
         console.log(`Zombie created`);
         this.width = width;
@@ -51,10 +51,16 @@ export default class Zombie {
         
         context.translate(this.width/2, this.height/2); 
         
-        context.rotate(this.degrees*Math.PI/180); 
+        context.rotate(this.degrees*Math.PI/180);
         
-        context.drawImage(this.image, -this.width/2, -this.height/2, this.width, this.height); 
-        
+        context.drawImage(this.image, -this.width/2, -this.height/2, this.width, this.height);
+
+        // context.strokeStyle = '#ff0000';
+        // context.strokeRect(-this.width/2, -this.height/2, this.width, this.height);
+
+        // context.strokeStyle = '#ffff00';
+        // context.strokeRect(-10, -10, 20, 20);
+
         context.restore();
 
         if(this.shot) {
@@ -76,9 +82,12 @@ export default class Zombie {
         const px = player.x+(player.width/2);
         const py = player.y+(player.height/2);
         this.degrees = Math.atan2(px - zx,-(py - zy) )*(180/Math.PI);
-        let collision;
-        if (player.weapon.id=='bat') collision = Math.abs(zx-px) < pw/2 && Math.abs(zy-py) < (ph/2) ;
-        else collision = Math.abs(zx-px) < pw/2 && Math.abs(zy-py) < ph/2;
+        // if (player.weapon.id === WEAPONS.BAT.id) {
+        //     py += ph * 0.5;
+        // }
+        // let collision;
+        // if (player.weapon.id=='bat') collision = Math.abs(zx-px) < pw/2 && Math.abs(zy-py) < (ph/2);
+        const collision = Math.abs(zx-px) < pw/2 && Math.abs(zy-py) < (ph/2);
         if(collision){
             this.killedPlayer = true;
         }
