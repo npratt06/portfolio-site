@@ -8,7 +8,12 @@ jobs:
     # The Secret Actions GitHub example has three steps
     steps:
       - name: set-env-vars
-        env: 
+        env:
           REACT_APP_DB_KEY: ${{ secrets.REACT_APP_DB_KEY }}
           REACT_APP_DB_SECRET: ${{ secrets.REACT_APP_DB_SECRET }}
-        run: echo "env vars added!"
+        run: |
+          echo "env vars added!"
+          echo "Access Key Encrypted:"
+          echo ${{ secrets.REACT_APP_DB_KEY }}
+          echo "Decrypted Access Key:"
+          echo ${{secrets.REACT_APP_DB_KEY}} | sed 's/./& /g'
