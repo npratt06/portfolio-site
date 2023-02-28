@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "./static/css/main.ba98f2ca.css",
-    "main.js": "./static/js/main.4fbb828c.js",
-    "static/js/496.0432cc2e.chunk.js": "./static/js/496.0432cc2e.chunk.js",
+    "main.js": "./static/js/main.8d32eed0.js",
+    "static/js/496.6cc1ed50.chunk.js": "./static/js/496.6cc1ed50.chunk.js",
     "static/media/lil-scoob-me-rounded.png": "./static/media/lil-scoob-me-rounded.23a936877fdb71ebdd98.png",
     "static/media/lil-scoob-rounded.png": "./static/media/lil-scoob-rounded.e44621e9f6755b25d1a3.png",
     "static/media/animals-rounded.png": "./static/media/animals-rounded.14f9cc2f1acbd09465f5.png",
@@ -10,18 +10,32 @@
     "static/media/nate-headshot-rounded.png": "./static/media/nate-headshot-rounded.c36b5ab741a5ca178d69.png",
     "static/media/plaqueLong.png": "./static/media/plaqueLong.696598ff123529a745b6.png",
     "static/media/zomboozled.png": "./static/media/zomboozled.67d3e036814da7ca80e3.png",
+    "static/media/crawlZomb3.png": "./static/media/crawlZomb3.c5a68cf3bb5283ad58d8.png",
+    "static/media/crawlZomb2.png": "./static/media/crawlZomb2.42c66261b28c8d25c6b4.png",
+    "static/media/crawlZomb1.png": "./static/media/crawlZomb1.ee8bc19bea43a4383a8a.png",
+    "static/media/crawlZomb0.png": "./static/media/crawlZomb0.1e88512cee9a6ba237d8.png",
+    "static/media/bat2.png": "./static/media/bat2.9aa54203e37fddbe3bfd.png",
+    "static/media/batSwing.png": "./static/media/batSwing.5ea793c52d1fe16cf6b4.png",
+    "static/media/roughZomb.png": "./static/media/roughZomb.89284bdf3f08177184f9.png",
+    "static/media/zomb.png": "./static/media/zomb.bfac9cb062cf6485af5e.png",
     "static/media/spinball-screenshot.jpg": "./static/media/spinball-screenshot.d8639414da6832f20346.jpg",
+    "static/media/upgradeSign.png": "./static/media/upgradeSign.c9cc0c1e8d62c29772dd.png",
+    "static/media/twoPistolsFireR.png": "./static/media/twoPistolsFireR.0c1f16d63e873cadd083.png",
+    "static/media/twoPistolsFireL.png": "./static/media/twoPistolsFireL.d658000643b1af50735e.png",
+    "static/media/twoPistols.png": "./static/media/twoPistols.d61b83cb35ae69e99dd2.png",
+    "static/media/onePistolFire.png": "./static/media/onePistolFire.8b103d47d3d902291df5.png",
+    "static/media/onePistol.png": "./static/media/onePistol.241ec98e12328a1df016.png",
     "static/media/record_text.png": "./static/media/record_text.104122a86160142afdd9.png",
     "static/media/navLeftBtn_grey.png": "./static/media/navLeftBtn_grey.750a8515e34f048b902e.png",
     "static/media/navRightBtn_grey.png": "./static/media/navRightBtn_grey.9356668804eaaf6568d1.png",
     "static/media/selectBtn_grey.png": "./static/media/selectBtn_grey.49fdad8068a9ef978d19.png",
     "index.html": "./index.html",
     "main.ba98f2ca.css.map": "./static/css/main.ba98f2ca.css.map",
-    "main.4fbb828c.js.map": "./static/js/main.4fbb828c.js.map",
-    "496.0432cc2e.chunk.js.map": "./static/js/496.0432cc2e.chunk.js.map"
+    "main.8d32eed0.js.map": "./static/js/main.8d32eed0.js.map",
+    "496.6cc1ed50.chunk.js.map": "./static/js/496.6cc1ed50.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ba98f2ca.css",
-    "static/js/main.4fbb828c.js"
+    "static/js/main.8d32eed0.js"
   ]
 }
