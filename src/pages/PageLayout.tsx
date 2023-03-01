@@ -71,7 +71,7 @@ export default class PageLayout extends Component<
                     />
                 );
             });
-            const routeElement = <Zomboozled />;
+            const routeElement = <Zomboozled deviceType={this.state.deviceType} />;
             updatedPages.push(
                 <Route key={ZomboozledPage.key}
                     path={ZomboozledPage.linkPath}

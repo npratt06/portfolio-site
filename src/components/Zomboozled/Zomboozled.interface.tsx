@@ -1,6 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ZomboozledProps {
+export interface ZomboozledState {
+    gameOver: boolean;
+    deviceType: string;
+}
 
+export interface ZomboozledProps {
+    deviceType: string
 }
 
 export interface Weapons {

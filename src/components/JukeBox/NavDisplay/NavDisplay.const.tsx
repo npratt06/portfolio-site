@@ -34,7 +34,7 @@ export const ZomboozledPage: PageInfo = {
     key: 3,
     linkPath: '/zomboozled',
     displayString: 'Zomboozled',
-    component: <Zomboozled />,
+    component: <Zomboozled deviceType={DEVICE_TYPES.DESKTOP}/>,
 };
 
 export const MyPages: Pages = {

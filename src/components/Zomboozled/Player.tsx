@@ -82,7 +82,6 @@ export default class Player {
             if (this.swinging) {
                 w *= 0.48;
                 h -= 0;
-                console.log(x)
                 x += (Math.abs(x) * 0.53);
             }
             y -= 100;

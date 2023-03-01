@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import Player from './Player';
 import { batHeight, batWidth, GAME_STATES, GAME_WRAPPER_ID, getRandomSpawnXY, KEY, playerHeight, playerWidth, PLAYER_SPEED } from './Zomboozled.const';
-import { ZomboozledProps } from './Zomboozled.interface';
+import { ZomboozledProps, ZomboozledState } from './Zomboozled.interface';
 import Zombie from './Zombie';
 import HUD from './HUD';
 
@@ -21,8 +21,11 @@ import zomb from './images/zomb.png';
 import roughZomb from './images/roughZomb.png';
 import splat from './images/splat.png';
 import upgradeSign from './images/upgradeSign.png';
+import HighScores from './HighScores';
+import { DEVICE_TYPES } from '../../global.const';
+import { backgroundColorStyle } from '../../globalCSS';
 
-export default class Zomboozled extends Component {
+export default class Zomboozled extends Component<ZomboozledProps, ZomboozledState> {
 
   componentMounted = false;
   canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -40,7 +43,7 @@ export default class Zomboozled extends Component {
 
   constructor(props: ZomboozledProps) {
     super(props);
-     console.log(`constructor called!`)
+    console.log(`constructor called!`)
     this.canvasRef = React.createRef();
     this.canvas = null;
     this.gameState = GAME_STATES.START;
@@ -48,6 +51,10 @@ export default class Zomboozled extends Component {
     this.player = new Player(0, 0, 0, 0);
     this.zombies = [];
     this.HUD = new HUD(this.player, document.getElementById('') as HTMLImageElement);
+    this.state = {
+      deviceType: DEVICE_TYPES.DESKTOP,
+      gameOver: false
+    };
 
     const self = this;
     document.addEventListener('keydown', function (ev) { return self.onkey(self, ev, ev.keyCode, true); }, false);
@@ -61,6 +68,16 @@ export default class Zomboozled extends Component {
       this.initializeCanvas(this.canvasRef);
       this.initializeGame();
       this.startGame();
+    }
+  }
+
+  componentDidUpdate(prevProps: Readonly<ZomboozledProps>, prevState: Readonly<ZomboozledState>): void {
+    if (this.props.deviceType !== prevProps.deviceType) {
+      const deviceType = this.props.deviceType;
+      this.setState({ deviceType });
+    }
+    if (this.state.gameOver !== prevState.gameOver) {
+      this.setState({ gameOver: this.state.gameOver });
     }
   }
 
@@ -145,7 +162,7 @@ export default class Zomboozled extends Component {
   }
 
   shoot(ev: MouseEvent) {
-     const self = this;
+    const self = this;
 
     ev.preventDefault();
     if (ev.button == 0 && this.gameState == GAME_STATES.IN_GAME) {
@@ -158,7 +175,7 @@ export default class Zomboozled extends Component {
         if (this.player.weapon.id == 'bat') timeout = 250;
         setTimeout(() => {
           self.determineSprite('standing', self);
-          if ((!self.HUD.upgrade || self.HUD.ammoString!='AMMO: N/A') && self.HUD.ammoCount != 0) self.fireDelay = false;
+          if ((!self.HUD.upgrade || self.HUD.ammoString != 'AMMO: N/A') && self.HUD.ammoCount != 0) self.fireDelay = false;
           for (let i = 0; i < self.zombies.length; i++) {
             self.zombies[i].shot = false;
           }
@@ -173,18 +190,18 @@ export default class Zomboozled extends Component {
 
   shotsFired() {
     const self = this;
-    if(this.HUD.ammoString!='AMMO: N/A'){
-        this.HUD.ammoString = this.HUD.ammoString.slice(0,this.HUD.ammoString.length-2);
-        this.HUD.ammoCount--;
-        if(this.HUD.ammoCount==0){
-          this.HUD.ammoString = 'AMMO: RELOADING';
-            this.fireDelay = true;
-            setTimeout(() => { 
-                self.HUD.ammoString = self.player.weapon.ammoString;
-                self.fireDelay = false;
-                self.HUD.ammoCount = self.player.weapon.ammoCount;
-            }, 1000);
-        }
+    if (this.HUD.ammoString != 'AMMO: N/A') {
+      this.HUD.ammoString = this.HUD.ammoString.slice(0, this.HUD.ammoString.length - 2);
+      this.HUD.ammoCount--;
+      if (this.HUD.ammoCount == 0) {
+        this.HUD.ammoString = 'AMMO: RELOADING';
+        this.fireDelay = true;
+        setTimeout(() => {
+          self.HUD.ammoString = self.player.weapon.ammoString;
+          self.fireDelay = false;
+          self.HUD.ammoCount = self.player.weapon.ammoCount;
+        }, 1000);
+      }
     }
   }
 
@@ -304,6 +321,7 @@ export default class Zomboozled extends Component {
         if (zombie.killedPlayer) {
           this.player.dead = true;
           this.gameState = GAME_STATES.GAME_OVER;
+          this.setState({gameOver: true});
         }
         // zombie died
         if (zombie.dead) {
@@ -327,7 +345,7 @@ export default class Zomboozled extends Component {
 
     const upgradeSignImg = document.getElementById('upgradeSign') as HTMLImageElement;
     this.HUD = new HUD(this.player, upgradeSignImg);
-    
+
     this.HUD.displayControls = false;
     this.gameState = GAME_STATES.IN_GAME;
   }
@@ -338,28 +356,46 @@ export default class Zomboozled extends Component {
     context.clearRect(0, 0, canvas.width, canvas.height);
   }
 
-  render() {
-    return (
-      <div style={{ overflow: 'hidden', height: '100vh'}} id={GAME_WRAPPER_ID}>
-        <div>
-          <img id="onePistol" src={onePistol} style={{ display: 'none' }} />
-          <img id="onePistolFire" src={onePistolFire} style={{ display: 'none' }} />
-          <img id="twoPistols" src={twoPistols} style={{ display: 'none' }} />
-          <img id="twoPistolsFireL" src={twoPistolsFireL} style={{ display: 'none' }} />
-          <img id="twoPistolsFireR" src={twoPistolsFireR} style={{ display: 'none' }} />
-          <img id="bat" src={bat} style={{ display: 'none' }} />
-          <img id="batSwing" src={batSwing} style={{ display: 'none' }} />
-          <img id="crawlZomb0" src={crawlZomb0} style={{ display: 'none' }} />
-          <img id="crawlZomb1" src={crawlZomb1} style={{ display: 'none' }} />
-          <img id="crawlZomb2" src={crawlZomb2} style={{ display: 'none' }} />
-          <img id="crawlZomb3" src={crawlZomb3} style={{ display: 'none' }} />
-          <img id="zomb" src={zomb} style={{ display: 'none' }} />
-          <img id="roughZomb" src={roughZomb} style={{ display: 'none' }} />
-          <img id="splat" src={splat} style={{ display: 'none' }} />
-          <img id="upgradeSign" src={upgradeSign} style={{ display: 'none' }} />
+  getComponents() {
+    let components;
+    if (this.state && this.state.gameOver) {
+      // window.removeEventListener('keydown', this.keyDownListener);
+      // window.removeEventListener('keyup', this.keyUpListener);
+      const finalScore = this.player.killCount;
+      components = (<HighScores newScore={finalScore}></HighScores>);
+    } else {
+      components = (
+        <div style={{ overflow: 'hidden', height: '100vh' }} id={GAME_WRAPPER_ID}>
+          <div>
+            <img id="onePistol" src={onePistol} style={{ display: 'none' }} />
+            <img id="onePistolFire" src={onePistolFire} style={{ display: 'none' }} />
+            <img id="twoPistols" src={twoPistols} style={{ display: 'none' }} />
+            <img id="twoPistolsFireL" src={twoPistolsFireL} style={{ display: 'none' }} />
+            <img id="twoPistolsFireR" src={twoPistolsFireR} style={{ display: 'none' }} />
+            <img id="bat" src={bat} style={{ display: 'none' }} />
+            <img id="batSwing" src={batSwing} style={{ display: 'none' }} />
+            <img id="crawlZomb0" src={crawlZomb0} style={{ display: 'none' }} />
+            <img id="crawlZomb1" src={crawlZomb1} style={{ display: 'none' }} />
+            <img id="crawlZomb2" src={crawlZomb2} style={{ display: 'none' }} />
+            <img id="crawlZomb3" src={crawlZomb3} style={{ display: 'none' }} />
+            <img id="zomb" src={zomb} style={{ display: 'none' }} />
+            <img id="roughZomb" src={roughZomb} style={{ display: 'none' }} />
+            <img id="splat" src={splat} style={{ display: 'none' }} />
+            <img id="upgradeSign" src={upgradeSign} style={{ display: 'none' }} />
+          </div>
+          <canvas ref={this.canvasRef} style={{ backgroundColor: backgroundColorStyle.backgroundColor, cursor: 'crosshair' }}></canvas>
         </div>
-        <canvas ref={this.canvasRef} style={{ backgroundColor: '#333333', cursor: 'crosshair' }}></canvas>
+      );
+    }
+    return components;
+  }
+
+  render() {
+    const components = this.getComponents();
+    return (
+      <div>
+        {components}
       </div>
-    )
+    );
   }
 }
