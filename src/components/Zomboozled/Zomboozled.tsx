@@ -28,7 +28,6 @@ import { backgroundColorStyle } from '../../globalCSS';
 export default class Zomboozled extends Component<ZomboozledProps, ZomboozledState> {
 
   componentMounted = false;
-  canvasRef: React.RefObject<HTMLCanvasElement>;
   canvas: HTMLCanvasElement | null;
   gameState: number;
   frame = 0;
@@ -44,7 +43,6 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
   constructor(props: ZomboozledProps) {
     super(props);
     console.log(`constructor called!`)
-    this.canvasRef = React.createRef();
     this.canvas = null;
     this.gameState = GAME_STATES.START;
     this.interval = null;
@@ -65,7 +63,7 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
     console.log(`component mounted!`);
     if (!this.componentMounted) {
       this.componentMounted = true;
-      this.initializeCanvas(this.canvasRef);
+      this.initializeCanvas();
       this.initializeGame();
       this.startGame();
     }
@@ -77,41 +75,45 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
       this.setState({ deviceType });
     }
     if (this.state.gameOver !== prevState.gameOver) {
-      this.setState({ gameOver: this.state.gameOver });
+      if (!this.state.gameOver) {
+        this.resetGame();
+      }
     }
   }
 
   onkey(self: Zomboozled, ev: KeyboardEvent, key: number, pressed: boolean) {
-    switch (key) {
-      case KEY.W: {
-        self.player.input.up = pressed;
-        ev.preventDefault();
-        break;
-      }
-      case KEY.S: {
-        self.player.input.down = pressed;
-        ev.preventDefault();
-        break;
-      }
-      case KEY.A: {
-        self.player.input.left = pressed;
-        ev.preventDefault();
-        break;
-      }
-      case KEY.D: {
-        self.player.input.right = pressed;
-        ev.preventDefault();
-        break;
-      }
-      case KEY.SPACE: {
-        self.player.input.space = pressed;
-        ev.preventDefault();
-        if (!pressed && self.gameState === GAME_STATES.START) {
-          self.gameState = GAME_STATES.IN_GAME;
-        } else if (!pressed && self.gameState === GAME_STATES.GAME_OVER) {
-          self.resetGame();
+    if (this.gameState !== GAME_STATES.GAME_OVER) {
+      switch (key) {
+        case KEY.W: {
+          self.player.input.up = pressed;
+          ev.preventDefault();
+          break;
         }
-        break;
+        case KEY.S: {
+          self.player.input.down = pressed;
+          ev.preventDefault();
+          break;
+        }
+        case KEY.A: {
+          self.player.input.left = pressed;
+          ev.preventDefault();
+          break;
+        }
+        case KEY.D: {
+          self.player.input.right = pressed;
+          ev.preventDefault();
+          break;
+        }
+        case KEY.SPACE: {
+          self.player.input.space = pressed;
+          ev.preventDefault();
+          if (!pressed && self.gameState === GAME_STATES.START) {
+            self.gameState = GAME_STATES.IN_GAME;
+          } else if (!pressed && self.gameState === GAME_STATES.GAME_OVER) {
+            self.resetGame();
+          }
+          break;
+        }
       }
     }
   }
@@ -236,18 +238,16 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
     }
   }
 
-  initializeCanvas(canvasRef: React.RefObject<HTMLCanvasElement>) {
+  initializeCanvas() {
     const self = this;
-    this.canvas = canvasRef.current;
+    this.canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
     if (!this.canvas) throw 'Error initializing canvas';
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
-    this.canvas.addEventListener('mousemove', function (ev) { self.determinePlayerRotation(ev); });
-    this.canvas.addEventListener('mousedown', function (ev) {
-      self.shoot(ev);
-    });
-    this.canvas.addEventListener('contextmenu', function (ev) { ev.preventDefault(); return false; });
-    this.canvas.addEventListener('onDrag', function (ev) { ev.preventDefault(); });
+    this.canvas.addEventListener('mousemove', function (ev) { if (self.gameState !== GAME_STATES.GAME_OVER) self.determinePlayerRotation(ev); });
+    this.canvas.addEventListener('mousedown', function (ev) { if (self.gameState !== GAME_STATES.GAME_OVER) self.shoot(ev); });
+    this.canvas.addEventListener('contextmenu', function (ev) { if (self.gameState !== GAME_STATES.GAME_OVER) ev.preventDefault(); return false; });
+    this.canvas.addEventListener('onDrag', function (ev) { if (self.gameState !== GAME_STATES.GAME_OVER) ev.preventDefault(); });
   }
 
   getCanvas() {
@@ -270,17 +270,20 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
     this.canvas = this.getCanvas();
 
     window.addEventListener('resize', function () {
-      self.canvas = self.getCanvas();
-      self.canvas.width = window.innerWidth;
-      self.canvas.height = window.innerHeight;
+      if (self.gameState !== GAME_STATES.GAME_OVER) {
+        self.canvas = self.getCanvas();
+        self.canvas.width = window.innerWidth;
+        self.canvas.height = window.innerHeight;
+      }
     });
 
     const playerX = (this.canvas.width / 2) - playerWidth / 2 - 35;
     const playerY = (this.canvas.height / 2) - (playerHeight / 2) + 20;
     this.player = new Player(batWidth, batHeight, playerX, playerY);
 
+    const pair = getRandomSpawnXY(this.player.width, this.player.height, this.canvas.width, this.canvas.height);
     this.zombies = [];
-    this.zombies.push(new Zombie(playerWidth - 13, playerHeight + 55, 300, 300, 'crawlZomb0', 'crawl'));
+    this.zombies.push(new Zombie(playerWidth - 13, playerHeight + 55, pair.x, pair.y, 'crawlZomb0', 'crawl'));
 
     const upgradeSignImg = document.getElementById('upgradeSign') as HTMLImageElement;
     this.HUD = new HUD(this.player, upgradeSignImg);
@@ -334,14 +337,20 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
   }
 
   resetGame() {
+    this.initializeCanvas();
     this.canvas = this.getCanvas();
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+    this.clearContext();
 
     const playerX = (this.canvas.width / 2) - playerWidth / 2 - 35;
     const playerY = (this.canvas.height / 2) - (playerHeight / 2) + 20;
     this.player = new Player(batWidth, batHeight, playerX, playerY);
 
+    
+    const pair = getRandomSpawnXY(this.player.width, this.player.height, this.canvas.width, this.canvas.height);
     this.zombies = [];
-    this.zombies.push(new Zombie(playerWidth - 13, playerHeight + 55, 300, 300, 'crawlZomb0', 'crawl'));
+    this.zombies.push(new Zombie(playerWidth - 13, playerHeight + 55, pair.x, pair.y, 'crawlZomb0', 'crawl'));
 
     const upgradeSignImg = document.getElementById('upgradeSign') as HTMLImageElement;
     this.HUD = new HUD(this.player, upgradeSignImg);
@@ -356,14 +365,20 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
     context.clearRect(0, 0, canvas.width, canvas.height);
   }
 
+  playAgainHandler() {
+    console.log(`set game state called!`)
+    this.setState({ gameOver: false });
+  }
+
   getComponents() {
     let components;
+    console.log(`get components called: gameOver? ${this.state.gameOver}`)
     if (this.state && this.state.gameOver) {
-      // window.removeEventListener('keydown', this.keyDownListener);
-      // window.removeEventListener('keyup', this.keyUpListener);
+      console.log(`switching to high scores component`)
       const finalScore = this.player.killCount;
-      components = (<HighScores newScore={finalScore}></HighScores>);
+      components = (<HighScores playAgainHandler={this.playAgainHandler.bind(this)} newScore={finalScore}></HighScores>);
     } else {
+      console.log(`switching to game component`)
       components = (
         <div style={{ overflow: 'hidden', height: '100vh' }} id={GAME_WRAPPER_ID}>
           <div>
@@ -383,7 +398,7 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
             <img id="splat" src={splat} style={{ display: 'none' }} />
             <img id="upgradeSign" src={upgradeSign} style={{ display: 'none' }} />
           </div>
-          <canvas ref={this.canvasRef} style={{ backgroundColor: backgroundColorStyle.backgroundColor, cursor: 'crosshair' }}></canvas>
+          <canvas id='gameCanvas' style={{ backgroundColor: backgroundColorStyle.backgroundColor, cursor: 'crosshair' }}></canvas>
         </div>
       );
     }

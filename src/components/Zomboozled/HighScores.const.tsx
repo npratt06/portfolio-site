@@ -1,8 +1,11 @@
 import { backgroundColorStyle, textFontStyle } from "../../globalCSS";
 
 export const highScoresStyle: React.CSSProperties = {
+    display: 'flex',
     ...backgroundColorStyle,
-    overflow: 'auto',
+    overflow: 'hidden',
     ...textFontStyle,
-    minHeight: '100vh'
+    height: '100vh'
 };
+
+export const DEFAULT_HIGH_SCORE_NAME = '?????';

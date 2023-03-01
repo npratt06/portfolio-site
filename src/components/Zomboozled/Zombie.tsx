@@ -47,7 +47,7 @@ export default class Zombie {
 
         context.save();
 
-        context.translate(this.x, this.y); 
+        context.translate(this.x, this.y);
         
         context.translate(this.width/2, this.height/2); 
         

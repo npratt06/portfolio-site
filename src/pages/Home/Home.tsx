@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import JukeBox from '../../components/JukeBox/JukeBox';
 import { homeStyle } from './Home.const';
 import { HomeProps, HomeState } from './Home.interface';
-import Zomboozled from './../../components/Zomboozled/Zomboozled';
 
 export default class Home extends Component<HomeProps, HomeState> {
 
@@ -29,8 +28,7 @@ export default class Home extends Component<HomeProps, HomeState> {
     }
 
     render() {
-        // const components: JSX.Element = this.getComponents();
-        // return (<div>{components}</div>);
-        return <Zomboozled deviceType={this.state.deviceType} />;
+        const components: JSX.Element = this.getComponents();
+        return (<div>{components}</div>);
     }
 }
