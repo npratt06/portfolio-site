@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Nate's Portfolio Site
+
+This website was built with the intention of both learning React and producing a professional portfolio that others can easily access. This site contains a resume, projects, and about me page. One of the projects (Zomboozled) listed on the project page was re-written for React and is playable within the site! The site also communicates with an AWS Dynamo DB database for storing high scores for Zomboozled.
+
+# Default React README
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
