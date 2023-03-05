@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-this-alias */
 import React, { Component, MouseEventHandler } from 'react'
 import Dynamo from '../../database/Dynamo';
@@ -10,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 export default class HighScores extends Component<HighScoresProps, HighScoresState> {
 
-    dbClient: Dynamo = new Dynamo();
+    dbClient: Dynamo | null;
 
     handlePlayAgainBtnClick: MouseEventHandler<HTMLButtonElement>;
 
@@ -31,6 +32,13 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
             newScore,
             scoreSubmitted: false
         };
+
+        try {
+            this.dbClient = new Dynamo();
+        } catch(err) {
+            console.log(`Error occurred setting up db connection: ${err}`);
+            this.dbClient = null;
+        }
     }
 
     onInputChange(ev: React.ChangeEvent<HTMLInputElement>) {
@@ -49,9 +57,15 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
     }
 
     async componentDidMount() {
-        if (this.state.scores.length < 1) {
-            const updatedScores = await this.getUpdatedScoreList();
-            this.setState({ scores: updatedScores });
+        if (this.dbClient && this.state.scores.length < 1) {
+            try {
+                const updatedScores = await this.getUpdatedScoreList();
+                this.setState({ scores: updatedScores });
+            } catch(err) {
+                console.log(`Error occurred querying the db: ${err}`);
+                this.dbClient = null;
+                this.setState({ scores: [] });
+            }
         }
     }
 
@@ -91,7 +105,7 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
             Item: newHighScoreItem
         };
 
-        this.dbClient.insert(insertParams);
+        this.dbClient!.insert(insertParams);
         this.setState({ scoreSubmitted: true });
     }
 
@@ -99,7 +113,7 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
         const params = {
             TableName: 'zomb-scores'
         }
-        const existingScores = await this.dbClient.getAll(params);
+        const existingScores = await this.dbClient!.getAll(params);
         if (!existingScores) throw 'Error retrieving high scores from database';
         return existingScores;
     }
@@ -147,27 +161,41 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
 
     getComponents() {
         let scoreboardComponents = (
-            <div>Fetching High Scores...</div>
+            <div style={rowElement}>
+                <div>Fetching High Scores...</div>
+            </div>
         );
-        if (this.state.scores.length > 0) {
+        if (!this.dbClient) {
+            scoreboardComponents = (
+                <div style={rowElement}>
+                    <div>Unable to fetch high scores</div>
+                </div>
+            );
+        } else if (this.state.scores.length > 0) {
             const scoreListItems = this.getScoreListItems(this.state.scores);
             const inputComponents = this.getInputComponents();
             scoreboardComponents = (
-                <div style={{width: '100vw'}}>
+                <div>
                     <div style={rowElement}>
                         <ol>
                             {scoreListItems}
                         </ol>
                     </div>
                     {inputComponents}
-                    <div style={rowElement}>
-                            <button style={{ color: '#000000' }} onClick={this.handlePlayAgainBtnClick.bind(this)}>
-                                Play Again
-                            </button>
-                    </div>
                 </div>
             );
         }
+        
+        const highScoreComponents = (
+            <div style={{width: '100vw'}}>
+                {scoreboardComponents}
+                <div style={{...rowElement, marginTop: '3vw'}}>
+                    <button style={{ color: '#000000' }} onClick={this.handlePlayAgainBtnClick.bind(this)}>
+                        Play Again
+                    </button>
+                </div>
+            </div>
+        );
 
         return (
             <div style={highScoresStyle}>
@@ -177,7 +205,7 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
                     </div>
                     <div style={{display: 'flex', flexWrap: 'wrap', width: '100%', height: '100vh', alignItems: 'center'}}>
                         <div style={rowElement}>
-                            {scoreboardComponents}
+                            {highScoreComponents}
                         </div>
                     </div>
                 </div>
