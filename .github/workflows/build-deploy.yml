@@ -19,8 +19,7 @@ jobs:
         npm install
         npm run-script build
       env:
-        REACT_APP_DB_KEY: ${{ secrets.REACT_APP_DB_KEY }}
-        REACT_APP_DB_SECRET: ${{ secrets.REACT_APP_DB_SECRET }}
+        REACT_APP_POOL_ID: ${{ secrets.REACT_APP_POOL_ID }}
 
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
