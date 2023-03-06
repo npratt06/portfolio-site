@@ -14,3 +14,11 @@ export const unformatLink: React.CSSProperties = {
   WebkitUserSelect: 'none',
   MozUserSelect: 'none'
 };
+
+export const buttonStyle: React.CSSProperties = {
+  backgroundColor: 'inherit',
+  borderColor: 'inherit',
+  padding: '1vw',
+  fontFamily: 'inherit',
+  fontWeight: 'bolder'
+};

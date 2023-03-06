@@ -5,9 +5,9 @@ import Dynamo from '../../database/Dynamo';
 import { DEFAULT_HIGH_SCORE_NAME, highScoresStyle } from './HighScores.const';
 import { HighScoreItem, HighScoresProps, HighScoresState } from './HighScores.interface';
 import { v4 as uuidv4 } from 'uuid';
-import { formatDate } from '../../utils/DateUtils';
 import { outerWrapper, rowElement } from './../JukeBox/JukeBox.interface';
-import { Link } from 'react-router-dom';
+import HomePageLink from './../Common/HomePageLink';
+import { buttonStyle } from '../../globalCSS';
 
 export default class HighScores extends Component<HighScoresProps, HighScoresState> {
   dbClient: Dynamo | null;
@@ -119,11 +119,10 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
 
   getScoreListItems(items: HighScoreItem[]) {
     const scoreListItems = items.map((item, index) => {
-      let displayStr = `${item.name}: ${item.score} - ${formatDate(new Date(item.date))}`;
+      const displayStr = `${item.name}: ${item.score}`;
       let listItemstyle = {};
       if (this.state.newScore.id === item.id) {
         listItemstyle = this.state.scoreSubmitted ? { color: '#00ff00' } : { color: '#ff0000' };
-        displayStr = `${item.name}: ${item.score} - ${formatDate(new Date(item.date))}`;
       }
       return (
         <li key={index} style={{ ...listItemstyle }}>
@@ -141,8 +140,8 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
     } else {
       inputComponents = (
         <div>
-          <div style={rowElement}>Your score: {this.props.newScore}</div>
-          <div style={rowElement}>
+          <div style={{...rowElement, marginTop: '2vw', marginBottom: '2vw'}}>Your score: {this.props.newScore}</div>
+          <div style={{...rowElement, marginTop: '2vw', marginBottom: '2vw'}}>
             You got a new high score! Enter your name:{' '}
             <input
               id="name-input"
@@ -155,9 +154,9 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
               defaultValue={this.state.newScore.name}
             ></input>
           </div>
-          <div style={rowElement}>
+          <div style={{...rowElement, marginTop: '2vw', marginBottom: '2vw'}}>
             <button
-              style={{ color: '#000000' }}
+              style={buttonStyle}
               onClick={() => {
                 this.addNewScoreToDB(this.state.newScore);
               }}
@@ -197,10 +196,10 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
     }
 
     const highScoreComponents = (
-      <div style={{ width: '100vw' }}>
+      <div style={{ width: '100vw', fontSize: '1.5vw' }}>
         {scoreboardComponents}
-        <div style={{ ...rowElement, marginTop: '3vw' }}>
-          <button style={{ color: '#000000' }} onClick={this.handlePlayAgainBtnClick.bind(this)}>
+        <div style={{...rowElement, marginTop: '2vw', marginBottom: '2vw'}}>
+          <button style={buttonStyle} onClick={this.handlePlayAgainBtnClick.bind(this)}>
             Play Again
           </button>
         </div>
@@ -210,11 +209,7 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
     return (
       <div style={highScoresStyle}>
         <div style={outerWrapper}>
-          <div style={{ display: 'flex', justifyContent: 'left', width: '100%' }}>
-            <Link to="/" style={{ fontSize: '25px' }}>
-              Home Page
-            </Link>
-          </div>
+          <HomePageLink />
           <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%', height: '100vh', alignItems: 'center' }}>
             <div style={rowElement}>{highScoreComponents}</div>
           </div>

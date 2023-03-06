@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Job, ResumeProps, ResumeState } from './Resume.interface';
 import { MyResumeContent, resumeRowStyle, resumeStyle, resumeSectionHeaderStyle, RESUME_STYLE_SETS, resumeTitleStyle } from './Resume.const';
 import { outerWrapper } from '../../components/JukeBox/JukeBox.interface';
 import { getStyleSet, StyleSet } from '../../components/componentHelpers';
+import HomePageLink from '../../components/Common/HomePageLink';
 
 export default class Resume extends Component<ResumeProps, ResumeState> {
   styleSet: StyleSet;
@@ -71,11 +71,7 @@ export default class Resume extends Component<ResumeProps, ResumeState> {
       <div style={resumeStyle}>
         <div style={outerWrapper}>
           <div style={resumeRowStyle}>
-            <div style={{ display: 'flex', justifyContent: 'left', width: '100vw' }}>
-              <Link to="/" style={{ fontSize: '25px' }}>
-                Home Page
-              </Link>
-            </div>
+            <HomePageLink />
           </div>
           <div style={{ marginTop: '50px' }} />
           <div style={resumeRowStyle}>

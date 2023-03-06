@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { getStyleSet, StyleSet } from '../../components/componentHelpers';
 import { outerWrapper } from '../../components/JukeBox/JukeBox.interface';
 import { aboutContentOne, aboutContentTwo, aboutContentThree, aboutContentFour, aboutImgStyle, aboutRowStyle, aboutStyle, ABOUT_STYLE_SETS } from './About.const';
@@ -8,6 +7,7 @@ import nateHeadshot from '../../img/nate-headshot-rounded.png';
 import lilAndScoob from '../../img/lil-scoob-rounded.png';
 import animals from '../../img/animals-rounded.png';
 import lilScoobMe from '../../img/lil-scoob-me-rounded.png';
+import HomePageLink from '../../components/Common/HomePageLink';
 
 export default class About extends Component<AboutProps, AboutState> {
   styleSet: StyleSet;
@@ -35,11 +35,7 @@ export default class About extends Component<AboutProps, AboutState> {
       <div style={aboutStyle}>
         <div style={outerWrapper}>
           <div style={aboutRowStyle}>
-            <div style={{ display: 'flex', justifyContent: 'left', width: '100vw' }}>
-              <Link to="/" style={{ fontSize: '25px' }}>
-                Home Page
-              </Link>
-            </div>
+            <HomePageLink />
           </div>
           <div style={{ marginTop: '50px' }} />
           <div style={aboutRowStyle}>

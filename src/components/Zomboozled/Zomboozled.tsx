@@ -24,6 +24,8 @@ import upgradeSign from './images/upgradeSign.png';
 import HighScores from './HighScores';
 import { DEVICE_TYPES } from '../../global.const';
 import { backgroundColorStyle } from '../../globalCSS';
+import HomePageLink from '../Common/HomePageLink';
+import { outerWrapper, rowElement } from '../JukeBox/JukeBox.interface';
 
 export default class Zomboozled extends Component<ZomboozledProps, ZomboozledState> {
   componentMounted = false;
@@ -41,7 +43,6 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
 
   constructor(props: ZomboozledProps) {
     super(props);
-    console.log(`constructor called!`);
     this.canvas = null;
     this.gameState = GAME_STATES.START;
     this.interval = null;
@@ -71,8 +72,7 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
   }
 
   componentDidMount() {
-    console.log(`component mounted!`);
-    if (!this.componentMounted) {
+    if (!this.componentMounted && this.props.deviceType === DEVICE_TYPES.DESKTOP) {
       this.componentMounted = true;
       this.initializeCanvas();
       this.initializeGame();
@@ -389,19 +389,31 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
   }
 
   playAgainHandler() {
-    console.log(`set game state called!`);
     this.setState({ gameOver: false });
   }
 
   getComponents() {
     let components;
-    console.log(`get components called: gameOver? ${this.state.gameOver}`);
-    if (this.state && this.state.gameOver) {
-      console.log(`switching to high scores component`);
+    if (this.props.deviceType !== DEVICE_TYPES.DESKTOP) {
+      components = (
+        <div style={{...backgroundColorStyle, height: '100vh'}}>
+          <div style={outerWrapper}>
+            <div style={rowElement}>
+              <HomePageLink />
+            </div>
+            <div style={rowElement}>
+              <h3>
+                Zomboozled has not yet been implemented for mobile devices. Try it out on a computer!
+              </h3>
+            </div>
+          </div>
+
+        </div>
+      )
+    } else if (this.state && this.state.gameOver) {
       const finalScore = this.player.killCount;
       components = <HighScores playAgainHandler={this.playAgainHandler.bind(this)} newScore={finalScore}></HighScores>;
     } else {
-      console.log(`switching to game component`);
       components = (
         <div style={{ overflow: 'hidden', height: '100vh' }} id={GAME_WRAPPER_ID}>
           <div>

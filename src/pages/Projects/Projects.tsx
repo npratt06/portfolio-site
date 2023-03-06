@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { outerWrapper } from '../../components/JukeBox/JukeBox.interface';
 import Project from './Project/Project';
 import { MyProjects, projectsRowStyle, projectsStyle, PROJECTS_STYLE_SETS } from './Projects.const';
 import { ProjectsProps, ProjectsState } from './Projects.interface';
 import { getStyleSet, StyleSet } from '../../components/componentHelpers';
 import { ProjectInfo } from './Project/Project.interface';
+import HomePageLink from '../../components/Common/HomePageLink';
 
 export default class Projects extends Component<ProjectsProps, ProjectsState> {
   styleSet: StyleSet;
@@ -59,11 +59,7 @@ export default class Projects extends Component<ProjectsProps, ProjectsState> {
     return (
       <div style={projectsStyle}>
         <div style={outerWrapper}>
-          <div style={{ display: 'flex', justifyContent: 'left', width: '100vw' }}>
-            <Link to="/" style={{ fontSize: '25px' }}>
-              Home Page
-            </Link>
-          </div>
+          <HomePageLink />
           <div style={{ marginTop: '50px' }} />
           <div style={projectsRowStyle}>
             <div style={{ fontSize: '225%' }}>Projects</div>
