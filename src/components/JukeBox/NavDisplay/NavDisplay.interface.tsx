@@ -1,5 +1,3 @@
-import { DEVICE_TYPES } from '../../../global.const';
-
 export interface PageInfo {
   key: number;
   linkPath: string;
