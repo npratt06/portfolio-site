@@ -4,6 +4,7 @@ export interface HighScoresState {
   scores: HighScoreItem[];
   newScore: HighScoreItem;
   scoreSubmitted: boolean;
+  newHighScore: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

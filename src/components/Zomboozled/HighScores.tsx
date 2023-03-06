@@ -2,16 +2,19 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import React, { Component, MouseEventHandler } from 'react';
 import Dynamo from '../../database/Dynamo';
-import { DEFAULT_HIGH_SCORE_NAME, headerAndRowStyle, highScoresStyle, NUM_SCORES, rowStyle, SCORE_DISPLAY_TYPES, tableStyle } from './HighScores.const';
+import { DEFAULT_HIGH_SCORE_NAME, headerAndRowStyle, highScoresStyle, NUM_SCORES_TO_DISPLAY, rowStyle, SCORE_DISPLAY_TYPES, tableStyle } from './HighScores.const';
 import { HighScoreItem, HighScoresProps, HighScoresState } from './HighScores.interface';
 import { v4 as uuidv4 } from 'uuid';
 import { outerWrapper, rowElement } from './../JukeBox/JukeBox.interface';
 import HomePageLink from './../Common/HomePageLink';
 import { buttonStyle, inputElementStyle } from '../../globalCSS';
 import { DB_LIMIT } from './HighScores.const';
+import { formatDate } from '../../utils/DateUtils';
 
 export default class HighScores extends Component<HighScoresProps, HighScoresState> {
   dbClient: Dynamo | null;
+
+  itemToDelete: HighScoreItem | null = null;
 
   handlePlayAgainBtnClick: MouseEventHandler<HTMLButtonElement>;
 
@@ -30,7 +33,8 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
     this.state = {
       scores: [],
       newScore,
-      scoreSubmitted: false
+      scoreSubmitted: false,
+      newHighScore: false
     };
 
     try {
@@ -59,8 +63,15 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
   async componentDidMount() {
     if (this.dbClient && this.state.scores.length < 1) {
       try {
-        const updatedScores = await this.getUpdatedScoreList();
-        this.setState({ scores: updatedScores });
+        let newHighScore = false;
+        const updatedScores: HighScoreItem[] = await this.getUpdatedScoreList();
+        const newScoreIndex = updatedScores.findIndex(scoreItem => {
+          return scoreItem.id === this.state.newScore.id;
+        });
+        if (newScoreIndex !== -1 && newScoreIndex < NUM_SCORES_TO_DISPLAY) {
+          newHighScore = true;
+        }
+        this.setState({ scores: updatedScores, newHighScore });
       } catch (err) {
         console.log(`Error occurred querying the db: ${err}`);
         this.dbClient = null;
@@ -81,6 +92,7 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
     return scoreItems;
   }
 
+  // unused, keeping around just in case
   async pruneScores(scoreItems: HighScoreItem[]) {
     if (scoreItems.length > DB_LIMIT) {
       const deleteItems = [];
@@ -92,7 +104,7 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
       // delete scores based on deleteIDs array
       for (let i = 0; i < deleteItems.length; i++) {
         const deleteID = deleteItems[i].id;
-        const deleteScore= deleteItems[i].score;
+        const deleteScore = deleteItems[i].score;
         console.log(`Pruning db: db limit is ${DB_LIMIT}, num scores is ${scoreItems.length}`);
         console.log(`Deleting the following items ${JSON.stringify(deleteItems[i], null, 1)}`);
         await this.deleteScore(deleteID, deleteScore);
@@ -114,10 +126,6 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
     // sort by date, then by score
     // can we speed this up? shouldn't matter for now due to automatic data pruning
     scoreItems = this.sortScores(scoreItems);
-    this.pruneScores(scoreItems);
-    if (scoreItems.length > NUM_SCORES) {
-      scoreItems.splice(NUM_SCORES, scoreItems.length - NUM_SCORES);
-    }
     const newScore = this.state.newScore.score;
     let insertIndex = 0;
     for (let i = 0; i < scoreItems.length; i++) {
@@ -129,20 +137,30 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
         insertIndex = scoreItems.length;
       }
     }
-    const newHighScoreItem = this.state.newScore;
 
-    scoreItems.splice(insertIndex, 0, newHighScoreItem);
+    if (insertIndex < NUM_SCORES_TO_DISPLAY) {
+      const newHighScoreItem = this.state.newScore;
+      const deletedItems = scoreItems.splice(insertIndex, 1, newHighScoreItem);
+      const deletedItem = deletedItems[0];
+      this.itemToDelete = deletedItem;
+    }
+
     const updatedScores = JSON.parse(JSON.stringify(scoreItems));
     return updatedScores;
   }
 
-  addNewScoreToDB(newHighScoreItem: HighScoreItem) {
+  async addNewScoreToDB(newHighScoreItem: HighScoreItem) {
     const insertParams = {
       TableName: 'zomb-scores',
       Item: newHighScoreItem
     };
 
-    this.dbClient!.insert(insertParams);
+    if (this.itemToDelete) {
+      console.log(`deleting score: ${JSON.stringify(this.itemToDelete)}`);
+      await this.deleteScore(this.itemToDelete.id, this.itemToDelete.score);
+    }
+    console.log(`adding score: ${JSON.stringify(this.itemToDelete)}`);
+    await this.dbClient!.insert(insertParams);
     this.setState({ scoreSubmitted: true });
   }
 
@@ -159,19 +177,19 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
     const scoreTableItems = items.map((item, index) => {
       let itemStyle = {};
       if (index === 0) {
-        itemStyle = {color: '#FFd700'}
+        itemStyle = { color: '#FFd700' }
       } else if (index === 1) {
-        itemStyle = {color: '#C0C0C0'}
+        itemStyle = { color: '#C0C0C0' }
       } else if (index === 2) {
-        itemStyle = {color: '#CD7F32'}
+        itemStyle = { color: '#CD7F32' }
       }
       if (this.state.newScore.id === item.id) {
         itemStyle = this.state.scoreSubmitted ? { ...itemStyle, border: '3px solid #00ff00' } : { ...itemStyle, border: '3px solid #ff0000' };
       }
       return (
         <tr style={headerAndRowStyle} key={index}>
-          <td style={{...headerAndRowStyle, ...rowStyle, ...itemStyle}}>{`${item.name}`}</td>
-          <td style={{...headerAndRowStyle, ...rowStyle, ...itemStyle}}>{`${item.score}`}</td>
+          <td style={{ ...headerAndRowStyle, ...rowStyle, ...itemStyle }}>{`${item.name}`}</td>
+          <td style={{ ...headerAndRowStyle, ...rowStyle, ...itemStyle }}>{`${item.score}`}</td>
         </tr>
       );
     });
@@ -184,13 +202,13 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
           </tr>
           {scoreTableItems}
         </tbody>
-    </table>
+      </table>
     );
   }
 
   getScoreListComponent(items: HighScoreItem[]) {
     const scoreListItems = items.map((item, index) => {
-      const displayStr = `${item.name}: ${item.score}`;
+      const displayStr = `${item.name}: ${item.score} - ${formatDate(new Date(item.date))}`;
       let listItemstyle = {};
       if (this.state.newScore.id === item.id) {
         listItemstyle = this.state.scoreSubmitted ? { color: '#00ff00' } : { color: '#ff0000' };
@@ -211,34 +229,49 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
   getInputComponents() {
     let inputComponents;
     if (this.state.scoreSubmitted) {
-      inputComponents = <div style={{...rowElement, marginTop: '2vw'}}>{`Congrats ${this.state.newScore.name}, your high score has been submitted!`}</div>;
+      inputComponents = <div style={{ ...rowElement, marginTop: '2vw' }}>{`Congrats ${this.state.newScore.name}, your high score has been submitted!`}</div>;
     } else {
+      let dynamicComponents = (
+        <div>
+          <div style={rowElement}>
+            {`You did not achieve a new high score. Try again to crack the top ${NUM_SCORES_TO_DISPLAY}!`}
+          </div>
+        </div>
+      );
+      if (this.state.newHighScore) {
+        dynamicComponents = (
+          <div>
+            <div style={{ ...rowElement, marginTop: '2vw', marginBottom: '2vw', alignItems: 'center' }}>
+              You got a new high score! Enter your name:
+              <input
+                id="name-input"
+                maxLength={6}
+                onChange={(ev) => {
+                  this.onInputChange(ev);
+                }}
+                style={{ ...inputElementStyle, marginLeft: '1.5vw' }}
+                type="text"
+                defaultValue={this.state.newScore.name}
+              ></input>
+            </div>
+            <div style={{ ...rowElement, marginTop: '2vw', marginBottom: '2vw' }}>
+              <button
+                style={{ ...buttonStyle, fontSize: '0.9vw' }}
+                onClick={async () => {
+                  await this.addNewScoreToDB(this.state.newScore);
+                }}
+              >
+                Submit high score
+              </button>
+            </div>
+
+          </div>
+        );
+      }
       inputComponents = (
         <div>
-          <div style={{...rowElement, marginTop: '2vw', marginBottom: '2vw'}}>Your score: {this.props.newScore}</div>
-          <div style={{...rowElement, marginTop: '2vw', marginBottom: '2vw'}}>
-            You got a new high score! Enter your name:{' '}
-            <input
-              id="name-input"
-              maxLength={6}
-              onChange={(ev) => {
-                this.onInputChange(ev);
-              }}
-              style={{...inputElementStyle, marginLeft: '1.5vw'}}
-              type="text"
-              defaultValue={this.state.newScore.name}
-            ></input>
-          </div>
-          <div style={{...rowElement, marginTop: '2vw', marginBottom: '2vw'}}>
-            <button
-              style={{...buttonStyle, fontSize: '0.9vw'}}
-              onClick={() => {
-                this.addNewScoreToDB(this.state.newScore);
-              }}
-            >
-              Submit high score
-            </button>
-          </div>
+          <div style={{ ...rowElement, marginTop: '2vw', marginBottom: '2vw' }}>Your score: {this.props.newScore}</div>
+          {dynamicComponents}
         </div>
       );
     }
@@ -263,26 +296,24 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
       const scoreDisplayType = SCORE_DISPLAY_TYPES.TABLE;
       const highScores = scoreDisplayType === SCORE_DISPLAY_TYPES.TABLE ? this.getScoreTableComponent(this.state.scores) : this.getScoreListComponent(this.state.scores);
       const inputComponents = this.getInputComponents();
-      if (scoreDisplayType) {
-        scoreboardComponents = (
-          <div>
-            <div style={rowElement}>
-              <h1 style={{fontSize: '2vw'}}>High Scores</h1>
-            </div>
-            <div style={rowElement}>
-              {highScores}
-            </div>
-            {inputComponents}
+      scoreboardComponents = (
+        <div>
+          <div style={rowElement}>
+            <h1 style={{ fontSize: '2vw' }}>High Scores</h1>
           </div>
-        );
-      }
+          <div style={rowElement}>
+            {highScores}
+          </div>
+          {inputComponents}
+        </div>
+      );
     }
-    
+
     const highScoreComponents = (
-      <div style={{width: '100vw'}}>
+      <div style={{ width: '100vw' }}>
         {scoreboardComponents}
-        <div style={{...rowElement, marginTop: '2vw', marginBottom: '2vw'}}>
-          <button style={{...buttonStyle, fontSize: '0.9vw'}} onClick={this.handlePlayAgainBtnClick.bind(this)}>
+        <div style={{ ...rowElement, marginTop: '2vw', marginBottom: '2vw' }}>
+          <button style={{ ...buttonStyle, fontSize: '0.9vw' }} onClick={this.handlePlayAgainBtnClick.bind(this)}>
             Play Again
           </button>
         </div>
