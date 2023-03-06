@@ -18,12 +18,22 @@ export default class Dynamo {
     });
   }
 
-  insert(params: AWS.DynamoDB.DocumentClient.PutItemInput) {
+  async insert(params: AWS.DynamoDB.DocumentClient.PutItemInput) {
     this.db.put(params, function (err, data) {
       if (err) {
         console.log('Error executing database insert', err);
       } else {
         console.log('Database insert was successful', data);
+      }
+    });
+  }
+
+  async delete(params: AWS.DynamoDB.DocumentClient.DeleteItemInput) {
+    this.db.delete(params, function (err, data) {
+      if (err) {
+        console.log('Error executing database delete', err);
+      } else {
+        console.log('Database delete was successful', data);
       }
     });
   }

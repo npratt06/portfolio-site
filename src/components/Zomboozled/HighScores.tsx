@@ -2,12 +2,13 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import React, { Component, MouseEventHandler } from 'react';
 import Dynamo from '../../database/Dynamo';
-import { DEFAULT_HIGH_SCORE_NAME, highScoresStyle } from './HighScores.const';
+import { DEFAULT_HIGH_SCORE_NAME, headerAndRowStyle, highScoresStyle, NUM_SCORES, rowStyle, SCORE_DISPLAY_TYPES, tableStyle } from './HighScores.const';
 import { HighScoreItem, HighScoresProps, HighScoresState } from './HighScores.interface';
 import { v4 as uuidv4 } from 'uuid';
 import { outerWrapper, rowElement } from './../JukeBox/JukeBox.interface';
 import HomePageLink from './../Common/HomePageLink';
-import { buttonStyle } from '../../globalCSS';
+import { buttonStyle, inputElementStyle } from '../../globalCSS';
+import { DB_LIMIT } from './HighScores.const';
 
 export default class HighScores extends Component<HighScoresProps, HighScoresState> {
   dbClient: Dynamo | null;
@@ -68,10 +69,7 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
     }
   }
 
-  async getUpdatedScoreList() {
-    const scoreItems = (await this.getExistingScores()) as HighScoreItem[];
-    // sort by date, then by score
-    // can we speed this up? shouldn't matter for now due to automatic data pruning
+  sortScores(scoreItems: HighScoreItem[]) {
     scoreItems.sort((a: HighScoreItem, b: HighScoreItem) => {
       const date1 = new Date(a.date).getTime();
       const date2 = new Date(b.date).getTime();
@@ -80,6 +78,46 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
     scoreItems.sort((a: HighScoreItem, b: HighScoreItem) => {
       return b.score - a.score;
     });
+    return scoreItems;
+  }
+
+  async pruneScores(scoreItems: HighScoreItem[]) {
+    if (scoreItems.length > DB_LIMIT) {
+      const deleteItems = [];
+      // gather IDs of scores to delete
+      for (let i = 0; i < scoreItems.length - DB_LIMIT; i++) {
+        const index = scoreItems.length - 1 - i;
+        deleteItems.push(scoreItems[index]);
+      }
+      // delete scores based on deleteIDs array
+      for (let i = 0; i < deleteItems.length; i++) {
+        const deleteID = deleteItems[i].id;
+        const deleteScore= deleteItems[i].score;
+        console.log(`Pruning db: db limit is ${DB_LIMIT}, num scores is ${scoreItems.length}`);
+        console.log(`Deleting the following items ${JSON.stringify(deleteItems[i], null, 1)}`);
+        await this.deleteScore(deleteID, deleteScore);
+      }
+    }
+  }
+
+  async deleteScore(id: string, score: number) {
+    const deleteParams: AWS.DynamoDB.DocumentClient.DeleteItemInput = {
+      TableName: 'zomb-scores',
+      Key: { id, score }
+
+    };
+    await this.dbClient!.delete(deleteParams);
+  }
+
+  async getUpdatedScoreList() {
+    let scoreItems = (await this.getExistingScores()) as HighScoreItem[];
+    // sort by date, then by score
+    // can we speed this up? shouldn't matter for now due to automatic data pruning
+    scoreItems = this.sortScores(scoreItems);
+    this.pruneScores(scoreItems);
+    if (scoreItems.length > NUM_SCORES) {
+      scoreItems.splice(NUM_SCORES, scoreItems.length - NUM_SCORES);
+    }
     const newScore = this.state.newScore.score;
     let insertIndex = 0;
     for (let i = 0; i < scoreItems.length; i++) {
@@ -117,7 +155,40 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
     return existingScores;
   }
 
-  getScoreListItems(items: HighScoreItem[]) {
+  getScoreTableComponent(items: HighScoreItem[]) {
+    const scoreTableItems = items.map((item, index) => {
+      let itemStyle = {};
+      if (index === 0) {
+        itemStyle = {color: '#FFd700'}
+      } else if (index === 1) {
+        itemStyle = {color: '#C0C0C0'}
+      } else if (index === 2) {
+        itemStyle = {color: '#CD7F32'}
+      }
+      if (this.state.newScore.id === item.id) {
+        itemStyle = this.state.scoreSubmitted ? { ...itemStyle, border: '3px solid #00ff00' } : { ...itemStyle, border: '3px solid #ff0000' };
+      }
+      return (
+        <tr style={headerAndRowStyle} key={index}>
+          <td style={{...headerAndRowStyle, ...rowStyle, ...itemStyle}}>{`${item.name}`}</td>
+          <td style={{...headerAndRowStyle, ...rowStyle, ...itemStyle}}>{`${item.score}`}</td>
+        </tr>
+      );
+    });
+    return (
+      <table style={tableStyle}>
+        <tbody>
+          <tr style={headerAndRowStyle}>
+            <th style={headerAndRowStyle}>Name</th>
+            <th style={headerAndRowStyle}>Kills</th>
+          </tr>
+          {scoreTableItems}
+        </tbody>
+    </table>
+    );
+  }
+
+  getScoreListComponent(items: HighScoreItem[]) {
     const scoreListItems = items.map((item, index) => {
       const displayStr = `${item.name}: ${item.score}`;
       let listItemstyle = {};
@@ -130,13 +201,17 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
         </li>
       );
     });
-    return scoreListItems;
+    return (
+      <ol>
+        {scoreListItems}
+      </ol>
+    );
   }
 
   getInputComponents() {
     let inputComponents;
     if (this.state.scoreSubmitted) {
-      inputComponents = <div style={rowElement}>{`Congrats ${this.state.newScore.name}, your high score has been submitted!`}</div>;
+      inputComponents = <div style={{...rowElement, marginTop: '2vw'}}>{`Congrats ${this.state.newScore.name}, your high score has been submitted!`}</div>;
     } else {
       inputComponents = (
         <div>
@@ -149,14 +224,14 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
               onChange={(ev) => {
                 this.onInputChange(ev);
               }}
-              style={{ color: '#000000' }}
+              style={{...inputElementStyle, marginLeft: '1.5vw'}}
               type="text"
               defaultValue={this.state.newScore.name}
             ></input>
           </div>
           <div style={{...rowElement, marginTop: '2vw', marginBottom: '2vw'}}>
             <button
-              style={buttonStyle}
+              style={{...buttonStyle, fontSize: '0.9vw'}}
               onClick={() => {
                 this.addNewScoreToDB(this.state.newScore);
               }}
@@ -183,23 +258,31 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
         </div>
       );
     } else if (this.state.scores.length > 0) {
-      const scoreListItems = this.getScoreListItems(this.state.scores);
-      const inputComponents = this.getInputComponents();
-      scoreboardComponents = (
-        <div>
-          <div style={rowElement}>
-            <ol>{scoreListItems}</ol>
-          </div>
-          {inputComponents}
-        </div>
-      );
-    }
 
+      // todo: make this change-able by the user? maybe list can be called 'detail view', add date
+      const scoreDisplayType = SCORE_DISPLAY_TYPES.TABLE;
+      const highScores = scoreDisplayType === SCORE_DISPLAY_TYPES.TABLE ? this.getScoreTableComponent(this.state.scores) : this.getScoreListComponent(this.state.scores);
+      const inputComponents = this.getInputComponents();
+      if (scoreDisplayType) {
+        scoreboardComponents = (
+          <div>
+            <div style={rowElement}>
+              <h1 style={{fontSize: '2vw'}}>High Scores</h1>
+            </div>
+            <div style={rowElement}>
+              {highScores}
+            </div>
+            {inputComponents}
+          </div>
+        );
+      }
+    }
+    
     const highScoreComponents = (
-      <div style={{ width: '100vw', fontSize: '1.5vw' }}>
+      <div style={{width: '100vw'}}>
         {scoreboardComponents}
         <div style={{...rowElement, marginTop: '2vw', marginBottom: '2vw'}}>
-          <button style={buttonStyle} onClick={this.handlePlayAgainBtnClick.bind(this)}>
+          <button style={{...buttonStyle, fontSize: '0.9vw'}} onClick={this.handlePlayAgainBtnClick.bind(this)}>
             Play Again
           </button>
         </div>

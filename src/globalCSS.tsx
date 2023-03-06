@@ -22,3 +22,16 @@ export const buttonStyle: React.CSSProperties = {
   fontFamily: 'inherit',
   fontWeight: 'bolder'
 };
+
+export const inputElementStyle: React.CSSProperties = {
+  backgroundColor: 'inherit',
+  outline: '0',
+  borderWidth: '0 0 2px',
+  borderColor: 'white',
+  fontFamily: 'inherit',
+  fontWeight: 'bolder',
+  textAlign: 'center',
+  width: '6vw',
+  height: '2vw',
+  fontSize: '1.5vw'
+};
