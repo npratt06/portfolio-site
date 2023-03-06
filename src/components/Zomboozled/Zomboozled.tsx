@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import Player from './Player';
 import { batHeight, batWidth, GAME_STATES, GAME_WRAPPER_ID, getRandomSpawnXY, KEY, playerHeight, playerWidth, PLAYER_SPEED } from './Zomboozled.const';
 import { ZomboozledProps, ZomboozledState } from './Zomboozled.interface';
@@ -26,7 +26,6 @@ import { DEVICE_TYPES } from '../../global.const';
 import { backgroundColorStyle } from '../../globalCSS';
 
 export default class Zomboozled extends Component<ZomboozledProps, ZomboozledState> {
-
   componentMounted = false;
   canvas: HTMLCanvasElement | null;
   gameState: number;
@@ -42,7 +41,7 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
 
   constructor(props: ZomboozledProps) {
     super(props);
-    console.log(`constructor called!`)
+    console.log(`constructor called!`);
     this.canvas = null;
     this.gameState = GAME_STATES.START;
     this.interval = null;
@@ -55,8 +54,20 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
     };
 
     const self = this;
-    document.addEventListener('keydown', function (ev) { return self.onkey(self, ev, ev.keyCode, true); }, false);
-    document.addEventListener('keyup', function (ev) { return self.onkey(self, ev, ev.keyCode, false); }, false);
+    document.addEventListener(
+      'keydown',
+      function (ev) {
+        return self.onkey(self, ev, ev.keyCode, true);
+      },
+      false
+    );
+    document.addEventListener(
+      'keyup',
+      function (ev) {
+        return self.onkey(self, ev, ev.keyCode, false);
+      },
+      false
+    );
   }
 
   componentDidMount() {
@@ -119,9 +130,9 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
   }
 
   determinePlayerRotation(ev: MouseEvent) {
-    const p1x = this.player.x + (this.player.width / 2);
-    const p1y = this.player.y + (this.player.height / 2);
-    this.player.degrees = Math.atan2(ev.pageX - p1x, - (ev.pageY - p1y)) * (180 / Math.PI);
+    const p1x = this.player.x + this.player.width / 2;
+    const p1y = this.player.y + this.player.height / 2;
+    this.player.degrees = Math.atan2(ev.pageX - p1x, -(ev.pageY - p1y)) * (180 / Math.PI);
   }
 
   determinePlayerMovement() {
@@ -209,10 +220,10 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
 
   checkShot(clickX: number, clickY: number, zombie: Zombie, player: Player) {
     const canvas = this.getCanvas();
-    const midX = zombie.x + (zombie.width / 2);
-    const midY = zombie.y + (zombie.height / 2);
+    const midX = zombie.x + zombie.width / 2;
+    const midY = zombie.y + zombie.height / 2;
     let shot = Math.abs(clickX - midX) < zombie.width / 2 && Math.abs(clickY - midY) < zombie.height / 2;
-    const tmp = Math.abs((player.x + (player.width / 2)) - midX);
+    const tmp = Math.abs(player.x + player.width / 2 - midX);
     if (player.weapon.id == 'bat') shot = shot && tmp < player.height * 1.3;
     if (shot) {
       // player.batSwingHitSound.play();
@@ -230,7 +241,7 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
         zombie.x = pair.x;
         zombie.y = pair.y;
         pair = getRandomSpawnXY(player.width, player.height, canvas.width, canvas.height);
-        const thisOrThat = Math.floor((Math.random() * 6) + 1);
+        const thisOrThat = Math.floor(Math.random() * 6 + 1);
         if (this.zombies.length < 1000 && thisOrThat == 1) this.zombies.push(new Zombie(player.width, player.height, pair.x, pair.y, 'roughZomb', ''));
         else if (this.zombies.length < 1000 && thisOrThat == 2) this.zombies.push(new Zombie(player.width, player.height, pair.x, pair.y, 'zomb', ''));
         else if (this.zombies.length < 1000 && thisOrThat == 3) this.zombies.push(new Zombie(player.width, player.height, pair.x, pair.y, 'roughZomb', ''));
@@ -244,10 +255,19 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
     if (!this.canvas) throw 'Error initializing canvas';
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
-    this.canvas.addEventListener('mousemove', function (ev) { if (self.gameState !== GAME_STATES.GAME_OVER) self.determinePlayerRotation(ev); });
-    this.canvas.addEventListener('mousedown', function (ev) { if (self.gameState !== GAME_STATES.GAME_OVER) self.shoot(ev); });
-    this.canvas.addEventListener('contextmenu', function (ev) { if (self.gameState !== GAME_STATES.GAME_OVER) ev.preventDefault(); return false; });
-    this.canvas.addEventListener('onDrag', function (ev) { if (self.gameState !== GAME_STATES.GAME_OVER) ev.preventDefault(); });
+    this.canvas.addEventListener('mousemove', function (ev) {
+      if (self.gameState !== GAME_STATES.GAME_OVER) self.determinePlayerRotation(ev);
+    });
+    this.canvas.addEventListener('mousedown', function (ev) {
+      if (self.gameState !== GAME_STATES.GAME_OVER) self.shoot(ev);
+    });
+    this.canvas.addEventListener('contextmenu', function (ev) {
+      if (self.gameState !== GAME_STATES.GAME_OVER) ev.preventDefault();
+      return false;
+    });
+    this.canvas.addEventListener('onDrag', function (ev) {
+      if (self.gameState !== GAME_STATES.GAME_OVER) ev.preventDefault();
+    });
   }
 
   getCanvas() {
@@ -277,8 +297,8 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
       }
     });
 
-    const playerX = (this.canvas.width / 2) - playerWidth / 2 - 35;
-    const playerY = (this.canvas.height / 2) - (playerHeight / 2) + 20;
+    const playerX = this.canvas.width / 2 - playerWidth / 2 - 35;
+    const playerY = this.canvas.height / 2 - playerHeight / 2 + 20;
     this.player = new Player(batWidth, batHeight, playerX, playerY);
 
     const pair = getRandomSpawnXY(this.player.width, this.player.height, this.canvas.width, this.canvas.height);
@@ -304,7 +324,9 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
 
   startGame() {
     console.log(`Starting game...`);
-    this.interval = setInterval(() => { this.updateGame() }, 10);
+    this.interval = setInterval(() => {
+      this.updateGame();
+    }, 10);
   }
 
   updateGame() {
@@ -318,19 +340,21 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
       this.player.update(this.getContext(), this.getCanvas());
 
       // update zombies
-      this.zombies.forEach(zombie => {
+      this.zombies.forEach((zombie) => {
         zombie.update(this.getContext(), this.player);
         // player died
         if (zombie.killedPlayer) {
           this.player.dead = true;
           this.gameState = GAME_STATES.GAME_OVER;
-          this.setState({gameOver: true});
+          this.setState({ gameOver: true });
         }
         // zombie died
         if (zombie.dead) {
           const zx = zombie.x;
           const zy = zombie.y;
-          setTimeout(function () { self.resetZombie(zx, zy) }, 2000);
+          setTimeout(function () {
+            self.resetZombie(zx, zy);
+          }, 2000);
         }
       });
     }
@@ -343,11 +367,10 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
     this.canvas.height = window.innerHeight;
     this.clearContext();
 
-    const playerX = (this.canvas.width / 2) - playerWidth / 2 - 35;
-    const playerY = (this.canvas.height / 2) - (playerHeight / 2) + 20;
+    const playerX = this.canvas.width / 2 - playerWidth / 2 - 35;
+    const playerY = this.canvas.height / 2 - playerHeight / 2 + 20;
     this.player = new Player(batWidth, batHeight, playerX, playerY);
 
-    
     const pair = getRandomSpawnXY(this.player.width, this.player.height, this.canvas.width, this.canvas.height);
     this.zombies = [];
     this.zombies.push(new Zombie(playerWidth - 13, playerHeight + 55, pair.x, pair.y, 'crawlZomb0', 'crawl'));
@@ -366,19 +389,19 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
   }
 
   playAgainHandler() {
-    console.log(`set game state called!`)
+    console.log(`set game state called!`);
     this.setState({ gameOver: false });
   }
 
   getComponents() {
     let components;
-    console.log(`get components called: gameOver? ${this.state.gameOver}`)
+    console.log(`get components called: gameOver? ${this.state.gameOver}`);
     if (this.state && this.state.gameOver) {
-      console.log(`switching to high scores component`)
+      console.log(`switching to high scores component`);
       const finalScore = this.player.killCount;
-      components = (<HighScores playAgainHandler={this.playAgainHandler.bind(this)} newScore={finalScore}></HighScores>);
+      components = <HighScores playAgainHandler={this.playAgainHandler.bind(this)} newScore={finalScore}></HighScores>;
     } else {
-      console.log(`switching to game component`)
+      console.log(`switching to game component`);
       components = (
         <div style={{ overflow: 'hidden', height: '100vh' }} id={GAME_WRAPPER_ID}>
           <div>
@@ -398,7 +421,7 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
             <img id="splat" src={splat} style={{ display: 'none' }} />
             <img id="upgradeSign" src={upgradeSign} style={{ display: 'none' }} />
           </div>
-          <canvas id='gameCanvas' style={{ backgroundColor: backgroundColorStyle.backgroundColor, cursor: 'crosshair' }}></canvas>
+          <canvas id="gameCanvas" style={{ backgroundColor: backgroundColorStyle.backgroundColor, cursor: 'crosshair' }}></canvas>
         </div>
       );
     }
@@ -407,10 +430,6 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
 
   render() {
     const components = this.getComponents();
-    return (
-      <div>
-        {components}
-      </div>
-    );
+    return <div>{components}</div>;
   }
 }

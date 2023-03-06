@@ -2,8 +2,8 @@
 export interface PageLayoutProps {}
 
 export interface PageLayoutState {
-    pages: JSX.Element[];
-    windowWidth: number;
-    windowHeight: number;
-    deviceType: string;
+  pages: JSX.Element[];
+  windowWidth: number;
+  windowHeight: number;
+  deviceType: string;
 }

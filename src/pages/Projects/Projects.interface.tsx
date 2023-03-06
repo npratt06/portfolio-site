@@ -1,7 +1,7 @@
 export interface ProjectsProps {
-    deviceType: string
+  deviceType: string;
 }
 
 export interface ProjectsState {
-    deviceType: string
+  deviceType: string;
 }

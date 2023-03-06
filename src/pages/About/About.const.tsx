@@ -1,77 +1,77 @@
-import { StyleSets } from "../../components/componentHelpers";
-import { DEVICE_TYPES } from "../../global.const";
-import { backgroundColorStyle, textFontStyle } from "../../globalCSS";
+import { StyleSets } from '../../components/componentHelpers';
+import { DEVICE_TYPES } from '../../global.const';
+import { backgroundColorStyle, textFontStyle } from '../../globalCSS';
 
 export const aboutStyle: React.CSSProperties = {
-    ...backgroundColorStyle,
-    overflow: 'auto',
-    ...textFontStyle,
-    minHeight: '100vh'
+  ...backgroundColorStyle,
+  overflow: 'auto',
+  ...textFontStyle,
+  minHeight: '100vh'
 };
 
 export const aboutRowStyle: React.CSSProperties = {
-    display: 'flex',
-    justifyContent: 'center',
-    width: '100%',
-    alignItems: 'center'
+  display: 'flex',
+  justifyContent: 'center',
+  width: '100%',
+  alignItems: 'center'
 };
 
 export const aboutImgStyle: React.CSSProperties = {
-    width: 'inherit',
-    height: 'auto'
+  width: 'inherit',
+  height: 'auto'
 };
 
 export const ABOUT_STYLE_SETS: StyleSets = {
-    [DEVICE_TYPES.DESKTOP]: {
-        aboutTitleStyle: {
-            display: 'flex',
-            justifyContent: 'center',
-            width: '30vw',
-            textAlign: 'center'
-        },
-        aboutRowContentStyle: {
-            display: 'flex',
-            justifyContent: 'center',
-            width: '25vw',
-            textAlign: 'center'
-        },
-        hrStyle: {
-            width: '55vw',
-            margin: '3vh'
-        },
-        aboutImgWrapperStyle: {
-            width: '20vw'
-        },
-        aboutTxtWrapperStyle: {
-            fontSize: '1.5vw',
-            padding: '1vw'
-        }
+  [DEVICE_TYPES.DESKTOP]: {
+    aboutTitleStyle: {
+      display: 'flex',
+      justifyContent: 'center',
+      width: '30vw',
+      textAlign: 'center'
     },
-    [DEVICE_TYPES.MOBILE]: {
-        aboutTitleStyle: {
-            display: 'flex',
-            justifyContent: 'center',
-            width: '60vw',
-            textAlign: 'center'
-        },
-        aboutRowContentStyle: {
-            display: 'flex',
-            justifyContent: 'center',
-            width: '40vw',
-            textAlign: 'center'
-        },
-        hrStyle: {
-            width: '95vw',
-            margin: '3vh'
-        },
-        aboutImgWrapperStyle: {
-            width: '40vw'
-        },
-        aboutTxtWrapperStyle: {
-            fontSize: '2.75vw',
-            padding: '1vw'
-        }
+    aboutRowContentStyle: {
+      display: 'flex',
+      justifyContent: 'center',
+      width: '25vw',
+      textAlign: 'center'
+    },
+    hrStyle: {
+      width: '55vw',
+      margin: '3vh'
+    },
+    aboutImgWrapperStyle: {
+      width: '20vw'
+    },
+    aboutTxtWrapperStyle: {
+      fontSize: '1.5vw',
+      padding: '1vw'
     }
+  },
+  [DEVICE_TYPES.MOBILE]: {
+    aboutTitleStyle: {
+      display: 'flex',
+      justifyContent: 'center',
+      width: '60vw',
+      textAlign: 'center'
+    },
+    aboutRowContentStyle: {
+      display: 'flex',
+      justifyContent: 'center',
+      width: '40vw',
+      textAlign: 'center'
+    },
+    hrStyle: {
+      width: '95vw',
+      margin: '3vh'
+    },
+    aboutImgWrapperStyle: {
+      width: '40vw'
+    },
+    aboutTxtWrapperStyle: {
+      fontSize: '2.75vw',
+      padding: '1vw'
+    }
+  }
 };
 
 export const aboutContentOne = `

@@ -1,7 +1,7 @@
 export interface AboutProps {
-    deviceType: string
+  deviceType: string;
 }
 
 export interface AboutState {
-    deviceType: string
+  deviceType: string;
 }

@@ -1,4 +1,4 @@
-export {}
+export {};
 // import Matter, { Mouse } from 'matter-js';
 // import React, { Component } from 'react'
 // import { CoinProps, CoinState, ScreenSize } from './Coin.interface';
@@ -80,7 +80,6 @@ export {}
 //             Bodies.rectangle(this.screenSize.width - (verticalBoundWidth / 2), verticalBoundHeight / 2, verticalBoundWidth, verticalBoundHeight, { isStatic: true, render: { opacity: 0 } })
 //         ]);
 
-
 //         // create and add mouse constraint for interactivity
 //         const mouse = Mouse.create(render.canvas);
 //         const mouseConstraint = Matter.MouseConstraint.create(engine, { //Create Constraint
@@ -99,7 +98,7 @@ export {}
 //             const mouseOverCoin = tmpResult.length > 0;
 //             if (mouseOverCoin) {
 //                 console.log(`mouse is over the coin!`);
-                
+
 //                 // this.setState(() => {
 //                 //     return {
 //                 //         outerStyle: {

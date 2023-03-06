@@ -1,7 +1,7 @@
 export interface HomeProps {
-    deviceType: string
+  deviceType: string;
 }
 
 export interface HomeState {
-    deviceType: string
+  deviceType: string;
 }
