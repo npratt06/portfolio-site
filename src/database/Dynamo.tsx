@@ -11,14 +11,11 @@ export default class Dynamo {
         this.db = new AWS.DynamoDB.DocumentClient({ apiVersion: 'latest' });
     }
 
-    retrieveCreds() {        
-        const accessKeyId = process.env[ENV_VARS.DB_KEY];
-        const secretAccessKey = process.env[ENV_VARS.DB_SECRET];
-        if (!accessKeyId) throw 'Error getting DB Creds: process.env.DB_ACCESS_KEY undefined';
-        if (!secretAccessKey) throw 'Error getting DB Creds: process.env.DB_SECRET undefined';
-        AWS.config.credentials = new AWS.Credentials({
-            accessKeyId,
-            secretAccessKey
+    retrieveCreds() {
+        const pool_id = process.env[ENV_VARS.IDENTITY_POOL_ID];
+        if (!pool_id) throw 'Error retrieving db creds: pool id undefined';
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            'IdentityPoolId': pool_id
         });
     }
 
