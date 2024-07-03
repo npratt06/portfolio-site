@@ -59,8 +59,36 @@ export const RESUME_STYLE_SETS: StyleSets = {
 
 export const MyResumeContent: ResumeContent = {
   professionalSummary:
-    'Software engineer with 5+ years experience, including 1 year of  management experience. Enjoys brainstorming with others to produce high quality, maintainable software. Strives to design optimal solutions for challenging software problems while following principles such as SOLID and DRY.',
+    'Software engineer with 6 years of experience, including 1 year of management experience. Enjoys collaborating with others to produce high quality, testable code. Strives to create optimal solutions for complex challenges, adhering to fundamental design principles to ensure scalability, maintainability and reusability.',
   jobs: [
+    {
+      CompanyName: 'Janus',
+      Position: 'Full Stack Software Engineer',
+      Dates: 'April 2023 - Present',
+      Location: 'Remote',
+      Bullets: [
+        {
+          title: 'As a member of the automation platform team, drove business value through contributions to diverse software systems',
+          subBullets: []
+        },
+        {
+          title: 'Responsible for the SDLC of various systems including',
+          subBullets: [
+            'Janus App UI - an internal and customer-facing web app for browsing data, launching automations, etc. (TypeScript, Angular/RxJS, GraphQL Apollo Client)',
+            'Teleport Chrome extension - browser extension that interacts with a websocket server to execute web portal automations (TypeScript, React, Playwright, websocket client)',
+            'Teleport server - websocket server with scalable client connection handling, used to orchestrate simultaneous automations (TypeScript, Sequelize, Express.js, websocket server)'
+          ]
+        },
+        {
+          title: 'Honed my craft and gained invaluable experience with all layers of the software stack',
+          subBullets: []
+        },
+        {
+          title: 'Continued to grow in my communication skills with teammates as well as internal and external stakeholders',
+          subBullets: []
+        }
+      ]
+    },
     {
       CompanyName: 'Olive AI',
       Position: 'Software Engineer / Tech Lead / Software Engineering Manager',
@@ -139,7 +167,10 @@ export const MyResumeContent: ResumeContent = {
     GradDate: 'December 2018'
   },
   techKnowledge: {
-    Languages: 'TypeScript, JavaScript, React, HTML/CSS, Python, C#, C++, Java, SQL',
-    Technologies: 'AWS, MongoDB, VS Code, Git, GitHub, GitLab, Bitbucket, Jenkins, JIRA'
+    Languages: 'TypeScript/Javascript, Python, Ruby, C#, C++, Java',
+    WebDev: 'React, Angular/RxJS, Vue.js, Rails, Js testing frameworks (jest, mocha, chai), HTML/CSS, Playwright',
+    Backend: 'Node.js, Express.js, GraphQL, REST APIs',
+    Databases: 'SQL (PostgreSQL), Sequelize, MongoDB',
+    Tools: 'AWS, Docker, GitHub, GitLab, Bitbucket, Jenkins, JIRA'
   }
 };
