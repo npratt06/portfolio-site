@@ -63,26 +63,26 @@ export const MyResumeContent: ResumeContent = {
   jobs: [
     {
       CompanyName: 'Olive AI',
-      Position: 'Software Engineer / Software Engineering Manager',
+      Position: 'Software Engineer / Tech Lead / Software Engineering Manager',
       Dates: 'Janurary 2020 - Present',
       Location: 'Columbus, Ohio / Remote',
       Bullets: [
         {
-          title: 'Software Engineer/Technical Lead Roles',
+          title: 'Software Engineer / Technical Lead Roles',
           subBullets: [
-            'Collaborated with external and internal teams to create custom healthcare automations as a Robot Process Automation Engineer',
-            'Acted as the Technical Lead for a group of software automation engineers',
-            'Designed and developed a reusable, productized version of the claim status automation process as a software engineer'
+            'Collaborated with external and internal teams to create custom healthcare automations as a Robot Process Automation Engineer using TypeScript',
+            'Acted as the Technical Lead for a group of software automation engineers before moving to the claim status product engineering team as a software engineer',
+            'Designed and developed a reusable claim status automation product (TypeScript, Node.js, MongoDB, AWS)'
           ]
         },
         {
           title: 'Software Engineering Manager Role',
           subBullets: [
-            "Led a team of Software Engineers that developed and maintained Olive's claim status automation product",
-            'Improved people management and Agile skills while facilitating feature development and maintenance of the product',
+            'Led a team of Software Engineers that developed and maintained Olive\'s claim status automation product',
+            'Improved people management and Agile skills while facilitating the team\'s technical responsibilities',
             'Drove code quality and testing improvement initiatives (test coverage increased by >50%)',
             'Successfully managed high priority, fast-paced, multi-team product integrations',
-            "Reduced company's resource and vendor costs through various software enhancements (costs reduced by approximately $4,000,000 per year)"
+            'Reduced company\'s resource and vendor costs through various software enhancements'
           ]
         }
       ]
@@ -94,14 +94,12 @@ export const MyResumeContent: ResumeContent = {
       Location: 'Columbus, Ohio',
       Bullets: [
         {
-          title: 'Responsibilities',
-          subBullets: [
-            'Contributed to a team responsible for supporting over 200 applications',
-            'Managed defects and enhancements for various software',
-            'Experienced multiple different tech stacks while supporting these apps',
-            'Familiarized with enterprise SDLC in an agile environment',
-            'Coordinated releases between multiple teams'
-          ]
+          title: 'Contributed to the “run” team, responsible for supporting over 200 applications',
+          subBullets: []
+        },
+        {
+          title: 'Gained familiarity with enterprise SDLC, Agile practices and varied tech stacks',
+          subBullets: []
         }
       ]
     },
@@ -112,12 +110,12 @@ export const MyResumeContent: ResumeContent = {
       Location: 'Columbus, Ohio',
       Bullets: [
         {
-          title: 'Collaborated with a team on data imaging/visualization UI software written in AngularJS',
-          subBullets: ['Improved user experience by developing automated monitoring feature']
+          title: 'Collaborated with a small team on data imaging/visualization UI software written in AngularJS',
+          subBullets: []
         },
         {
-          title: 'Designed and implemented Vue.js/Electron front-end for Steel Scanner software',
-          subBullets: ['Led development on the project', 'Iterated on project through mock-ups and demos presented to the team']
+          title: 'Led development for Steel Scanner software UI (Vue.js/Electron)',
+          subBullets: []
         }
       ]
     },
@@ -128,8 +126,8 @@ export const MyResumeContent: ResumeContent = {
       Location: 'Columbus, Ohio',
       Bullets: [
         {
-          title: 'Responsibilities',
-          subBullets: ['Fielded syntax and logic questions in Java/C++', 'Assisted students enrolled in various software development courses']
+          title: 'Fielded Java/C++ questions and assisted students enrolled in various software development courses',
+          subBullets: []
         }
       ]
     }
