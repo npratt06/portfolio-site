@@ -59,7 +59,7 @@ export const RESUME_STYLE_SETS: StyleSets = {
 
 export const MyResumeContent: ResumeContent = {
   professionalSummary:
-    'Software engineer with 6 years of experience, including 1 year of management experience. Enjoys collaborating with others to produce high quality, testable code. Strives to create optimal solutions for complex challenges, adhering to fundamental design principles to ensure scalability, maintainability and reusability.',
+    'Software engineer with 6 years of experience, including 1 year of management experience. Enjoys collaborating with others to produce high quality, testable code, while improving existing systems and processes. Strives to create optimal solutions for complex challenges, adhering to fundamental design principles to ensure scalability, maintainability and reusability.',
   jobs: [
     {
       CompanyName: 'Janus',
@@ -80,7 +80,7 @@ export const MyResumeContent: ResumeContent = {
           ]
         },
         {
-          title: 'Honed my craft and gained invaluable experience with all layers of the software stack',
+          title: 'Gained invaluable full stack experience. Led refactoring, documentation and testing efforts for multiple applications',
           subBullets: []
         },
         {
