@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "./static/css/main.ba98f2ca.css",
-    "main.js": "./static/js/main.7e2c7017.js",
+    "main.js": "./static/js/main.d60f57f1.js",
     "static/js/488.6e3c4999.chunk.js": "./static/js/488.6e3c4999.chunk.js",
     "static/media/lil-scoob-me-rounded.png": "./static/media/lil-scoob-me-rounded.23a936877fdb71ebdd98.png",
     "static/media/lil-scoob-rounded.png": "./static/media/lil-scoob-rounded.e44621e9f6755b25d1a3.png",
@@ -31,11 +31,11 @@
     "static/media/selectBtn_grey.png": "./static/media/selectBtn_grey.49fdad8068a9ef978d19.png",
     "index.html": "./index.html",
     "main.ba98f2ca.css.map": "./static/css/main.ba98f2ca.css.map",
-    "main.7e2c7017.js.map": "./static/js/main.7e2c7017.js.map",
+    "main.d60f57f1.js.map": "./static/js/main.d60f57f1.js.map",
     "488.6e3c4999.chunk.js.map": "./static/js/488.6e3c4999.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ba98f2ca.css",
-    "static/js/main.7e2c7017.js"
+    "static/js/main.d60f57f1.js"
   ]
 }
