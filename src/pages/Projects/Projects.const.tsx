@@ -39,7 +39,8 @@ export const MyProjects: ProjectInfo[] = [
     link: isDev ? 'http://localhost:3000/#/zomboozled' : 'https://npratt06.github.io/portfolio-site/#/zomboozled', // trick for making the link do nothing
     description: `
             Zomboozled is a small video game that I created by myself in college as a challenge to see what I could fit into
-            a single HTML file. I created this game using pure HTML/JavaScript.
+            a single HTML file. I created this game using pure HTML/JavaScript. Click on the title or image to play it right
+            now! Not implemented for mobile devices.
         `,
     imgSrc: zomboozled
   },
