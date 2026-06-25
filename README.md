@@ -1,6 +1,6 @@
 # Nate's Portfolio Site
 
-This website was built with the intention of both learning React and producing a professional portfolio that others can easily access. This site contains a resume, projects, and about me page. One of the projects (Zomboozled) listed on the project page was re-written for React and is playable within the site! The site also communicates with an AWS Dynamo DB database for storing high scores for Zomboozled.
+This website was built with the intention of both learning React and producing a professional portfolio that others can easily access. This site contains a resume, projects, and about me page. One of the projects (Zomboozled) listed on the project page was re-written for React and is playable within the site.
 
 # Default React README
 

@@ -2,12 +2,10 @@ import { MouseEventHandler } from 'react';
 
 export interface HighScoresState {
   scores: HighScoreItem[];
-  newScore: HighScoreItem;
-  scoreSubmitted: boolean;
-  newHighScore: boolean;
+  highScoresAvailable: boolean;
+  scoresLoading: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface HighScoresProps {
   playAgainHandler: MouseEventHandler<HTMLButtonElement>;
   newScore: number;
