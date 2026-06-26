@@ -3,15 +3,10 @@ import NavDisplay from './NavDisplay/NavDisplay';
 import { outerWrapper, rowElement, JukeBoxProps, JukeBoxState } from './JukeBox.interface';
 import NavigateLR from './NavLR/NavLR';
 import { MyPages } from './NavDisplay/NavDisplay.const';
-// import Draggable from 'react-draggable';
-// import coin from '../../img/coin.png';
 import { DEVICE_TYPES } from '../../global.const';
 import plaque from '../../img/plaqueLong.png';
 
 export default class JukeBox extends Component<JukeBoxProps, JukeBoxState> {
-  // nodeRef is used for a workaround to avoid findDOMNode warning when using react-draggable
-  nodeRef;
-
   constructor(props: JukeBoxProps) {
     super(props);
     const state = this.getStoredState() as JukeBoxState;
@@ -19,8 +14,6 @@ export default class JukeBox extends Component<JukeBoxProps, JukeBoxState> {
     this.setStoredState(state);
     state.isMouseDownOnNavBtn = false;
     this.state = state;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.nodeRef = React.createRef() as any;
   }
 
   getStoredState() {
@@ -95,10 +88,6 @@ export default class JukeBox extends Component<JukeBoxProps, JukeBoxState> {
           <div style={{ height: '10vw' }}>
             <img style={{ width: 'auto', height: 'inherit' }} src={plaque} />
           </div>
-          {/* commenting out for now until I have time to implement coin functionality */}
-          {/* <Draggable nodeRef={this.nodeRef}>
-                        <div ref={this.nodeRef} style={{ width: '10vw', height: '10vw', position: 'absolute', right: '7.5vw', marginTop: '1vh' }}><img style={{ width: 'inherit', height: 'auto', pointerEvents: 'none' }} src={coin} /></div>
-                    </Draggable> */}
         </div>
       </div>
     );
