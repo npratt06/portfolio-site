@@ -26,3 +26,6 @@ yarn-error.log*
 /src/ignore
 
 .env
+
+# local Codex working notes
+/.codex
