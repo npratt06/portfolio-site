@@ -5,23 +5,40 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
 jobs:
   build:
-
     runs-on: ubuntu-latest
     steps:
-    
-    - name: Checkout
-      uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v6
 
-    - name: Build
-      run: |
-        npm install
-        npm run-script build
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.5.0
+          cache: npm
 
-    - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v3
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: build
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: CI=true npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist

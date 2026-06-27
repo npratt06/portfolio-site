@@ -6,7 +6,7 @@ import spinball from '../../img/spinball-screenshot.jpg';
 import zomboozled from '../../img/zomboozled.png';
 import portfolioSite from '../../img/portfolio-site.png';
 
-const isDev = process.env.NODE_ENV === 'development';
+const baseUrl = import.meta.env.BASE_URL;
 
 export const projectsStyle: React.CSSProperties = {
   ...backgroundColorStyle,
@@ -36,7 +36,7 @@ export const MyProjects: ProjectInfo[] = [
   },
   {
     name: 'Zomboozled',
-    link: isDev ? 'http://localhost:3000/#/zomboozled' : 'https://npratt06.github.io/portfolio-site/#/zomboozled', // trick for making the link do nothing
+    link: `${baseUrl}#/zomboozled`,
     description: `
             Zomboozled is a small video game that I created by myself in college as a challenge to see what I could fit into
             a single HTML file. I created this game using pure HTML/JavaScript. Click on the title or image to play it right
@@ -46,7 +46,7 @@ export const MyProjects: ProjectInfo[] = [
   },
   {
     name: 'Portfolio Site',
-    link: isDev ? 'http://localhost:3000' : 'https://npratt06.github.io/portfolio-site/',
+    link: baseUrl,
     description: `
             Look familiar? I created this portfolio site to reorient myself with front-end development and to learn React.
             I decided to make the site from scratch in order to better learn the basics of React and allow myself more creative

@@ -32,7 +32,7 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
   canvas: HTMLCanvasElement | null;
   gameState: number;
   frame = 0;
-  interval: NodeJS.Timer | null;
+  interval: ReturnType<typeof setInterval> | null;
 
   player: Player;
   zombies: Zombie[];
