@@ -1,42 +1,65 @@
 # Nate's Portfolio Site
 
-This website was built with the intention of both learning React and producing a professional portfolio that others can easily access. This site contains a resume, projects, and about me page. One of the projects (Zomboozled) listed on the project page was re-written for React and is playable within the site.
+Personal portfolio site for Nate Pratt, built with React, TypeScript, and Vite. It includes a resume, projects, an about page, and a playable React version of Zomboozled.
 
-## Available Scripts
+The site is published with GitHub Pages at:
 
-In the project directory, you can run:
+https://npratt06.github.io/portfolio-site/
 
-### `npm run dev`
+## Current Status
 
-Runs the app in development mode with Vite.\
-Open [http://localhost:5173/portfolio-site/](http://localhost:5173/portfolio-site/) to view it in the browser.
+- Frontend-only React app deployed through GitHub Pages.
+- Build tooling has been migrated from Create React App to Vite.
+- Routing currently uses hash URLs for reliable GitHub Pages static hosting.
+- Zomboozled is playable, but online high scores are intentionally offline while any future backend is reconsidered.
+- Production dependency audit and Dependabot security alerts are currently clean.
 
-### `npm start`
+## Local Development
 
-Alias for `npm run dev`.
+Install dependencies:
 
-The page will reload if you make edits.
+```bash
+npm ci
+```
 
-### `npm test`
+Run the development server:
 
-Runs the Vitest test suite once.
+```bash
+npm run dev
+```
 
-### `npm run build`
+Open:
 
-Builds the app for production to the `dist` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```text
+http://localhost:5173/portfolio-site/
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`npm start` is also available as an alias for `npm run dev`.
 
-### `npm run preview`
+## Useful Commands
 
-Serves the production build locally for smoke testing.
+```bash
+npm run lint
+CI=true npm test
+npm run build
+npm run preview
+npm audit --omit=dev
+```
 
-### `npm run lint`
+- `npm run lint` runs ESLint.
+- `CI=true npm test` runs the Vitest test suite once.
+- `npm run build` type-checks and builds the production app into `dist/`.
+- `npm run preview` serves the production build locally.
+- `npm audit --omit=dev` checks production dependencies.
 
-Runs ESLint.
+## Deployment
 
-## Learn More
+Pushing to `main` runs the GitHub Actions `build-deploy` workflow. The workflow installs with `npm ci`, runs lint/tests/build, and deploys the Vite `dist/` output to the `gh-pages` branch.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The app uses Vite's GitHub Pages base path (`/portfolio-site/`) and `HashRouter`, so routes such as `/#/projects` and `/#/zomboozled` work without custom server rewrites.
+
+## Zomboozled High Scores
+
+The previous frontend AWS/DynamoDB score integration has been removed. The current high-score service is an offline stub that preserves the game-over flow without making backend/API calls.
+
+If online scores return later, they should be rebuilt intentionally with a backend service and infrastructure-as-code rather than restoring direct frontend cloud access.

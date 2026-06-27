@@ -4,7 +4,7 @@
 
 Make this public GitHub Pages portfolio secure, presentable, maintainable, and worth sharing again.
 
-The site started as a hand-built React portfolio with a playable Zomboozled game. The current cleanup effort is focused on removing risky legacy backend integrations, modernizing stale tooling, improving documentation, and keeping enough structure that future Codex sessions can continue work without rediscovering the same context.
+The site started as a hand-built React portfolio with a playable Zomboozled game. The current cleanup effort is focused on keeping the public repo secure, honest, maintainable, and easy for future Codex sessions to continue without rediscovering the same context.
 
 ## Current State
 
@@ -13,8 +13,10 @@ The site started as a hand-built React portfolio with a playable Zomboozled game
 - The old frontend AWS/DynamoDB score integration has been removed.
 - The high-score UI now shows a polished offline game-over notice and keeps the local `Play Again` flow.
 - Production dependency audit is clean with `npm audit --omit=dev`.
+- GitHub Dependabot security alerts are currently at 0.
 - The app now uses Vite instead of the legacy CRA toolchain.
 - GitHub Actions builds with a pinned Node version and deploys the Vite `dist` output to the `gh-pages` branch.
+- The Vite/GitHub Pages deployment has been pushed and verified successfully.
 - The repo is public, so documentation should stay sanitized and professional.
 
 ## Completed Work
@@ -29,24 +31,24 @@ The site started as a hand-built React portfolio with a playable Zomboozled game
 - Updated compatible React 18 / React Router 6 / TypeScript-era package versions.
 - Migrated the build toolchain to Vite with standard `dist` output and a root `index.html`.
 - Modernized GitHub Actions to use current actions, deterministic install, lint/test/build checks, and branch-based GitHub Pages deploy.
-- Verified the cleanup with build, lint, test, and production audit checks.
+- Verified the cleanup with build, lint, test, production audit checks, successful GitHub Pages deploy, and 0 Dependabot vulnerabilities.
+- Rewrote the README to describe the actual Vite/GitHub Pages project state, commands, deployment flow, and offline Zomboozled high-score status.
 
 ## Known Risks
 
 - Test coverage is very thin and does not meaningfully cover the portfolio navigation or Zomboozled game flow.
-- The README has only minimal command documentation and should be rewritten more fully later.
 - Historical git metadata has not been anonymized yet.
 - The app currently uses hash routing. This is acceptable for GitHub Pages static hosting, but cleaner browser-history routes can be revisited later if the deployment setup is changed intentionally.
 
 ## Recommended Next Steps
 
-1. Add basic smoke coverage.
+1. Plan the next site/content refresh.
+   - Decide what visual, content, and project updates should happen before investing in broader UI smoke coverage.
+
+2. Add basic smoke coverage when the site shape stabilizes.
    - Cover app rendering.
    - Cover portfolio navigation.
    - Cover Zomboozled game-over/offline high-score behavior.
-
-2. Rewrite the README.
-   - Explain the portfolio purpose, local development, deployment, and Zomboozled backend status.
 
 3. Consider git history anonymization.
    - Audit author and committer metadata first.
