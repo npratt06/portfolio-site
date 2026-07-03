@@ -12,7 +12,7 @@ https://npratt06.github.io/portfolio-site/
 - Build tooling has been migrated from Create React App to Vite.
 - Routing currently uses hash URLs for reliable GitHub Pages static hosting.
 - Zomboozled is playable, but online high scores are intentionally offline while any future backend is reconsidered.
-- Production dependency audit and Dependabot security alerts are currently clean.
+- Production dependency status can be checked with `npm audit --omit=dev`; GitHub Dependabot handles repository alerting.
 
 ## Local Development
 

@@ -49,7 +49,7 @@ export default class Resume extends Component<ResumeProps, ResumeState> {
         <div key={`job${index}`}>
           <div style={{ fontSize: '150%' }}>{job.CompanyName}</div>
           <div>{job.Position}</div>
-          <div>{job.Location}</div>
+          <div>{job.Dates}</div>
           <ul style={{ textAlign: 'left' }}>{bulletContent}</ul>
         </div>
       );
@@ -76,7 +76,7 @@ export default class Resume extends Component<ResumeProps, ResumeState> {
           <div style={{ marginTop: '50px' }} />
           <div style={resumeRowStyle}>
             <div style={resumeTitleStyle}>
-              <div style={{ fontSize: '225%' }}>Resume</div>
+              <div style={{ fontSize: '225%' }}>Experience Summary</div>
             </div>
           </div>
           <div style={resumeRowStyle}>
@@ -118,11 +118,6 @@ export default class Resume extends Component<ResumeProps, ResumeState> {
           </div>
           <div style={resumeRowStyle}>
             <div style={this.styleSet.resumeRowContentStyle}>
-              <div>{MyResumeContent.education.Location}</div>
-            </div>
-          </div>
-          <div style={resumeRowStyle}>
-            <div style={this.styleSet.resumeRowContentStyle}>
               <div>{MyResumeContent.education.Degree}</div>
             </div>
           </div>
@@ -136,7 +131,7 @@ export default class Resume extends Component<ResumeProps, ResumeState> {
           </div>
           <div style={resumeRowStyle}>
             <div style={this.styleSet.resumeRowContentStyle}>
-              <div style={resumeSectionHeaderStyle}>Tech Knowledge</div>
+              <div style={resumeSectionHeaderStyle}>Skills</div>
             </div>
           </div>
           {techKnowledge}

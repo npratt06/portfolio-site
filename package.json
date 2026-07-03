@@ -1,7 +1,14 @@
 {
     "name": "portfolio-site",
     "version": "0.1.0",
+    "description": "Personal portfolio site for Nate Pratt, built with React, TypeScript, Vite and GitHub Pages.",
     "private": true,
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/npratt06/portfolio-site.git"
+    },
+    "homepage": "https://npratt06.github.io/portfolio-site/",
     "dependencies": {
         "react": "^18.3.1",
         "react-dom": "^18.3.1",

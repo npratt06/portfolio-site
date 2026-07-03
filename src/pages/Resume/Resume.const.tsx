@@ -59,32 +59,71 @@ export const RESUME_STYLE_SETS: StyleSets = {
 
 export const MyResumeContent: ResumeContent = {
   professionalSummary:
-    'Software engineer with 6 years of experience, including 1 year of management experience. Enjoys collaborating with others to produce high quality, testable code, while improving existing systems and processes. Strives to create optimal solutions for complex challenges, adhering to fundamental design principles to ensure scalability, maintainability and reusability.',
+    'Software engineer with 8+ years of experience, including full stack product engineering, technical leadership and people management. Enjoys collaborating with others to produce high quality, testable code while improving existing systems and processes. Strives to design pragmatic solutions for complex challenges, balancing immediate product needs with long-term system considerations.',
   jobs: [
+    {
+      CompanyName: 'Imagine Pediatrics',
+      Position: 'Senior Full Stack Software Engineer',
+      Dates: '2026 - Present',
+      Bullets: [
+        {
+          title: 'Builds and maintains full stack healthcare software with a focus on reliability, maintainability and thoughtful user experience',
+          subBullets: []
+        },
+        {
+          title: 'Collaborates across engineering, product and design to deliver features that support complex care workflows',
+          subBullets: []
+        },
+        {
+          title: 'Contributes senior engineering judgment through architecture discussions, code review and implementation planning',
+          subBullets: []
+        }
+      ]
+    },
+    {
+      CompanyName: 'PlexTrac',
+      Position: 'Senior Software Engineer',
+      Dates: '2024 - 2026',
+      Bullets: [
+        {
+          title: 'Contributed to a security data management platform using React, TypeScript, PostgreSQL and Redis',
+          subBullets: []
+        },
+        {
+          title: 'Served as a technical lead for event-driven risk scoring capabilities',
+          subBullets: []
+        },
+        {
+          title: 'Designed and reviewed scalable system architectures in close collaboration with engineering, product and design partners',
+          subBullets: []
+        },
+        {
+          title: 'Mentored teammates on code quality, review practices, operational readiness and observability',
+          subBullets: []
+        }
+      ]
+    },
     {
       CompanyName: 'Janus',
       Position: 'Full Stack Software Engineer',
-      Dates: 'April 2023 - Present',
-      Location: 'Remote',
+      Dates: '2023 - 2024',
       Bullets: [
         {
-          title: 'As a member of the automation platform team, drove business value through contributions to diverse software systems',
+          title: 'Contributed to automation platform software across frontend, backend and browser-based tooling',
           subBullets: []
         },
         {
-          title: 'Responsible for the SDLC of various systems including',
+          title: 'Helped design and rebuild systems for data exploration, automation orchestration and concurrent web automation workflows',
           subBullets: [
-            'Janus App UI - an internal and customer-facing web app for browsing data, launching automations, etc. (TypeScript, Angular/RxJS, GraphQL Apollo Client)',
-            'Teleport Chrome extension - browser extension that interacts with a websocket server to execute web portal automations (TypeScript, React, Playwright, websocket client)',
-            'Teleport server - websocket server with scalable client connection handling, used to orchestrate simultaneous automations (TypeScript, Sequelize, Express.js, websocket server)'
+            'TypeScript, Angular/RxJS, React, Express, Sequelize and WebSocket-based services'
           ]
         },
         {
-          title: 'Gained invaluable full stack experience. Led refactoring, documentation and testing efforts for multiple applications',
+          title: 'Led refactoring, documentation and testing improvements across multiple applications',
           subBullets: []
         },
         {
-          title: 'Continued to grow in my communication skills with teammates as well as internal and external stakeholders',
+          title: 'Partnered with teammates and stakeholders to improve delivery clarity and technical maintainability',
           subBullets: []
         }
       ]
@@ -92,25 +131,21 @@ export const MyResumeContent: ResumeContent = {
     {
       CompanyName: 'Olive AI',
       Position: 'Software Engineer / Tech Lead / Software Engineering Manager',
-      Dates: 'Janurary 2020 - Present',
-      Location: 'Columbus, Ohio / Remote',
+      Dates: '2020 - 2023',
       Bullets: [
         {
-          title: 'Software Engineer / Technical Lead Roles',
+          title: 'Software Engineer / Technical Lead',
           subBullets: [
-            'Collaborated with external and internal teams to create custom healthcare automations as a Robot Process Automation Engineer using TypeScript',
-            'Acted as the Technical Lead for a group of software automation engineers before moving to the claim status product engineering team as a software engineer',
-            'Designed and developed a reusable claim status automation product (TypeScript, Node.js, MongoDB, AWS)'
+            'Built healthcare automation software in collaboration with internal and external teams',
+            'Led engineers through reusable automation product development using TypeScript, Node.js, MongoDB and AWS'
           ]
         },
         {
-          title: 'Software Engineering Manager Role',
+          title: 'Software Engineering Manager',
           subBullets: [
-            'Led a team of Software Engineers that developed and maintained Olive\'s claim status automation product',
-            'Improved people management and Agile skills while facilitating the team\'s technical responsibilities',
-            'Drove code quality and testing improvement initiatives (test coverage increased by >50%)',
-            'Successfully managed high priority, fast-paced, multi-team product integrations',
-            'Reduced company\'s resource and vendor costs through various software enhancements'
+            'Led a product engineering team while supporting delivery, quality and team health',
+            'Drove code quality and testing improvements across a fast-moving product area',
+            'Managed high-priority cross-team integrations and operational improvement work'
           ]
         }
       ]
@@ -118,11 +153,10 @@ export const MyResumeContent: ResumeContent = {
     {
       CompanyName: 'NetJets',
       Position: 'Software Engineer',
-      Dates: 'January 2019 - December 2019',
-      Location: 'Columbus, Ohio',
+      Dates: '2019',
       Bullets: [
         {
-          title: 'Contributed to the “run” team, responsible for supporting over 200 applications',
+          title: 'Contributed to an application support and maintenance team responsible for a large enterprise portfolio',
           subBullets: []
         },
         {
@@ -134,8 +168,7 @@ export const MyResumeContent: ResumeContent = {
     {
       CompanyName: 'Tech4Imaging',
       Position: 'Software Engineer Intern',
-      Dates: 'May 2017 - October 2018',
-      Location: 'Columbus, Ohio',
+      Dates: '2017 - 2018',
       Bullets: [
         {
           title: 'Collaborated with a small team on data imaging/visualization UI software written in AngularJS',
@@ -149,9 +182,8 @@ export const MyResumeContent: ResumeContent = {
     },
     {
       CompanyName: 'Ohio State University',
-      Position: 'Java Consultant',
-      Dates: 'August 2016 - January 2017',
-      Location: 'Columbus, Ohio',
+      Position: 'Software Consultant',
+      Dates: '2016 - 2017',
       Bullets: [
         {
           title: 'Fielded Java/C++ questions and assisted students enrolled in various software development courses',
@@ -163,14 +195,13 @@ export const MyResumeContent: ResumeContent = {
   education: {
     UniversityName: 'Ohio State University',
     Degree: 'B.S. Computer Science & Engineering',
-    Location: 'Columbus, Ohio',
-    GradDate: 'December 2018'
+    GradDate: '2018'
   },
   techKnowledge: {
-    Languages: 'TypeScript/Javascript, Python, Ruby, C#, C++, Java',
-    WebDev: 'React, Angular/RxJS, Vue.js, Rails, Js testing frameworks (jest, mocha, chai), HTML/CSS, Playwright',
-    Backend: 'Node.js, Express.js, GraphQL, REST APIs',
-    Databases: 'SQL (PostgreSQL), Sequelize, MongoDB',
+    Languages: 'TypeScript, JavaScript, Python, Ruby, C#, C++, Java',
+    Frontend: 'React, Angular, Vue.js, HTML, CSS, Playwright, Jest, Mocha, Chai',
+    Backend: 'Node.js, Express, REST APIs, Redis, BullMQ',
+    Databases: 'PostgreSQL, TimescaleDB, MongoDB, SQL, ORMs',
     Tools: 'AWS, Docker, GitHub, GitLab, Bitbucket, Jenkins, JIRA'
   }
 };

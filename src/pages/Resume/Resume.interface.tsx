@@ -15,7 +15,6 @@ export interface Job {
   CompanyName: string;
   Position: string;
   Dates: string;
-  Location: string;
   Bullets: JobBullet[];
 }
 
@@ -24,7 +23,6 @@ export interface ResumeContent {
   professionalSummary: string;
   education: {
     UniversityName: string;
-    Location: string;
     GradDate: string;
     Degree: string;
   };
