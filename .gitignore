@@ -29,3 +29,6 @@ yarn-error.log*
 
 # local Codex working notes
 /.codex
+
+# vs code
+/.vscode

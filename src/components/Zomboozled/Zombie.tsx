@@ -22,7 +22,6 @@ export default class Zombie {
   image: HTMLImageElement;
 
   constructor(width: number, height: number, x: number, y: number, imgID: string, type: string) {
-    console.log(`Zombie created`);
     this.width = width;
     this.height = height;
     this.x = x;

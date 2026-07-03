@@ -23,7 +23,6 @@ export default class Player {
     this.x = x;
     this.y = y;
     this.image = document.getElementById('bat') as HTMLImageElement;
-    console.log('Player created');
   }
 
   determineMovement(canvas: HTMLCanvasElement) {

@@ -60,13 +60,7 @@ export default class PageLayout extends Component<PageLayoutProps, PageLayoutSta
   updateDimensions() {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
-
-    console.log(`width: ${windowWidth}`);
-    console.log(`height: ${windowHeight}`);
-
     const deviceType = this.getDeviceType(windowWidth, windowHeight);
-
-    console.log(`deviceType: ${deviceType}`);
     this.setState({ pages: this.state.pages, windowWidth, windowHeight, deviceType });
   }
 

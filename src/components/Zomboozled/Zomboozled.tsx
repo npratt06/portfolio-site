@@ -284,7 +284,6 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
   }
 
   initializeGame() {
-    console.log(`Initializing game...`);
     const self = this;
 
     this.canvas = this.getCanvas();
@@ -323,7 +322,6 @@ export default class Zomboozled extends Component<ZomboozledProps, ZomboozledSta
   }
 
   startGame() {
-    console.log(`Starting game...`);
     this.interval = setInterval(() => {
       this.updateGame();
     }, 10);

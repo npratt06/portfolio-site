@@ -29,8 +29,7 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
         highScoresAvailable: result.available,
         scoresLoading: false
       });
-    } catch (err) {
-      console.log(`Error occurred loading high score placeholder: ${err}`);
+    } catch {
       this.setState({ scores: [], highScoresAvailable: false, scoresLoading: false });
     }
   }

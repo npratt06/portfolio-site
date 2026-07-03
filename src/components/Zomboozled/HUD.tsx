@@ -15,7 +15,6 @@ export default class HUD {
   upgradeSignImg: HTMLImageElement;
 
   constructor(player: Player, upgradeSignImg: HTMLImageElement) {
-    console.log(`HUD created`);
     this.ammoString = player.weapon.ammoString;
     this.ammoCount = player.weapon.ammoCount;
 
