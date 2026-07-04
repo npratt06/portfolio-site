@@ -11,6 +11,7 @@ export const rowElement: React.CSSProperties = {
 
 export interface JukeBoxProps {
   deviceType: string;
+  archiveMode?: boolean;
 }
 
 export interface JukeBoxState {

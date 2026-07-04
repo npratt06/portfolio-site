@@ -124,6 +124,7 @@ export default class JukeBox extends Component<JukeBoxProps, JukeBoxState> {
         handleMouseUp={this.handleMouseUp.bind(this)}
         handleMouseLeave={this.handleMouseLeave.bind(this)}
         deviceType={this.state.deviceType}
+        archiveMode={this.props.archiveMode}
       ></NavigateLR>
     );
     let components: JSX.Element = <div></div>;

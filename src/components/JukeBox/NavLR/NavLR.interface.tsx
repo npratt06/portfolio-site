@@ -8,6 +8,7 @@ export interface NavigateLRProps {
   handleMouseUp: () => void;
   handleMouseLeave: () => void;
   deviceType: string;
+  archiveMode?: boolean;
 }
 
 export interface NavigateLRState {
@@ -23,6 +24,7 @@ export interface NavBtnProps {
   handleMouseUp?: () => void;
   handleMouseLeave?: () => void;
   deviceType: string;
+  disabled?: boolean;
 }
 
 export interface NavBtnState {

@@ -1,148 +1,86 @@
-import React, { Component } from 'react';
-import { Job, ResumeProps, ResumeState } from './Resume.interface';
-import { MyResumeContent, resumeRowStyle, resumeStyle, resumeSectionHeaderStyle, RESUME_STYLE_SETS, resumeTitleStyle } from './Resume.const';
-import { outerWrapper } from '../../components/JukeBox/JukeBox.interface';
-import { getStyleSet, StyleSet } from '../../components/componentHelpers';
-import HomePageLink from '../../components/Common/HomePageLink';
+import PortfolioIcon from '../../components/Common/PortfolioIcon';
+import { skillGroups, workPrinciples } from '../../content/portfolio';
+import { Job } from './Resume.interface';
+import { MyResumeContent } from './Resume.const';
 
-export default class Resume extends Component<ResumeProps, ResumeState> {
-  styleSet: StyleSet;
+interface ResumeProps {
+  deviceType?: string;
+}
 
-  constructor(props: ResumeProps) {
-    super(props);
-    this.state = {
-      deviceType: props.deviceType
-    };
+function JobCard({ job }: { job: Job }) {
+  const primaryBullet = job.Bullets[0]?.title;
 
-    this.styleSet = getStyleSet(props.deviceType, RESUME_STYLE_SETS);
-  }
-
-  componentDidUpdate(prevProps: Readonly<ResumeProps>): void {
-    if (prevProps.deviceType !== this.props.deviceType) {
-      this.setState(() => {
-        return { deviceType: this.props.deviceType };
-      });
-      this.styleSet = getStyleSet(this.props.deviceType, RESUME_STYLE_SETS);
-    }
-  }
-
-  getComponents(): JSX.Element {
-    let bulletContent: JSX.Element[] = [];
-    let subBulletContent: JSX.Element[] = [];
-    const jobs: JSX.Element[] = MyResumeContent.jobs.map((job: Job, index) => {
-      bulletContent = job.Bullets.map((jobBullet, index) => {
-        subBulletContent = jobBullet.subBullets.map((subBullet, index) => {
-          return (
-            <li key={`subBullet${index}`}>
-              <div>{subBullet}</div>
-            </li>
-          );
-        });
-        return (
-          <li key={`bullet${index}`}>
-            <div>{jobBullet.title}</div>
-            <ul>{subBulletContent}</ul>
-          </li>
-        );
-      });
-      return (
-        <div key={`job${index}`}>
-          <div style={{ fontSize: '150%' }}>{job.CompanyName}</div>
-          <div>{job.Position}</div>
-          <div>{job.Dates}</div>
-          <ul style={{ textAlign: 'left' }}>{bulletContent}</ul>
-        </div>
-      );
-    });
-
-    const techKnowledge: JSX.Element[] = Object.keys(MyResumeContent.techKnowledge).map((category) => {
-      return (
-        <div style={resumeRowStyle} key={`techKnowledge${category}`}>
-          <div style={this.styleSet.resumeRowContentStyle}>
-            <div>
-              {category}: {MyResumeContent.techKnowledge[category]}
-            </div>
-          </div>
-        </div>
-      );
-    });
-
-    return (
-      <div style={resumeStyle}>
-        <div style={outerWrapper}>
-          <div style={resumeRowStyle}>
-            <HomePageLink />
-          </div>
-          <div style={{ marginTop: '50px' }} />
-          <div style={resumeRowStyle}>
-            <div style={resumeTitleStyle}>
-              <div style={{ fontSize: '225%' }}>Experience Summary</div>
-            </div>
-          </div>
-          <div style={resumeRowStyle}>
-            <hr style={this.styleSet.hrStyle}></hr>
-          </div>
-          <div style={resumeRowStyle}>
-            <div style={this.styleSet.resumeRowContentStyle}>
-              <div style={resumeSectionHeaderStyle}>Professional Summary</div>
-            </div>
-          </div>
-          <div style={resumeRowStyle}>
-            <div style={this.styleSet.resumeRowContentStyle}>{MyResumeContent.professionalSummary}</div>
-          </div>
-          <div style={resumeRowStyle}>
-            <hr style={this.styleSet.hrStyle}></hr>
-          </div>
-          <div style={resumeRowStyle}>
-            <div style={this.styleSet.resumeRowContentStyle}>
-              <div style={resumeSectionHeaderStyle}>Experience</div>
-            </div>
-          </div>
-          <div style={resumeRowStyle}>
-            <div style={this.styleSet.resumeRowContentStyle}>
-              <div>{jobs}</div>
-            </div>
-          </div>
-          <div style={resumeRowStyle}>
-            <hr style={this.styleSet.hrStyle}></hr>
-          </div>
-          <div style={resumeRowStyle}>
-            <div style={this.styleSet.resumeRowContentStyle}>
-              <div style={resumeSectionHeaderStyle}>Education</div>
-            </div>
-          </div>
-          <div style={resumeRowStyle}>
-            <div style={this.styleSet.resumeRowContentStyle}>
-              <div>{MyResumeContent.education.UniversityName}</div>
-            </div>
-          </div>
-          <div style={resumeRowStyle}>
-            <div style={this.styleSet.resumeRowContentStyle}>
-              <div>{MyResumeContent.education.Degree}</div>
-            </div>
-          </div>
-          <div style={resumeRowStyle}>
-            <div style={this.styleSet.resumeRowContentStyle}>
-              <div>{MyResumeContent.education.GradDate}</div>
-            </div>
-          </div>
-          <div style={resumeRowStyle}>
-            <hr style={this.styleSet.hrStyle}></hr>
-          </div>
-          <div style={resumeRowStyle}>
-            <div style={this.styleSet.resumeRowContentStyle}>
-              <div style={resumeSectionHeaderStyle}>Skills</div>
-            </div>
-          </div>
-          {techKnowledge}
-          <div style={{ marginBottom: '3vw' }} />
-        </div>
+  return (
+    <article className="timeline-item">
+      <div className="timeline-date">{job.Dates}</div>
+      <div className="timeline-marker" aria-hidden="true" />
+      <div className="timeline-copy">
+        <h3>{job.CompanyName}</h3>
+        <p>{job.Position}</p>
+        {primaryBullet ? <span>{primaryBullet}</span> : null}
       </div>
-    );
-  }
+    </article>
+  );
+}
 
-  render() {
-    const components: JSX.Element = this.getComponents();
-    return <div>{components}</div>;
-  }
+export default function Resume({ deviceType }: ResumeProps) {
+  void deviceType;
+
+  return (
+    <div className="page">
+      <section className="page-intro">
+        <h1>Experience</h1>
+        <p>A public summary of roles, impact, and how I work.</p>
+      </section>
+
+      <div className="experience-layout">
+        <section className="timeline-section" aria-label="Role history">
+          <h2>Role history</h2>
+          <div className="timeline-list">
+            {MyResumeContent.jobs.map((job) => (
+              <JobCard job={job} key={`${job.CompanyName}-${job.Dates}`} />
+            ))}
+          </div>
+        </section>
+
+        <aside className="experience-aside">
+          <section className="principles-section">
+            <h2>How I work</h2>
+            <div className="principles-list">
+              {workPrinciples.map((principle) => (
+                <article className="principle" key={principle.title}>
+                  <div className="icon-tile icon-tile--small">
+                    <PortfolioIcon name={principle.icon} />
+                  </div>
+                  <div>
+                    <h3>{principle.title}</h3>
+                    <p>{principle.summary}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="skills-section">
+            <h2>Skills</h2>
+            <div className="skills-grid">
+              {skillGroups.map((group) => (
+                <div className="skill-row" key={group.title}>
+                  <strong>{group.title}</strong>
+                  <span>{group.skills.join(', ')}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="education-section">
+            <h2>Education</h2>
+            <p>
+              {MyResumeContent.education.Degree}, {MyResumeContent.education.UniversityName} ({MyResumeContent.education.GradDate})
+            </p>
+          </section>
+        </aside>
+      </div>
+    </div>
+  );
 }

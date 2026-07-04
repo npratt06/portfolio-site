@@ -46,6 +46,8 @@ export default class NavigateLR extends Component<NavigateLRProps, NavigateLRSta
   }
 
   getComponents(): JSX.Element {
+    const selectButton = <NavBtn imgSrc={selectBtn} btnText={'SELECT'} deviceType={this.state.deviceType} disabled={this.props.archiveMode} />;
+
     return (
       <div style={{ display: 'flex' }}>
         <NavBtn
@@ -57,9 +59,13 @@ export default class NavigateLR extends Component<NavigateLRProps, NavigateLRSta
           handleMouseLeave={this.handleMouseLeave}
           deviceType={this.state.deviceType}
         />
-        <Link to={this.state.linkPath}>
-          <NavBtn imgSrc={selectBtn} btnText={'SELECT'} deviceType={this.state.deviceType} />
-        </Link>
+        {this.props.archiveMode ? (
+          <div aria-label="Old jukebox navigation is disabled" title="Old navigation is disabled for the archive">
+            {selectButton}
+          </div>
+        ) : (
+          <Link to={this.state.linkPath}>{selectButton}</Link>
+        )}
         <NavBtn
           imgSrc={rightBtn}
           btnText={''}

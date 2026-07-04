@@ -41,6 +41,7 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
   }
 
   handleMouseEnter() {
+    if (this.props.disabled) return;
     this.setState(() => {
       const btnImgStyle = btnImgBaseStyle;
       const btnTextTransformStyle = btnTextTransformBaseStyle;
@@ -49,6 +50,7 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
   }
 
   handleMouseLeave() {
+    if (this.props.disabled) return;
     if (this.handleMouseLeaveProp) {
       this.handleMouseLeaveProp();
     }
@@ -60,6 +62,7 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
   }
 
   handleMouseDown() {
+    if (this.props.disabled) return;
     if (this.handleMouseDownProp) {
       this.handleMouseDownProp();
     }
@@ -71,6 +74,7 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
   }
 
   handleMouseUp() {
+    if (this.props.disabled) return;
     if (this.handleMouseUpProp) {
       this.handleMouseUpProp();
     }
@@ -82,9 +86,11 @@ export default class NavBtn extends Component<NavBtnProps, NavBtnState> {
   }
 
   getComponents(): JSX.Element {
+    const clickHandler = this.props.disabled ? undefined : this.handleClick;
+
     return (
       <div onMouseEnter={this.handleMouseEnter.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)} onMouseDown={this.handleMouseDown.bind(this)} onMouseUp={this.handleMouseUp.bind(this)}>
-        <div style={this.styleSet.btnStyle} onClick={this.handleClick}>
+        <div aria-disabled={this.props.disabled || undefined} style={{ ...this.styleSet.btnStyle, opacity: this.props.disabled ? 0.62 : 1, cursor: this.props.disabled ? 'not-allowed' : 'pointer' }} onClick={clickHandler}>
           <img src={this.imgSrc} alt={'NavBtn'} style={this.state.btnImgStyle} draggable={'false'}></img>
           <div style={this.styleSet.selectBtnTextStyle}>
             <div style={this.state.btnTextTransformStyle}>{this.btnText}</div>
