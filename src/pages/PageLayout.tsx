@@ -17,6 +17,8 @@ const navItems = [
   { label: 'Lab', path: '/lab' }
 ];
 
+const MENU_CLOSE_DURATION_MS = 620;
+
 type Theme = 'dark' | 'light';
 
 function getDeviceType(windowWidth: number, windowHeight: number) {
@@ -100,16 +102,56 @@ export function ThemeToggle({ setTheme, theme }: { setTheme: React.Dispatch<Reac
 
 function SiteHeader({ setTheme, theme }: { setTheme: React.Dispatch<React.SetStateAction<Theme>>; theme: Theme }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isMenuClosing, setIsMenuClosing] = React.useState(false);
+  const closeTimeoutRef = React.useRef<number | null>(null);
+  const isMenuOpenRef = React.useRef(isMenuOpen);
   const { pathname } = useLocation();
 
   React.useEffect(() => {
-    setIsMenuOpen(false);
-  }, [pathname]);
+    isMenuOpenRef.current = isMenuOpen;
+  }, [isMenuOpen]);
 
-  const closeMenu = () => setIsMenuOpen(false);
+  const clearCloseTimeout = React.useCallback(() => {
+    if (closeTimeoutRef.current !== null) {
+      window.clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+  }, []);
+
+  const closeMenu = React.useCallback(() => {
+    clearCloseTimeout();
+    if (isMenuOpenRef.current) {
+      setIsMenuClosing(true);
+      closeTimeoutRef.current = window.setTimeout(() => {
+        setIsMenuClosing(false);
+        closeTimeoutRef.current = null;
+      }, MENU_CLOSE_DURATION_MS);
+    }
+
+    setIsMenuOpen(false);
+  }, [clearCloseTimeout]);
+
+  const toggleMenu = () => {
+    if (isMenuOpen) {
+      closeMenu();
+      return;
+    }
+
+    clearCloseTimeout();
+    setIsMenuClosing(false);
+    setIsMenuOpen(true);
+  };
+
+  React.useEffect(() => {
+    closeMenu();
+  }, [pathname, closeMenu]);
+
+  React.useEffect(() => clearCloseTimeout, [clearCloseTimeout]);
+
+  const headerClassName = `site-header${isMenuOpen ? ' site-header--menu-open' : ''}${isMenuClosing ? ' site-header--menu-closing' : ''}`;
 
   return (
-    <header className={`site-header${isMenuOpen ? ' site-header--menu-open' : ''}`}>
+    <header className={headerClassName}>
       <Link className="brand-link" onClick={closeMenu} to="/">
         <span className="brand-mark" aria-hidden="true">
           NP
@@ -125,7 +167,7 @@ function SiteHeader({ setTheme, theme }: { setTheme: React.Dispatch<React.SetSta
         <ExternalNavLink onNavigate={closeMenu} />
       </nav>
       <ThemeToggle setTheme={setTheme} theme={theme} />
-      <button className="mobile-menu-button" aria-controls="primary-navigation" aria-expanded={isMenuOpen} aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'} onClick={() => setIsMenuOpen((open) => !open)} type="button">
+      <button className="mobile-menu-button" aria-controls="primary-navigation" aria-expanded={isMenuOpen} aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'} onClick={toggleMenu} type="button">
         <span className="mobile-menu-button__lines" aria-hidden="true">
           <span />
           <span />
