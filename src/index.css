@@ -1046,6 +1046,7 @@ code {
   .site-header {
     grid-template-columns: minmax(0, 1fr) auto auto;
     gap: 14px;
+    min-height: 68px;
     padding: 14px 20px;
   }
 
@@ -1105,20 +1106,30 @@ code {
 
   .page {
     width: min(100% - 32px, 1420px);
-    padding: 38px 0 54px;
+    padding: 28px 0 48px;
+  }
+
+  .page-intro {
+    padding-bottom: 28px;
+  }
+
+  .page-intro span {
+    margin-top: 14px;
+    line-height: 1.5;
   }
 
   .page--home {
-    padding-top: 44px;
+    padding-top: 30px;
   }
 
   .hero-section {
     min-height: auto;
-    gap: 34px;
-    padding-bottom: 30px;
+    gap: 22px;
+    padding-bottom: 24px;
   }
 
   .hero-aside {
+    gap: 16px;
     padding-top: 0;
   }
 
@@ -1129,16 +1140,23 @@ code {
 
   .hero-title,
   .page-intro p {
+    margin-top: 12px;
     font-size: 1.25rem;
   }
 
   .hero-summary {
+    margin-top: 16px;
     font-size: 1.02rem;
+    line-height: 1.48;
   }
 
   .dot-field {
-    width: 100%;
-    height: 120px;
+    display: none;
+  }
+
+  .button-row {
+    gap: 10px;
+    margin-top: 22px;
   }
 
   .stat-rail,
@@ -1149,10 +1167,26 @@ code {
   }
 
   .stat-item {
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 12px;
     min-height: auto;
     border-right: 0;
     border-bottom: 1px solid var(--border);
-    padding: 18px 0;
+    padding: 12px 0;
+  }
+
+  .stat-item > .portfolio-icon {
+    font-size: 1.28rem;
+  }
+
+  .stat-item strong {
+    margin-top: 5px;
+    font-size: 1.06rem;
+  }
+
+  .stat-item p {
+    margin-top: 4px;
+    line-height: 1.36;
   }
 
   .stat-item:last-child {
@@ -1161,6 +1195,8 @@ code {
 
   .work-card {
     grid-template-columns: 70px minmax(0, 1fr);
+    min-height: auto;
+    padding: 18px;
   }
 
   .icon-tile {
@@ -1169,25 +1205,59 @@ code {
   }
 
   .project-copy h2 {
+    margin-top: 14px;
     font-size: 2.45rem;
   }
 
+  .project-copy > p {
+    font-size: 1.06rem;
+    line-height: 1.5;
+  }
+
+  .detail-list {
+    margin-top: 16px;
+  }
+
+  .detail-list li + li {
+    margin-top: 6px;
+  }
+
+  .project-feature {
+    gap: 24px;
+    padding: 28px 0;
+  }
+
   .project-visual {
-    min-height: 250px;
+    min-height: 180px;
   }
 
   .wiffle-ball {
-    width: 150px;
-    height: 150px;
+    width: 124px;
+    height: 124px;
   }
 
   .wiffle-ball .portfolio-icon {
-    font-size: 6.8rem;
+    font-size: 5.6rem;
+  }
+
+  .callout-row {
+    gap: 14px;
+    margin-top: 20px;
+    padding: 20px;
   }
 
   .callout-row,
   .lab-note {
     grid-template-columns: 1fr;
+  }
+
+  .experience-layout {
+    gap: 30px;
+    padding-top: 28px;
+  }
+
+  .timeline-section h2 {
+    margin-bottom: 16px;
   }
 
   .timeline-list::before {
@@ -1196,7 +1266,9 @@ code {
 
   .timeline-item {
     grid-template-columns: 28px minmax(0, 1fr);
-    gap: 14px;
+    gap: 12px;
+    min-height: auto;
+    padding-bottom: 20px;
   }
 
   .timeline-date {
@@ -1215,14 +1287,72 @@ code {
     grid-column: 2;
   }
 
+  .timeline-copy h3 {
+    font-size: 1.24rem;
+  }
+
+  .timeline-copy span {
+    margin-top: 8px;
+  }
+
+  .experience-aside {
+    gap: 20px;
+    padding-top: 24px;
+  }
+
+  .principles-list,
+  .skills-grid {
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+
+  .principle {
+    grid-template-columns: 50px minmax(0, 1fr);
+    gap: 14px;
+    padding: 12px 0;
+  }
+
+  .skill-row {
+    gap: 6px;
+    padding-left: 14px;
+  }
+
+  .education-section {
+    padding-top: 16px;
+  }
+
+  .education-section p {
+    margin-top: 10px;
+  }
+
+  .lab-groups {
+    gap: 8px;
+  }
+
   .lab-group {
-    gap: 26px;
-    padding: 20px;
+    gap: 18px;
+    min-height: auto;
+    padding: 18px;
+  }
+
+  .lab-group-main {
+    gap: 10px;
   }
 
   .lab-group-detail {
     border-left: 0;
     padding-left: 0;
+  }
+
+  .lab-card {
+    min-height: auto;
+    padding: 14px;
+  }
+
+  .lab-note {
+    gap: 12px;
+    margin-top: 22px;
+    padding-top: 18px;
   }
 
   .site-footer {
@@ -1233,6 +1363,11 @@ code {
 }
 
 @media (max-width: 520px) {
+  .site-header {
+    gap: 10px;
+    padding: 10px 16px;
+  }
+
   .site-nav {
     grid-template-columns: 1fr;
   }
@@ -1244,7 +1379,35 @@ code {
 
   .hero-copy h1,
   .page-intro h1 {
-    font-size: 2.72rem;
+    font-size: 2.58rem;
+  }
+
+  .page {
+    width: min(100% - 28px, 1420px);
+    padding-top: 22px;
+    padding-bottom: 42px;
+  }
+
+  .page-intro {
+    padding-bottom: 22px;
+  }
+
+  .page--home {
+    padding-top: 24px;
+  }
+
+  .page--home .hero-aside {
+    display: none;
+  }
+
+  .hero-title,
+  .page-intro p {
+    font-size: 1.18rem;
+  }
+
+  .stat-rail {
+    margin-top: 22px;
+    padding-top: 12px;
   }
 
   .button-row,
@@ -1253,11 +1416,55 @@ code {
   }
 
   .button {
-    min-height: 48px;
+    min-height: 44px;
+  }
+
+  .project-feature {
+    gap: 18px;
+    padding: 22px 0;
+  }
+
+  .project-visual {
+    display: none;
+  }
+
+  .callout-row {
+    padding: 16px;
   }
 
   .work-card {
     grid-template-columns: 1fr;
+  }
+
+  .icon-tile {
+    width: 54px;
+    height: 54px;
+  }
+
+  .icon-tile .portfolio-icon {
+    font-size: 2rem;
+  }
+
+  .icon-tile--small {
+    width: 46px;
+    height: 46px;
+  }
+
+  .icon-tile--small .portfolio-icon {
+    font-size: 1.45rem;
+  }
+
+  .icon-tile--large {
+    width: 58px;
+    height: 58px;
+  }
+
+  .icon-tile--large .portfolio-icon {
+    font-size: 2rem;
+  }
+
+  .lab-group {
+    padding: 16px;
   }
 
   .legacy-archive-page {
