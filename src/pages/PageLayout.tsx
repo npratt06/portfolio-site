@@ -17,7 +17,7 @@ const navItems = [
   { label: 'Lab', path: '/lab' }
 ];
 
-const MENU_CLOSE_DURATION_MS = 620;
+const MENU_CLOSE_DURATION_MS = 2500;
 
 type Theme = 'dark' | 'light';
 
@@ -118,22 +118,30 @@ function SiteHeader({ setTheme, theme }: { setTheme: React.Dispatch<React.SetSta
     }
   }, []);
 
-  const closeMenu = React.useCallback(() => {
+  const beginMenuClose = React.useCallback(() => {
     clearCloseTimeout();
-    if (isMenuOpenRef.current) {
-      setIsMenuClosing(true);
-      closeTimeoutRef.current = window.setTimeout(() => {
-        setIsMenuClosing(false);
-        closeTimeoutRef.current = null;
-      }, MENU_CLOSE_DURATION_MS);
-    }
-
+    setIsMenuClosing(true);
+    closeTimeoutRef.current = window.setTimeout(() => {
+      setIsMenuClosing(false);
+      closeTimeoutRef.current = null;
+    }, MENU_CLOSE_DURATION_MS);
     setIsMenuOpen(false);
   }, [clearCloseTimeout]);
 
+  const closeMenu = React.useCallback(() => {
+    clearCloseTimeout();
+
+    if (isMenuOpenRef.current) {
+      beginMenuClose();
+      return;
+    }
+
+    setIsMenuOpen(false);
+  }, [beginMenuClose, clearCloseTimeout]);
+
   const toggleMenu = () => {
     if (isMenuOpen) {
-      closeMenu();
+      beginMenuClose();
       return;
     }
 
