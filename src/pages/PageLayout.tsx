@@ -17,9 +17,10 @@ const navItems = [
   { label: 'Lab', path: '/lab' }
 ];
 
-const MENU_CLOSE_DURATION_MS = 2500;
+const MENU_CLOSE_DURATION_MS = 770;
 
 type Theme = 'dark' | 'light';
+type MenuPhase = 'closed' | 'open' | 'closing';
 
 function getDeviceType(windowWidth: number, windowHeight: number) {
   return windowWidth < windowHeight * 0.95 ? DEVICE_TYPES.MOBILE : DEVICE_TYPES.DESKTOP;
@@ -87,7 +88,14 @@ export function ThemeToggle({ setTheme, theme }: { setTheme: React.Dispatch<Reac
   const nextTheme = theme === 'dark' ? 'light' : 'dark';
 
   return (
-    <button aria-label={`Switch to ${nextTheme} mode`} aria-pressed={theme === 'light'} className={`theme-toggle theme-toggle--${theme}`} onClick={() => setTheme(nextTheme)} title={`Switch to ${nextTheme} mode`} type="button">
+    <button
+      aria-label={`Switch to ${nextTheme} mode`}
+      aria-pressed={theme === 'light'}
+      className={`theme-toggle theme-toggle--${theme}`}
+      onClick={() => setTheme(nextTheme)}
+      title={`Switch to ${nextTheme} mode`}
+      type="button"
+    >
       <span className="theme-toggle__icon-track" aria-hidden="true">
         <span className="theme-toggle__icon theme-toggle__icon--moon">
           <PortfolioIcon name="moon" />
@@ -101,15 +109,9 @@ export function ThemeToggle({ setTheme, theme }: { setTheme: React.Dispatch<Reac
 }
 
 function SiteHeader({ setTheme, theme }: { setTheme: React.Dispatch<React.SetStateAction<Theme>>; theme: Theme }) {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [isMenuClosing, setIsMenuClosing] = React.useState(false);
+  const [menuPhase, setMenuPhase] = React.useState<MenuPhase>('closed');
   const closeTimeoutRef = React.useRef<number | null>(null);
-  const isMenuOpenRef = React.useRef(isMenuOpen);
   const { pathname } = useLocation();
-
-  React.useEffect(() => {
-    isMenuOpenRef.current = isMenuOpen;
-  }, [isMenuOpen]);
 
   const clearCloseTimeout = React.useCallback(() => {
     if (closeTimeoutRef.current !== null) {
@@ -120,34 +122,33 @@ function SiteHeader({ setTheme, theme }: { setTheme: React.Dispatch<React.SetSta
 
   const beginMenuClose = React.useCallback(() => {
     clearCloseTimeout();
-    setIsMenuClosing(true);
-    closeTimeoutRef.current = window.setTimeout(() => {
-      setIsMenuClosing(false);
-      closeTimeoutRef.current = null;
-    }, MENU_CLOSE_DURATION_MS);
-    setIsMenuOpen(false);
+
+    setMenuPhase((phase) => {
+      if (phase === 'closed') {
+        return 'closed';
+      }
+
+      closeTimeoutRef.current = window.setTimeout(() => {
+        setMenuPhase('closed');
+        closeTimeoutRef.current = null;
+      }, MENU_CLOSE_DURATION_MS);
+
+      return 'closing';
+    });
   }, [clearCloseTimeout]);
 
   const closeMenu = React.useCallback(() => {
-    clearCloseTimeout();
-
-    if (isMenuOpenRef.current) {
-      beginMenuClose();
-      return;
-    }
-
-    setIsMenuOpen(false);
-  }, [beginMenuClose, clearCloseTimeout]);
+    beginMenuClose();
+  }, [beginMenuClose]);
 
   const toggleMenu = () => {
-    if (isMenuOpen) {
+    if (menuPhase === 'open') {
       beginMenuClose();
       return;
     }
 
     clearCloseTimeout();
-    setIsMenuClosing(false);
-    setIsMenuOpen(true);
+    setMenuPhase('open');
   };
 
   React.useEffect(() => {
@@ -156,7 +157,8 @@ function SiteHeader({ setTheme, theme }: { setTheme: React.Dispatch<React.SetSta
 
   React.useEffect(() => clearCloseTimeout, [clearCloseTimeout]);
 
-  const headerClassName = `site-header${isMenuOpen ? ' site-header--menu-open' : ''}${isMenuClosing ? ' site-header--menu-closing' : ''}`;
+  const isMenuOpen = menuPhase === 'open';
+  const headerClassName = `site-header${menuPhase === 'open' ? ' site-header--menu-open' : ''}${menuPhase === 'closing' ? ' site-header--menu-closing' : ''}`;
 
   return (
     <header className={headerClassName}>
@@ -175,7 +177,14 @@ function SiteHeader({ setTheme, theme }: { setTheme: React.Dispatch<React.SetSta
         <ExternalNavLink onNavigate={closeMenu} />
       </nav>
       <ThemeToggle setTheme={setTheme} theme={theme} />
-      <button className="mobile-menu-button" aria-controls="primary-navigation" aria-expanded={isMenuOpen} aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'} onClick={toggleMenu} type="button">
+      <button
+        className="mobile-menu-button"
+        aria-controls="primary-navigation"
+        aria-expanded={isMenuOpen}
+        aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+        onClick={toggleMenu}
+        type="button"
+      >
         <span className="mobile-menu-button__lines" aria-hidden="true">
           <span />
           <span />

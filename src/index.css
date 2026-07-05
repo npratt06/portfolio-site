@@ -189,10 +189,7 @@ code {
   overflow: hidden;
   padding: 0;
   place-items: center;
-  transition:
-    border-color 500ms cubic-bezier(0.65, 0, 0.35, 1),
-    color 500ms cubic-bezier(0.65, 0, 0.35, 1),
-    background-color 500ms cubic-bezier(0.65, 0, 0.35, 1);
+  transition: border-color 500ms cubic-bezier(0.65, 0, 0.35, 1), color 500ms cubic-bezier(0.65, 0, 0.35, 1), background-color 500ms cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .theme-toggle--light,
@@ -678,9 +675,7 @@ code {
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--project-accent) 44%, var(--border-strong));
   border-radius: 8px;
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--accent) 7%, transparent) 1px, transparent 1px),
-    linear-gradient(color-mix(in srgb, var(--accent) 6%, transparent) 1px, transparent 1px),
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 7%, transparent) 1px, transparent 1px), linear-gradient(color-mix(in srgb, var(--accent) 6%, transparent) 1px, transparent 1px),
     color-mix(in srgb, var(--surface-strong) 86%, var(--accent-strong));
   background-size: 18px 18px;
   box-shadow: inset 0 0 72px color-mix(in srgb, var(--bg) 36%, transparent);
@@ -1231,7 +1226,7 @@ code {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 8px;
-    opacity: 1;
+    opacity: 0;
     visibility: hidden;
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -1239,13 +1234,12 @@ code {
     box-shadow: var(--shadow);
     padding: 10px;
     backdrop-filter: blur(18px);
-    clip-path: inset(0 0 100% 0 round 8px);
+    clip-path: inset(0 0 0 0 round 8px);
     pointer-events: none;
-    transform: translateY(-10px) scale(0.975);
+    transform: translateY(-6px) scale(0.985);
     transform-origin: top center;
     overflow: hidden;
-    animation: none;
-    transition: transform 360ms cubic-bezier(0.65, 0, 0.35, 1);
+    transition: none;
   }
 
   .site-header--menu-open .site-nav {
@@ -1254,18 +1248,16 @@ code {
     clip-path: inset(0 0 0 0 round 8px);
     pointer-events: auto;
     transform: translateY(0) scale(1);
-    animation: mobile-menu-reveal 2360ms linear both;
-    transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: opacity 200ms ease, transform 300ms cubic-bezier(0.22, 1, 0.36, 1), visibility 0s;
   }
 
   .site-header--menu-closing .site-nav {
-    opacity: 1;
+    opacity: 0;
     visibility: visible;
-    clip-path: inset(0 0 100% 0 round 8px);
+    clip-path: inset(0 0 0 0 round 8px);
     pointer-events: none;
-    transform: translateY(-10px) scale(0.975);
-    animation: mobile-menu-collapse 2360ms linear both;
-    transition: transform 360ms cubic-bezier(0.65, 0, 0.35, 1) 1900ms;
+    transform: translateY(-6px) scale(0.985);
+    transition: opacity 120ms ease 1000ms, transform 200ms cubic-bezier(0.65, 0, 0.35, 1) 880ms, visibility 0s;
   }
 
   .nav-link {
@@ -1280,172 +1272,271 @@ code {
     transform: translateY(var(--menu-item-closed-y, -10px)) scale(0.985);
     transform-origin: top center;
     animation: none;
-    transition:
-      border-color 180ms ease,
-      background-color 180ms ease,
-      color 180ms ease;
+    transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease;
   }
 
   .nav-link:nth-child(1) {
-    --menu-item-closed-y: -10px;
     z-index: 5;
-    animation-delay: 1720ms;
   }
 
   .nav-link:nth-child(2) {
-    --menu-item-closed-y: -58px;
     z-index: 4;
-    animation-delay: 1320ms;
   }
 
   .nav-link:nth-child(3) {
-    --menu-item-closed-y: -108px;
     z-index: 3;
-    animation-delay: 920ms;
   }
 
   .nav-link:nth-child(4) {
-    --menu-item-closed-y: -158px;
     z-index: 2;
-    animation-delay: 520ms;
   }
 
   .nav-link:nth-child(5) {
-    --menu-item-closed-y: -208px;
     z-index: 1;
-    animation-delay: 120ms;
   }
 
   .site-header--menu-open .nav-link {
-    animation: mobile-menu-item-open 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-duration: 750ms;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
     opacity: 1;
   }
 
-  .site-header--menu-closing .nav-link {
-    animation: mobile-menu-item-close 280ms cubic-bezier(0.65, 0, 0.35, 1) both;
+  .site-header:not(.site-header--menu-open) .nav-link {
+    animation-duration: 750ms;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
   }
 
   .site-header--menu-open .nav-link:nth-child(1) {
-    animation-delay: 120ms;
+    animation-name: mobile-menu-item-open-1;
   }
 
   .site-header--menu-open .nav-link:nth-child(2) {
-    animation-delay: 520ms;
+    animation-name: mobile-menu-item-open-2;
   }
 
   .site-header--menu-open .nav-link:nth-child(3) {
-    animation-delay: 920ms;
+    animation-name: mobile-menu-item-open-3;
   }
 
   .site-header--menu-open .nav-link:nth-child(4) {
-    animation-delay: 1320ms;
+    animation-name: mobile-menu-item-open-4;
   }
 
   .site-header--menu-open .nav-link:nth-child(5) {
-    animation-delay: 1720ms;
+    animation-name: mobile-menu-item-open-5;
   }
 
-  .site-header--menu-closing .nav-link:nth-child(1) {
-    animation-delay: 1720ms;
+  .site-header:not(.site-header--menu-open) .nav-link:nth-child(1) {
+    animation-name: mobile-menu-item-close-1;
   }
 
-  .site-header--menu-closing .nav-link:nth-child(2) {
-    animation-delay: 1320ms;
+  .site-header:not(.site-header--menu-open) .nav-link:nth-child(2) {
+    animation-name: mobile-menu-item-close-2;
   }
 
-  .site-header--menu-closing .nav-link:nth-child(3) {
-    animation-delay: 920ms;
+  .site-header:not(.site-header--menu-open) .nav-link:nth-child(3) {
+    animation-name: mobile-menu-item-close-3;
   }
 
-  .site-header--menu-closing .nav-link:nth-child(4) {
-    animation-delay: 520ms;
+  .site-header:not(.site-header--menu-open) .nav-link:nth-child(4) {
+    animation-name: mobile-menu-item-close-4;
   }
 
-  .site-header--menu-closing .nav-link:nth-child(5) {
-    animation-delay: 120ms;
+  .site-header:not(.site-header--menu-open) .nav-link:nth-child(5) {
+    animation-name: mobile-menu-item-close-5;
   }
 
-  @keyframes mobile-menu-reveal {
-    0%,
-    5% {
-      clip-path: inset(0 0 100% 0 round 8px);
+  @keyframes mobile-menu-item-open-1 {
+    0% {
+      transform: translateY(-50px) scale(0.985);
     }
 
-    17%,
-    22% {
-      clip-path: inset(0 0 80% 0 round 8px);
-    }
-
-    34%,
-    39% {
-      clip-path: inset(0 0 61% 0 round 8px);
-    }
-
-    51%,
-    56% {
-      clip-path: inset(0 0 42% 0 round 8px);
-    }
-
-    68%,
-    73% {
-      clip-path: inset(0 0 23% 0 round 8px);
-    }
-
-    85%,
+    18%,
     100% {
-      clip-path: inset(0 0 0 0 round 8px);
-    }
-  }
-
-  @keyframes mobile-menu-collapse {
-    0%,
-    5% {
-      clip-path: inset(0 0 0 0 round 8px);
-    }
-
-    17%,
-    22% {
-      clip-path: inset(0 0 23% 0 round 8px);
-    }
-
-    34%,
-    39% {
-      clip-path: inset(0 0 42% 0 round 8px);
-    }
-
-    51%,
-    56% {
-      clip-path: inset(0 0 61% 0 round 8px);
-    }
-
-    68%,
-    73% {
-      clip-path: inset(0 0 80% 0 round 8px);
-    }
-
-    85%,
-    100% {
-      clip-path: inset(0 0 100% 0 round 8px);
-    }
-  }
-
-  @keyframes mobile-menu-item-open {
-    from {
-      transform: translateY(var(--menu-item-closed-y, -10px)) scale(0.985);
-    }
-
-    to {
       transform: translateY(0) scale(1);
     }
   }
 
-  @keyframes mobile-menu-item-close {
-    from {
+  @keyframes mobile-menu-item-open-2 {
+    0%,
+    20% {
+      transform: translateY(-50px) scale(0.985);
+    }
+
+    38%,
+    100% {
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes mobile-menu-item-open-3 {
+    0%,
+    20% {
+      transform: translateY(-100px) scale(0.985);
+    }
+
+    38%,
+    42% {
+      transform: translateY(-50px) scale(0.985);
+    }
+
+    60%,
+    100% {
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes mobile-menu-item-open-4 {
+    0%,
+    20% {
+      transform: translateY(-150px) scale(0.985);
+    }
+
+    38%,
+    42% {
+      transform: translateY(-100px) scale(0.985);
+    }
+
+    60%,
+    64% {
+      transform: translateY(-50px) scale(0.985);
+    }
+
+    82%,
+    100% {
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes mobile-menu-item-open-5 {
+    0%,
+    20% {
+      transform: translateY(-200px) scale(0.985);
+    }
+
+    38%,
+    42% {
+      transform: translateY(-150px) scale(0.985);
+    }
+
+    60%,
+    64% {
+      transform: translateY(-100px) scale(0.985);
+    }
+
+    82%,
+    86% {
+      transform: translateY(-50px) scale(0.985);
+    }
+
+    100% {
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes mobile-menu-item-close-1 {
+    0%,
+    88% {
       transform: translateY(0) scale(1);
     }
 
-    to {
-      transform: translateY(var(--menu-item-closed-y, -10px)) scale(0.985);
+    100% {
+      transform: translateY(-50px) scale(0.985);
+    }
+  }
+
+  @keyframes mobile-menu-item-close-2 {
+    0%,
+    66% {
+      transform: translateY(0) scale(1);
+    }
+
+    84%,
+    88% {
+      transform: translateY(-50px) scale(0.985);
+    }
+
+    100% {
+      transform: translateY(-100px) scale(0.985);
+    }
+  }
+
+  @keyframes mobile-menu-item-close-3 {
+    0%,
+    44% {
+      transform: translateY(0) scale(1);
+    }
+
+    62%,
+    66% {
+      transform: translateY(-50px) scale(0.985);
+    }
+
+    84%,
+    88% {
+      transform: translateY(-100px) scale(0.985);
+    }
+
+    100% {
+      transform: translateY(-150px) scale(0.985);
+    }
+  }
+
+  @keyframes mobile-menu-item-close-4 {
+    0%,
+    22% {
+      transform: translateY(0) scale(1);
+    }
+
+    40%,
+    44% {
+      transform: translateY(-50px) scale(0.985);
+    }
+
+    62%,
+    66% {
+      transform: translateY(-100px) scale(0.985);
+    }
+
+    84%,
+    88% {
+      transform: translateY(-150px) scale(0.985);
+    }
+
+    100% {
+      transform: translateY(-200px) scale(0.985);
+    }
+  }
+
+  @keyframes mobile-menu-item-close-5 {
+    0% {
+      transform: translateY(0) scale(1);
+    }
+
+    18%,
+    22% {
+      transform: translateY(-50px) scale(0.985);
+    }
+
+    40%,
+    44% {
+      transform: translateY(-100px) scale(0.985);
+    }
+
+    62%,
+    66% {
+      transform: translateY(-150px) scale(0.985);
+    }
+
+    84%,
+    88% {
+      transform: translateY(-200px) scale(0.985);
+    }
+
+    100% {
+      transform: translateY(-250px) scale(0.985);
     }
   }
 
