@@ -221,7 +221,7 @@ export const labItems: LabItem[] = [
     title: 'Original portfolio interface',
     category: 'Archive',
     summary:
-      'The handmade jukebox-style portfolio is preserved as a historical artifact rather than the primary navigation shell.',
+      '"I built this in a cave with a box of scraps." This 2017 jukebox shell is preserved for nostalgia, not as a second portfolio.',
     linkLabel: 'View archive',
     href: '#/lab/archive'
   }

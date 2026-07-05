@@ -65,7 +65,7 @@ function ScrollToTop() {
   return null;
 }
 
-function ExternalNavLink() {
+function ExternalNavLink({ onNavigate }: { onNavigate?: () => void }) {
   if (externalLinks.github.pending) {
     return (
       <span className="nav-link nav-link--pending" title="GitHub URL pending">
@@ -75,46 +75,63 @@ function ExternalNavLink() {
   }
 
   return (
-    <a className="nav-link" href={externalLinks.github.href} rel="noreferrer" target="_blank">
+    <a className="nav-link" href={externalLinks.github.href} onClick={onNavigate} rel="noreferrer" target="_blank">
       GitHub
     </a>
   );
 }
 
-function ThemeToggle({ setTheme, theme }: { setTheme: React.Dispatch<React.SetStateAction<Theme>>; theme: Theme }) {
+export function ThemeToggle({ setTheme, theme }: { setTheme: React.Dispatch<React.SetStateAction<Theme>>; theme: Theme }) {
+  const nextTheme = theme === 'dark' ? 'light' : 'dark';
+
   return (
-    <div className="theme-toggle" aria-label="Theme">
-      <button aria-pressed={theme === 'dark'} className={theme === 'dark' ? 'theme-toggle__option theme-toggle__option--active' : 'theme-toggle__option'} onClick={() => setTheme('dark')} type="button">
-        <PortfolioIcon name="moon" />
-        <span>Dark</span>
-      </button>
-      <span className="theme-toggle__divider" aria-hidden="true" />
-      <button aria-pressed={theme === 'light'} className={theme === 'light' ? 'theme-toggle__option theme-toggle__option--active' : 'theme-toggle__option'} onClick={() => setTheme('light')} type="button">
-        <span>Light</span>
-        <PortfolioIcon name="sun" />
-      </button>
-    </div>
+    <button aria-label={`Switch to ${nextTheme} mode`} aria-pressed={theme === 'light'} className={`theme-toggle theme-toggle--${theme}`} onClick={() => setTheme(nextTheme)} title={`Switch to ${nextTheme} mode`} type="button">
+      <span className="theme-toggle__icon-track" aria-hidden="true">
+        <span className="theme-toggle__icon theme-toggle__icon--moon">
+          <PortfolioIcon name="moon" />
+        </span>
+        <span className="theme-toggle__icon theme-toggle__icon--sun">
+          <PortfolioIcon name="sun" />
+        </span>
+      </span>
+    </button>
   );
 }
 
 function SiteHeader({ setTheme, theme }: { setTheme: React.Dispatch<React.SetStateAction<Theme>>; theme: Theme }) {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const { pathname } = useLocation();
+
+  React.useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
+  const closeMenu = () => setIsMenuOpen(false);
+
   return (
-    <header className="site-header">
-      <Link className="brand-link" to="/">
+    <header className={`site-header${isMenuOpen ? ' site-header--menu-open' : ''}`}>
+      <Link className="brand-link" onClick={closeMenu} to="/">
         <span className="brand-mark" aria-hidden="true">
           NP
         </span>
         <span>Nate Pratt</span>
       </Link>
-      <nav className="site-nav" aria-label="Primary navigation">
+      <nav className="site-nav" id="primary-navigation" aria-label="Primary navigation">
         {navItems.map((item) => (
-          <NavLink className={({ isActive }) => `nav-link${isActive ? ' nav-link--active' : ''}`} end={item.path === '/'} key={item.path} to={item.path}>
+          <NavLink className={({ isActive }) => `nav-link${isActive ? ' nav-link--active' : ''}`} end={item.path === '/'} key={item.path} onClick={closeMenu} to={item.path}>
             {item.label}
           </NavLink>
         ))}
-        <ExternalNavLink />
+        <ExternalNavLink onNavigate={closeMenu} />
       </nav>
       <ThemeToggle setTheme={setTheme} theme={theme} />
+      <button className="mobile-menu-button" aria-controls="primary-navigation" aria-expanded={isMenuOpen} aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'} onClick={() => setIsMenuOpen((open) => !open)} type="button">
+        <span className="mobile-menu-button__lines" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </span>
+      </button>
     </header>
   );
 }
@@ -135,6 +152,14 @@ function SiteFooter() {
 }
 
 function ArchivePage({ deviceType }: { deviceType: string }) {
+  React.useEffect(() => {
+    document.body.classList.add('legacy-archive-body');
+
+    return () => {
+      document.body.classList.remove('legacy-archive-body');
+    };
+  }, []);
+
   return (
     <div className="legacy-archive-page">
       <div className="archive-note">
@@ -142,10 +167,10 @@ function ArchivePage({ deviceType }: { deviceType: string }) {
           <Link to="/">Back to current portfolio</Link>
           <Link to="/lab">Back to Lab</Link>
         </div>
-        <h1>Original portfolio interface</h1>
-        <p>This handmade jukebox shell is here for nostalgia. The old navigation is unplugged on purpose, so it cannot send anyone into stale About, Projects, or Resume pages.</p>
       </div>
-      <JukeBox archiveMode deviceType={deviceType} />
+      <div className="archive-jukebox-frame">
+        <JukeBox archiveMode deviceType={deviceType} />
+      </div>
     </div>
   );
 }
@@ -160,6 +185,17 @@ function PortfolioRoutes() {
       <Routes>
         <Route path="/zomboozled" element={<Zomboozled deviceType={deviceType} />} />
       </Routes>
+    );
+  }
+
+  if (location.pathname === '/lab/archive') {
+    return (
+      <>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/lab/archive" element={<ArchivePage deviceType={deviceType} />} />
+        </Routes>
+      </>
     );
   }
 

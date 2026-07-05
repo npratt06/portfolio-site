@@ -95,6 +95,7 @@ export default class JukeBox extends Component<JukeBoxProps, JukeBoxState> {
   }
 
   getMobileComponents(navDisplayComponent: JSX.Element, navLRComponent: JSX.Element): JSX.Element {
+    const navButtonBottom = this.props.archiveMode ? '8vw' : '30vw';
     const components = (
       <div style={{ height: '100%' }}>
         <div style={rowElement}>{navDisplayComponent}</div>
@@ -106,7 +107,7 @@ export default class JukeBox extends Component<JukeBoxProps, JukeBoxState> {
           </div>
         </div>
         <div style={rowElement}>
-          <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3vw', position: 'absolute', bottom: '30vw' }}>{navLRComponent}</div>
+          <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3vw', position: 'absolute', bottom: navButtonBottom }}>{navLRComponent}</div>
         </div>
       </div>
     );
