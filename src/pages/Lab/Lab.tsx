@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
-import PortfolioIcon, { PortfolioIconName } from '../../components/Common/PortfolioIcon';
+import PortfolioIcon from '../../components/Common/PortfolioIcon';
 import { labItems } from '../../content/portfolio';
+import labArcadeIcon from '../../img/mockup-icons/lab-arcade.png';
+import labArchiveIcon from '../../img/mockup-icons/lab-archive.png';
+import labDevIcon from '../../img/mockup-icons/lab-dev.png';
+import labArcadeVisual from '../../img/mockup-icons/lab-visual-arcade.png';
+import labArchiveVisual from '../../img/mockup-icons/lab-visual-archive.png';
+import labDevVisual from '../../img/mockup-icons/lab-visual-dev.png';
 
 const labGroups = ['Dev Environment', 'Arcade', 'Archive'] as const;
 
@@ -30,10 +36,16 @@ function LabLink({ href, label, pending }: { href: string; label: string; pendin
   );
 }
 
-function getGroupIcon(group: (typeof labGroups)[number]): PortfolioIconName {
-  if (group === 'Dev Environment') return 'terminal';
-  if (group === 'Arcade') return 'joystick';
-  return 'archive';
+function getGroupIcon(group: (typeof labGroups)[number]) {
+  if (group === 'Dev Environment') return labDevIcon;
+  if (group === 'Arcade') return labArcadeIcon;
+  return labArchiveIcon;
+}
+
+function getGroupVisual(group: (typeof labGroups)[number]) {
+  if (group === 'Dev Environment') return labDevVisual;
+  if (group === 'Arcade') return labArcadeVisual;
+  return labArchiveVisual;
 }
 
 function getGroupSummary(group: (typeof labGroups)[number]) {
@@ -58,8 +70,8 @@ export default function Lab() {
           return (
             <section className={`lab-group lab-group--${group.toLowerCase().replace(/\s+/g, '-')}`} key={group}>
               <div className="lab-group-main">
-                <div className="icon-tile icon-tile--large">
-                  <PortfolioIcon name={getGroupIcon(group)} />
+                <div className="icon-tile icon-tile--large icon-tile--image">
+                  <img className="mockup-icon-image" src={getGroupIcon(group)} alt="" draggable="false" />
                 </div>
                 <h2>{group}</h2>
                 <p>{getGroupSummary(group)}</p>
@@ -75,7 +87,7 @@ export default function Lab() {
                 ))}
               </div>
               <div className="lab-group-visual" aria-hidden="true">
-                <PortfolioIcon name={getGroupIcon(group)} />
+                <img className="lab-group-visual-image" src={getGroupVisual(group)} alt="" draggable="false" />
               </div>
             </section>
           );

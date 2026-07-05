@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import PortfolioIcon from '../../components/Common/PortfolioIcon';
 import { externalLinks, featuredProject } from '../../content/portfolio';
+import projectWiffleImage from '../../img/mockup-icons/project-wiffle.png';
 
 interface ProjectsProps {
   deviceType?: string;
@@ -44,24 +45,24 @@ export default function Projects({ deviceType }: ProjectsProps) {
               <li key={detail}>{detail}</li>
             ))}
           </ul>
-          <div className="button-row">
-            {featuredProject.links.map((link) => (
-              <ProjectLink href={link.href} key={link.label} label={link.label} pending={link.pending} />
-            ))}
-            {externalLinks.github.pending ? (
-              <span className="button button--secondary is-disabled">More on GitHub TODO</span>
-            ) : (
-              <a className="button button--secondary" href={externalLinks.github.href} rel="noreferrer" target="_blank">
-                More on GitHub
-                <PortfolioIcon name="github" />
-              </a>
-            )}
-          </div>
         </div>
         <div className="project-visual" aria-hidden="true">
-          <div className="wiffle-ball">
-            <PortfolioIcon name="wiffle" />
+          <div className="project-visual__field">
+            <img className="project-visual__image" src={projectWiffleImage} alt="" draggable="false" />
           </div>
+        </div>
+        <div className="button-row project-actions">
+          {featuredProject.links.map((link) => (
+            <ProjectLink href={link.href} key={link.label} label={link.label} pending={link.pending} />
+          ))}
+          {externalLinks.github.pending ? (
+            <span className="button button--secondary is-disabled">More on GitHub TODO</span>
+          ) : (
+            <a className="button button--secondary" href={externalLinks.github.href} rel="noreferrer" target="_blank">
+              More on GitHub
+              <PortfolioIcon name="github" />
+            </a>
+          )}
         </div>
       </section>
 

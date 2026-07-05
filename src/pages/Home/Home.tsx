@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PortfolioIcon from '../../components/Common/PortfolioIcon';
 import { externalLinks, heroStatement, homeStats, selectedWorkItems } from '../../content/portfolio';
+import workGithubIcon from '../../img/mockup-icons/work-github.png';
+import workLabIcon from '../../img/mockup-icons/work-lab.png';
+import workWiffleIcon from '../../img/mockup-icons/work-wiffle.png';
 
 interface HomeProps {
   deviceType?: string;
@@ -30,6 +33,12 @@ function SmartLink({ children, className, href, pending }: { children: React.Rea
     </a>
   );
 }
+
+const selectedWorkImages = {
+  wiffle: workWiffleIcon,
+  github: workGithubIcon,
+  flask: workLabIcon
+} as const;
 
 export default function Home({ deviceType }: HomeProps) {
   void deviceType;
@@ -77,9 +86,9 @@ export default function Home({ deviceType }: HomeProps) {
         </div>
         <div className="selected-work-grid">
           {selectedWorkItems.map((item) => (
-            <article className="work-card" key={item.title}>
-              <div className="icon-tile">
-                <PortfolioIcon name={item.icon} />
+            <article className={`work-card work-card--${item.icon}`} key={item.title}>
+              <div className="icon-tile icon-tile--image">
+                <img className="mockup-icon-image" src={selectedWorkImages[item.icon]} alt="" draggable="false" />
               </div>
               <div>
                 <h2>{item.title}</h2>
