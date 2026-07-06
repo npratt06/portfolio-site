@@ -34,6 +34,46 @@ body.legacy-archive-body #root {
   background: #152837;
 }
 
+.game-unavailable-page {
+  display: grid;
+  min-height: 100vh;
+  min-height: 100dvh;
+  place-items: center;
+  padding: 28px;
+  background: radial-gradient(circle at 78% 16%, rgba(103, 199, 212, 0.12), transparent 25rem), #0e1110;
+  color: #f7f7f6;
+}
+
+.game-unavailable-panel {
+  width: min(100%, 620px);
+  padding: 28px;
+  border: 1px solid rgba(214, 221, 214, 0.22);
+  background: #121a18;
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.28);
+}
+
+.game-unavailable-panel h1 {
+  margin: 10px 0 16px;
+  font-size: clamp(2.2rem, 9vw, 4rem);
+  line-height: 0.98;
+}
+
+.game-unavailable-panel p {
+  margin: 0 0 14px;
+  color: #d2d5d0;
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.static-game-frame {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  border: 0;
+  background: #000;
+}
+
 a,
 button,
 span {

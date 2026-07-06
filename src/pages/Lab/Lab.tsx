@@ -49,7 +49,7 @@ function getGroupVisual(group: (typeof labGroups)[number]) {
 }
 
 function getGroupSummary(group: (typeof labGroups)[number]) {
-  if (group === 'Dev Environment') return 'Notes, dotfiles, and setup guides that support how I build and work.';
+  if (group === 'Dev Environment') return 'Configuration and setup notes for keeping my development environment repeatable and comfortable.';
   if (group === 'Arcade') return 'Small, interactive games and playful experiments built for learning and fun.';
   return 'Legacy projects and the original portfolio interface from over the years.';
 }
@@ -75,7 +75,7 @@ export default function Lab() {
                 </div>
                 <h2>{group}</h2>
                 <p>{getGroupSummary(group)}</p>
-                {primaryItem ? <LabLink href={primaryItem.href} label={group === 'Arcade' ? 'Explore arcade' : 'Explore'} pending={group === 'Dev Environment'} /> : null}
+                {primaryItem ? <LabLink href={primaryItem.href} label={group === 'Arcade' ? 'Explore arcade' : primaryItem.linkLabel} pending={primaryItem.pending} /> : null}
               </div>
               <div className="lab-group-detail">
                 {items.map((item) => (

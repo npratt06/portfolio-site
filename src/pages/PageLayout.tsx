@@ -1,5 +1,6 @@
 import React from 'react';
 import { HashRouter, Link, NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import DesktopGameFrame from '../components/Common/DesktopGameFrame';
 import PortfolioIcon from '../components/Common/PortfolioIcon';
 import JukeBox from '../components/JukeBox/JukeBox';
 import Zomboozled from '../components/Zomboozled/Zomboozled';
@@ -203,6 +204,12 @@ function SiteFooter() {
         <span>Senior full-stack engineer</span>
       </div>
       <div className="footer-links">
+        <a href={externalLinks.github.href} rel="noreferrer" target="_blank">
+          GitHub
+        </a>
+        <a href={externalLinks.linkedIn.href} rel="noreferrer" target="_blank">
+          LinkedIn
+        </a>
         <Link to="/lab/archive">Archive</Link>
         <Link to="/lab">Lab</Link>
       </div>
@@ -234,15 +241,32 @@ function ArchivePage({ deviceType }: { deviceType: string }) {
   );
 }
 
+function PongPage({ deviceType }: { deviceType: string }) {
+  return (
+    <DesktopGameFrame description="A preserved two-player canvas game experiment controlled with A/Z and the arrow keys." deviceType={deviceType} title="Pong">
+      <iframe className="static-game-frame" src={`${import.meta.env.BASE_URL}games/pong.html`} title="Pong game" />
+    </DesktopGameFrame>
+  );
+}
+
+function ZomboozledPage({ deviceType }: { deviceType: string }) {
+  return (
+    <DesktopGameFrame description="A preserved browser game experiment from 2017, kept playable with offline high scores." deviceType={deviceType} title="Zomboozled">
+      <Zomboozled deviceType={deviceType} />
+    </DesktopGameFrame>
+  );
+}
+
 function PortfolioRoutes() {
   const deviceType = useDeviceType();
   const location = useLocation();
   const { setTheme, theme } = usePortfolioTheme();
 
-  if (location.pathname === '/zomboozled') {
+  if (location.pathname === '/zomboozled' || location.pathname === '/pong') {
     return (
       <Routes>
-        <Route path="/zomboozled" element={<Zomboozled deviceType={deviceType} />} />
+        <Route path="/zomboozled" element={<ZomboozledPage deviceType={deviceType} />} />
+        <Route path="/pong" element={<PongPage deviceType={deviceType} />} />
       </Routes>
     );
   }
@@ -269,6 +293,7 @@ function PortfolioRoutes() {
           <Route path="/experience" element={<Resume deviceType={deviceType} />} />
           <Route path="/resume" element={<Resume deviceType={deviceType} />} />
           <Route path="/lab" element={<Lab />} />
+          <Route path="/pong" element={<PongPage deviceType={deviceType} />} />
           <Route path="/lab/archive" element={<ArchivePage deviceType={deviceType} />} />
           <Route path="/archive" element={<Navigate replace to="/lab/archive" />} />
           <Route path="/about" element={<Home deviceType={deviceType} />} />

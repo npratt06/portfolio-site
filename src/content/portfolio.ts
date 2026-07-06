@@ -48,18 +48,16 @@ export interface SkillGroup {
   skills: string[];
 }
 
-export const externalLinks = {
+export const externalLinks: Record<string, ExternalLink> = {
   github: {
     label: 'GitHub',
-    href: '#github-url-todo',
-    pending: true
+    href: 'https://github.com/npratt06'
   },
   linkedIn: {
     label: 'LinkedIn',
-    href: '#linkedin-url-todo',
-    pending: true
+    href: 'https://www.linkedin.com/in/nate-pratt'
   }
-} satisfies Record<string, ExternalLink>;
+};
 
 export const heroStatement = {
   name: 'Nate Pratt',
@@ -98,22 +96,16 @@ export const featuredProject: ProjectFeature = {
   name: 'Wiffle App',
   status: 'Featured project',
   summary:
-    'A public product-style build for organizing and supporting wiffle ball activity. Final URL, repository, screenshots, and technical details are still placeholders.',
+    'A product-style web app for organizing wiffle ball leagues and games. The live app is available now, with the repository planned to become public soon.',
   details: [
-    'TODO: add the live Wiffle App URL and repository.',
-    'TODO: add the core product problem, main users, and most relevant technical decisions.',
-    'TODO: add a concise note on Nate\'s role and implementation ownership.'
+    'Built around the practical coordination needs of players, teams, games, and league activity.',
+    'Designed as the featured public project because it is closer to real product work than a portfolio demo.',
+    'Repository is currently private while final public-facing cleanup is finished.'
   ],
   links: [
     {
-      label: 'Live app TODO',
-      href: '#wiffle-app-url-todo',
-      pending: true
-    },
-    {
-      label: 'Repository TODO',
-      href: '#wiffle-app-repo-todo',
-      pending: true
+      label: 'Live app',
+      href: 'https://main.da0rwksdtzo0.amplifyapp.com/'
     }
   ]
 };
@@ -195,10 +187,9 @@ export const labItems: LabItem[] = [
     title: 'Dotfiles',
     category: 'Dev Environment',
     summary:
-      'Notes, dotfiles, and setup guides that support how I build and work.',
-    linkLabel: 'Explore',
-    href: '#dotfiles-url-todo',
-    pending: true
+      'Configuration and setup notes for keeping my development environment repeatable and comfortable.',
+    linkLabel: 'View dotfiles',
+    href: 'https://github.com/npratt06/dotfiles'
   },
   {
     title: 'Zomboozled',
@@ -212,10 +203,9 @@ export const labItems: LabItem[] = [
     title: 'Pong',
     category: 'Arcade',
     summary:
-      'Deferred for launch. The Lab structure is ready for it once the source and status are confirmed.',
-    linkLabel: 'Source TODO',
-    href: '#pong-source-todo',
-    pending: true
+      'A preserved two-player canvas game experiment, wired into the Lab as a desktop-only arcade artifact.',
+    linkLabel: 'Play Pong',
+    href: '#/pong'
   },
   {
     title: 'Original portfolio interface',

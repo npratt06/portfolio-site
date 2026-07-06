@@ -1,5 +1,6 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
+import DesktopGameFrame from './components/Common/DesktopGameFrame';
 import { labItems } from './content/portfolio';
 import { ThemeToggle } from './pages/PageLayout';
 
@@ -24,5 +25,17 @@ describe('App', () => {
       linkLabel: 'View archive'
     });
     expect(archiveItem?.summary).toContain('box of scraps');
+  });
+
+  it('uses a shared desktop-only frame for arcade games on mobile', () => {
+    const markup = renderToStaticMarkup(
+      <DesktopGameFrame description="A preserved game." deviceType="mobile" title="Pong">
+        <div>Playable game</div>
+      </DesktopGameFrame>
+    );
+
+    expect(markup).toContain('Pong is only implemented for desktop right now');
+    expect(markup).toContain('Back to Lab');
+    expect(markup).not.toContain('Playable game');
   });
 });
