@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+canvas {
+    border:5px solid #0000ff;
+    background-color: #000000;
+}
+</style>
+</head>
+<body onload="startGame()">
+<script>
+
+//tons of vars for game specs
+var keyStrokes = [];
+var player1;
+var myObstacles = [];
+var myScore;
+var playerColor = "#ffffff";
+var playerOutlineColor = "#0000ff";
+var playerWidth = 30;
+var playerHeight = 150;
+var canvasWidth = 1290;
+var canvasHeight = 800;
+var player1Speed = 0;
+var player2Speed = 0;
+var ballX = canvasWidth / 2;
+var ballY = canvasHeight / 2;
+var ballRadius = 15;
+var sAngle = 0;
+var eAngle = 2*Math.PI;
+var ballColor = "black";
+var ballOutlineColor = "#ffffff";
+var courtColor = "#0000ff";
+var courtLineWidth = 3;
+var randXSpeed = Math.floor(Math.random() * (10 - (-10) + 1)) + (-10);
+var randYSpeed = Math.floor(Math.random() * (10 - (-10) + 1)) + (-10);
+var ballSpeed = 15;
+var ballXSpeed = randXSpeed > 0 ? ballSpeed : -ballSpeed;
+var ballYSpeed = randYSpeed > 0 ? ballSpeed : -ballSpeed;
+var freeze = false;
+var gameOver = false;
+var p1Score = 0;
+var p2Score = 0;
+var victoryScore = 5;
+var countDown = 10;
+
+//input keycodes
+var KEY = {
+    BACKSPACE: 8,
+    TAB:       9,
+    RETURN:   13,
+    ESC:      27,
+    SPACE:    32,
+    PAGEUP:   33,
+    PAGEDOWN: 34,
+    END:      35,
+    HOME:     36,
+    LEFT:     37,
+    UP:       38,
+    RIGHT:    39,
+    DOWN:     40,
+    INSERT:   45,
+    DELETE:   46,
+    ZERO:     48, ONE: 49, TWO: 50, THREE: 51, FOUR: 52, FIVE: 53, SIX: 54, SEVEN: 55, EIGHT: 56, NINE: 57,
+    A:        65, B: 66, C: 67, D: 68, E: 69, F: 70, G: 71, H: 72, I: 73, J: 74, K: 75, L: 76, M: 77, N: 78, O: 79, P: 80, Q: 81, R: 82, S: 83, T: 84, U: 85, V: 86, W: 87, X: 88, Y: 89, Z: 90,
+    TILDA:    192
+};
+
+function startGame() {
+	freeze = true;
+	var t = setInterval(function(){ countDown-- }, 1000);	
+	setTimeout(function(){ freeze = false; countDown = 3; window.clearInterval(t);}, 10000);
+	player1 = new player(playerWidth, playerHeight, playerColor, 10, (canvasHeight/2)-(playerHeight/2));
+    player2 = new player(playerWidth, playerHeight, playerColor, canvasWidth-10-playerWidth, (canvasHeight/2)-(playerHeight/2));
+	ball = new ball(ballX,ballY,ballRadius,sAngle,eAngle, ballColor);
+	court = new court();
+	HUD = new HUD();
+    myGame.start();
+}
+
+document.addEventListener('keydown', function(ev) { return onkey(ev, ev.keyCode, true);  }, false);
+document.addEventListener('keyup',   function(ev) { return onkey(ev, ev.keyCode, false); }, false);
+
+function onkey(ev, key, pressed) {
+  switch(key) {
+    case KEY.A:  player1.input.a  = pressed; ev.preventDefault(); break;
+    case KEY.Z: player1.input.z = pressed; ev.preventDefault(); break;
+    case KEY.UP:  player2.input.up  = pressed; ev.preventDefault(); break;
+    case KEY.DOWN: player2.input.down = pressed; ev.preventDefault(); break;
+  }
+}
+
+function determinePlayer1Movement(movement){
+	if(movement=='up'){
+		player1Speed = -10;
+	}
+	else{	
+		player1Speed = 10;
+	}
+	player1.movePlayer(player1Speed);
+}
+function determinePlayer2Movement(movement){
+	if(movement=='up'){
+		player2Speed = -10;
+	}
+	else{	
+		player2Speed = 10;
+	}	
+	player2.movePlayer(player2Speed);
+}
+
+function updateGame() {
+	myGame.clear();
+
+	court.update();	
+	player1.update();
+	player2.update();
+	HUD.update();
+	ball.update();
+
+
+	if(!freeze){
+		ball.checkForCollisions(player1, player2);
+		ball.moveBall(ballXSpeed, ballYSpeed);
+		
+		if(player1.input.a){
+			determinePlayer1Movement('up');
+		}
+		if(player1.input.z){
+			determinePlayer1Movement('down');
+		}
+		if(player2.input.up){
+			determinePlayer2Movement('up');
+		}
+		if(player2.input.down){
+			determinePlayer2Movement('down');
+		}
+	}
+}
+
+var myGame = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width = canvasWidth;
+        this.canvas.height = canvasHeight;
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.frameNo = 0;
+        this.interval = setInterval(updateGame, 20);
+        },
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+}
+
+var resetGame = function(){
+	player2.x = canvasWidth-10-playerWidth;
+	player2.y = (canvasHeight/2)-(playerHeight/2);
+	player1.x = 10;
+	player1.y = (canvasHeight/2)-(playerHeight/2);
+	ball.x = ballX;
+	ball.y = ballY;
+	randXSpeed = Math.floor(Math.random() * (10 - (-10) + 1)) + (-10);
+	randYSpeed = Math.floor(Math.random() * (10 - (-10) + 1)) + (-10);
+	ballXSpeed = randXSpeed > 0 ? ballSpeed : -ballSpeed;
+	ballYSpeed = randYSpeed > 0 ? ballSpeed : -ballSpeed;
+	if(!gameOver){
+		var t = setInterval(function(){ countDown-- }, 1000);	
+		setTimeout(function(){ freeze = false; countDown = 3; window.clearInterval(t); }, 3000);
+	}
+	else{
+		countDown = 10;
+		var t = setInterval(function(){ countDown-- }, 1000);
+		setTimeout(function(){
+			window.clearInterval(t);
+			freeze = false;
+			gameOver = false;
+			p1Score = 0;
+			p2Score = 0;
+			countDown = 3;
+		}, 10000);
+	}
+}
+
+function ball(x, y, radius, sAngle, eAngle, color) {
+	this.x = x;
+	this.y = y;
+	this.r = radius;
+	this.sAngle = sAngle;
+	this.eAngle = eAngle;
+	this.color = color;
+	this.update = function(){
+		if(this.x < 0){
+			p2Score++;
+			if(p2Score==victoryScore) gameOver = true;
+			freeze = true;
+			resetGame();
+		}
+		else if(this.x > canvasWidth){
+			p1Score++;
+			if(p1Score==victoryScore) gameOver = true;
+			freeze = true;
+			resetGame();
+		}
+		context = myGame.context;
+		context.beginPath();
+		context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+		context.fillStyle = this.color;
+		context.fill();
+		context.lineWidth = 3;
+		context.strokeStyle = ballOutlineColor;
+		context.stroke();
+		context.beginPath();
+		context.arc(this.x, this.y, this.r*0.5, 0, 2 * Math.PI, false);
+		context.fillStyle = "white";
+		context.fill();
+		context.lineWidth = 3;
+		context.strokeStyle = ballOutlineColor;
+		context.stroke();		
+	}
+	this.moveBall = function(xSpeed, ySpeed){
+		this.y += ySpeed;
+		this.x += xSpeed;
+	}
+	this.checkForCollisions = function(p1, p2){
+		if(this.y + this.r > canvasHeight){ // bottom of screen check
+			ballYSpeed = -ballYSpeed;
+		}
+		if(this.y - this.r < 0){ // top of screen check
+			ballYSpeed = -ballYSpeed;
+		}
+		var p1Collide = this.y + this.r > p1.y && this.y - this.r < p1.y + playerHeight;
+		var p2Collide = this.y + this.r > p2.y && this.y - this.r < p2.y + playerHeight;
+		if(this.x - this.r <= 10+playerWidth && p1Collide){ // player1 check
+			this.x += 3;
+			ballXSpeed = -ballXSpeed;
+		}
+		else if(this.x + this.r > canvasWidth-10-playerWidth && p2Collide){ // player2 check
+			this.x -= 3;
+			ballXSpeed = -ballXSpeed;
+		}
+	}
+}
+
+function HUD(){
+	this.update = function(){	
+		context = myGame.context;
+		context.fillStyle = "white";
+		
+		if(p1Score==victoryScore||p2Score==victoryScore){
+			var victoryMessage = '';
+			if(p1Score==victoryScore){
+				victoryMessage = 'Player 1 Wins!';
+			}
+			if(p2Score==victoryScore){
+				victoryMessage = 'Player 2 Wins!';
+			}
+			if(gameOver){
+				context.font = "50px Impact";
+				context.textAlign = "center";
+				context.fillText(victoryMessage,canvasWidth/2,(canvasHeight/2) - 30);			
+			}
+		}
+
+		if(freeze&&!gameOver){
+			context.font = "50px Impact";
+			context.textAlign = "center";
+			context.fillText(countDown,canvasWidth/2,(canvasHeight/2) - 30);
+		}
+		if(freeze&&gameOver){
+			context.font = "50px Impact";
+			context.textAlign = "center";
+			context.fillText(countDown,canvasWidth/2,(canvasHeight/2) + 75);		
+		}
+		
+		context.font = "50px Impact";
+		context.textAlign = "center";
+		context.fillText(p1Score + '-' + p2Score,canvasWidth/2,45);		
+
+		context.font = "20px Impact";
+		context.textAlign = "center";
+		context.fillText('Player1 use \'a\' and \'z\'',canvasWidth/4,canvasHeight-15);
+		context.font = "20px Impact";
+		context.textAlign = "center";
+		context.fillText('Player2 use up-arrow and down-arrow',canvasWidth*3/4,canvasHeight-15);	
+	}
+		
+}
+
+function court(){
+	this.update = function(){
+		context = myGame.context;
+		
+		context.beginPath();
+		context.lineWidth = courtLineWidth;
+		context.strokeStyle = courtColor;
+		context.strokeRect(-10, (canvasHeight/2)-(700/2), 1600, 700);
+		context.stroke();
+		
+		context.beginPath();
+		context.lineWidth = courtLineWidth;
+		context.strokeStyle = courtColor;
+		context.strokeRect((canvasWidth/2)-(600/2), (canvasHeight/2)-(700/2), 600, 700);
+		context.stroke();
+		
+		context.beginPath();		
+		context.arc(canvasWidth/2, canvasHeight/2, 300, 0, 2 * Math.PI, false);
+		context.lineWidth = courtLineWidth;
+		context.strokeStyle = courtColor;
+		context.stroke();
+		
+		context.beginPath();		
+		context.arc(0, canvasHeight/2, 300, 0, 2 * Math.PI, false);
+		context.lineWidth = courtLineWidth;
+		context.strokeStyle = courtColor;
+		context.stroke();
+		
+		context.beginPath();		
+		context.arc(canvasWidth, canvasHeight/2, 300, 0, 2 * Math.PI, false);
+		context.lineWidth = courtLineWidth;
+		context.strokeStyle = courtColor;
+		context.stroke();		
+	}	
+}
+
+function player(width, height, color, x, y) {
+	this.width = width;
+	this.height = height;
+	this.color = color;
+	this.x = x;
+	this.y = y;
+	this.input = { up: false, down: false, a: false, z: false, jump: false }
+
+	this.update = function(){
+		context = myGame.context;
+		context.beginPath();
+		context.fillStyle = this.color;		
+		context.lineWidth = 3;
+		context.strokeStyle = playerOutlineColor;
+		context.fillRect(this.x, this.y, this.width, this.height);		
+		context.strokeRect(this.x, this.y, this.width, this.height);
+		context.stroke();
+	}
+	this.movePlayer = function(speed){
+		if(this.y>5&&speed<0){
+		this.y += speed;
+		}
+		if(this.y<canvasHeight-playerHeight-5&&speed>0){
+		this.y += speed;
+		}
+	}
+}
+
+</script>
+<br>
+</body>
+</html>
