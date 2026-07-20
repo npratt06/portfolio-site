@@ -1,6 +1,6 @@
 # Nate's Portfolio Site
 
-Personal portfolio site for Nate Pratt, built with React, TypeScript, and Vite. It includes a resume, projects, an about page, and a playable React version of Zomboozled.
+Personal portfolio site for Nate Pratt, built with React, TypeScript, and Vite. It presents selected projects, a concise experience summary, and a small archive of development experiments.
 
 The site is published with GitHub Pages at:
 
@@ -11,8 +11,16 @@ https://npratt06.github.io/portfolio-site/
 - Frontend-only React app deployed through GitHub Pages.
 - Build tooling has been migrated from Create React App to Vite.
 - Routing currently uses hash URLs for reliable GitHub Pages static hosting.
+- The primary information architecture is Home, Projects, and Experience. Header navigation is the single path between those sections.
+- Projects contains the live Wiffle App, the in-development Fantasy Football Recap Generator, and a quieter Experiments & Archive section.
+- The former Lab route redirects to the Experiments & Archive section so old links continue to work.
+- Experience focuses on role history, technical skills, and education without presenting resume bullet copy.
+- Home is designed to fit comfortably on typical laptop screens; longer project and mobile layouts use intentional scrolling with responsive spacing.
+- Motion is limited to short page, menu, theme, and interaction transitions, with reduced-motion preferences respected.
 - Zomboozled is playable, but online high scores are intentionally offline while any future backend is reconsidered.
 - Production dependency status can be checked with `npm audit --omit=dev`; GitHub Dependabot handles repository alerting.
+
+Most portfolio copy and structured project data lives in `src/content/portfolio.ts`. Page-specific resume history lives in `src/pages/Resume/Resume.const.tsx`.
 
 ## Local Development
 
@@ -56,7 +64,7 @@ npm audit --omit=dev
 
 Pushing to `main` runs the GitHub Actions `build-deploy` workflow. The workflow installs with `npm ci`, runs lint/tests/build, and deploys the Vite `dist/` output to the `gh-pages` branch.
 
-The app uses Vite's GitHub Pages base path (`/portfolio-site/`) and `HashRouter`, so routes such as `/#/projects` and `/#/zomboozled` work without custom server rewrites.
+The app uses Vite's GitHub Pages base path (`/portfolio-site/`) and `HashRouter`, so routes such as `/#/projects` and `/#/zomboozled` work without custom server rewrites. Legacy `/#/lab` links redirect to `/#/projects#experiments`.
 
 ## Zomboozled High Scores
 

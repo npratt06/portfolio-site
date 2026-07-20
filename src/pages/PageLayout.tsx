@@ -7,15 +7,13 @@ import Zomboozled from '../components/Zomboozled/Zomboozled';
 import { externalLinks } from '../content/portfolio';
 import { DEVICE_TYPES } from '../global.const';
 import Home from './Home/Home';
-import Lab from './Lab/Lab';
 import Projects from './Projects/Projects';
 import Resume from './Resume/Resume';
 
 const navItems = [
   { label: 'Home', path: '/' },
   { label: 'Projects', path: '/projects' },
-  { label: 'Experience', path: '/experience' },
-  { label: 'Lab', path: '/lab' }
+  { label: 'Experience', path: '/experience' }
 ];
 
 const MENU_CLOSE_DURATION_MS = 770;
@@ -60,29 +58,18 @@ function usePortfolioTheme() {
 }
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { hash, pathname } = useLocation();
 
   React.useEffect(() => {
+    if (hash) {
+      document.getElementById(hash.slice(1))?.scrollIntoView();
+      return;
+    }
+
     window.scrollTo({ top: 0 });
-  }, [pathname]);
+  }, [hash, pathname]);
 
   return null;
-}
-
-function ExternalNavLink({ onNavigate }: { onNavigate?: () => void }) {
-  if (externalLinks.github.pending) {
-    return (
-      <span className="nav-link nav-link--pending" title="GitHub URL pending">
-        GitHub
-      </span>
-    );
-  }
-
-  return (
-    <a className="nav-link" href={externalLinks.github.href} onClick={onNavigate} rel="noreferrer" target="_blank">
-      GitHub
-    </a>
-  );
 }
 
 export function ThemeToggle({ setTheme, theme }: { setTheme: React.Dispatch<React.SetStateAction<Theme>>; theme: Theme }) {
@@ -175,7 +162,6 @@ function SiteHeader({ setTheme, theme }: { setTheme: React.Dispatch<React.SetSta
             {item.label}
           </NavLink>
         ))}
-        <ExternalNavLink onNavigate={closeMenu} />
       </nav>
       <ThemeToggle setTheme={setTheme} theme={theme} />
       <button
@@ -210,8 +196,6 @@ function SiteFooter() {
         <a href={externalLinks.linkedIn.href} rel="noreferrer" target="_blank">
           LinkedIn
         </a>
-        <Link to="/lab/archive">Archive</Link>
-        <Link to="/lab">Lab</Link>
       </div>
     </footer>
   );
@@ -231,7 +215,7 @@ function ArchivePage({ deviceType }: { deviceType: string }) {
       <div className="archive-note">
         <div className="archive-note__links">
           <Link to="/">Back to current portfolio</Link>
-          <Link to="/lab">Back to Lab</Link>
+          <Link to="/projects#experiments">Back to projects</Link>
         </div>
       </div>
       <div className="archive-jukebox-frame">
@@ -292,7 +276,7 @@ function PortfolioRoutes() {
           <Route path="/projects" element={<Projects deviceType={deviceType} />} />
           <Route path="/experience" element={<Resume deviceType={deviceType} />} />
           <Route path="/resume" element={<Resume deviceType={deviceType} />} />
-          <Route path="/lab" element={<Lab />} />
+          <Route path="/lab" element={<Navigate replace to="/projects#experiments" />} />
           <Route path="/pong" element={<PongPage deviceType={deviceType} />} />
           <Route path="/lab/archive" element={<ArchivePage deviceType={deviceType} />} />
           <Route path="/archive" element={<Navigate replace to="/lab/archive" />} />

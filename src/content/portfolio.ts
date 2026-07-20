@@ -28,21 +28,6 @@ export interface HomeStat {
   detail: string;
 }
 
-export interface SelectedWorkItem {
-  icon: 'wiffle' | 'github' | 'flask';
-  title: string;
-  summary: string;
-  linkLabel: string;
-  href: string;
-  pending?: boolean;
-}
-
-export interface WorkPrinciple {
-  icon: 'search' | 'archive' | 'code' | 'users' | 'target';
-  title: string;
-  summary: string;
-}
-
 export interface SkillGroup {
   title: string;
   skills: string[];
@@ -62,14 +47,8 @@ export const externalLinks: Record<string, ExternalLink> = {
 export const heroStatement = {
   name: 'Nate Pratt',
   title: 'Senior full-stack engineer',
-  summary:
-    'I build product systems that are practical, resilient, and easy to evolve.',
-  detail:
-    'I work across frontend, backend, delivery planning, code review, and operational readiness with a bias toward clear systems that teams can maintain.'
+  summary: 'I build web products across the frontend and backend.'
 };
-
-export const humanNote =
-  'Outside the professional spine, I still like making small playable things, tuning my dev environment, and keeping a little handmade character in the work.';
 
 export const homeStats: HomeStat[] = [
   {
@@ -82,84 +61,38 @@ export const homeStats: HomeStat[] = [
     icon: 'calendar',
     label: 'Experience',
     value: '8+ years',
-    detail: 'Product systems and platforms'
+    detail: 'Product engineering'
   },
   {
     icon: 'target',
     label: 'Focus',
-    value: 'Pragmatic architecture',
-    detail: 'Testable code. Clear communication.'
+    value: 'Full-stack systems',
+    detail: 'TypeScript, React, and Node.js'
   }
 ];
 
-export const featuredProject: ProjectFeature = {
-  name: 'Wiffle App',
-  status: 'Featured project',
-  summary:
-    'A product-style web app for organizing wiffle ball leagues and games. The live app is available now, with the repository planned to become public soon.',
-  details: [
-    'Built around the practical coordination needs of players, teams, games, and league activity.',
-    'Designed as the featured public project because it is closer to real product work than a portfolio demo.',
-    'Repository is currently private while final public-facing cleanup is finished.'
-  ],
-  links: [
-    {
-      label: 'Live app',
-      href: 'https://main.da0rwksdtzo0.amplifyapp.com/'
-    }
-  ]
-};
-
-export const selectedWorkItems: SelectedWorkItem[] = [
+export const projects: ProjectFeature[] = [
   {
-    icon: 'wiffle',
-    title: 'Wiffle App',
-    summary: 'A web app for organizing wiffle ball leagues and games.',
-    linkLabel: 'View project',
-    href: '#/projects'
+    name: 'Wiffle App',
+    status: 'Live',
+    summary: 'A web app for organizing wiffle ball leagues, teams, and games.',
+    details: [
+      'Covers league setup, schedules, teams, players, and game coordination.',
+      'The live app is public; the source remains private while I finish cleanup.'
+    ],
+    links: [
+      {
+        label: 'Open live app',
+        href: 'https://main.da0rwksdtzo0.amplifyapp.com/'
+      }
+    ]
   },
   {
-    icon: 'github',
-    title: 'GitHub',
-    summary: 'Explore repositories, code, and additional public projects.',
-    linkLabel: 'Visit GitHub',
-    href: externalLinks.github.href,
-    pending: externalLinks.github.pending
-  },
-  {
-    icon: 'flask',
-    title: 'Lab',
-    summary: 'Tools, experiments, games, and archive work.',
-    linkLabel: 'Explore Lab',
-    href: '#/lab'
-  }
-];
-
-export const workPrinciples: WorkPrinciple[] = [
-  {
-    icon: 'search',
-    title: 'Understand the problem',
-    summary: 'Ask good questions and get to the real need.'
-  },
-  {
-    icon: 'archive',
-    title: 'Design for change',
-    summary: 'Build systems that can evolve without pain.'
-  },
-  {
-    icon: 'code',
-    title: 'Build with care',
-    summary: 'Write readable code and verify the important things.'
-  },
-  {
-    icon: 'users',
-    title: 'Collaborate clearly',
-    summary: 'Communicate early and support the team.'
-  },
-  {
-    icon: 'target',
-    title: 'Ship and learn',
-    summary: 'Deliver value and iterate with feedback.'
+    name: 'Fantasy Football Recap Generator',
+    status: 'In development',
+    summary: 'A new tool for turning weekly fantasy football results into a shareable league recap.',
+    details: [],
+    links: []
   }
 ];
 
@@ -186,32 +119,28 @@ export const labItems: LabItem[] = [
   {
     title: 'Dotfiles',
     category: 'Dev Environment',
-    summary:
-      'Configuration and setup notes for keeping my development environment repeatable and comfortable.',
+    summary: 'The configuration and setup notes I use to keep a repeatable development environment.',
     linkLabel: 'View dotfiles',
     href: 'https://github.com/npratt06/dotfiles'
   },
   {
     title: 'Zomboozled',
     category: 'Arcade',
-    summary:
-      'A preserved browser game experiment from 2017. It stays playable as Lab material, with offline high scores only.',
+    summary: 'A preserved browser game from 2017. High scores remain offline.',
     linkLabel: 'Play Zomboozled',
     href: '#/zomboozled'
   },
   {
     title: 'Pong',
     category: 'Arcade',
-    summary:
-      'A preserved two-player canvas game experiment, wired into the Lab as a desktop-only arcade artifact.',
+    summary: 'A two-player canvas game preserved as a desktop-only experiment.',
     linkLabel: 'Play Pong',
     href: '#/pong'
   },
   {
     title: 'Original portfolio interface',
     category: 'Archive',
-    summary:
-      '"I built this in a cave with a box of scraps." This 2017 jukebox shell is preserved for nostalgia, not as a second portfolio.',
+    summary: 'The 2017 jukebox interface, preserved as a snapshot of earlier work.',
     linkLabel: 'View archive',
     href: '#/lab/archive'
   }

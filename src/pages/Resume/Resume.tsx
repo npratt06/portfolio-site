@@ -1,5 +1,4 @@
-import PortfolioIcon from '../../components/Common/PortfolioIcon';
-import { skillGroups, workPrinciples } from '../../content/portfolio';
+import { skillGroups } from '../../content/portfolio';
 import { Job } from './Resume.interface';
 import { MyResumeContent } from './Resume.const';
 
@@ -8,8 +7,6 @@ interface ResumeProps {
 }
 
 function JobCard({ job }: { job: Job }) {
-  const primaryBullet = job.Bullets[0]?.title;
-
   return (
     <article className="timeline-item">
       <div className="timeline-date">{job.Dates}</div>
@@ -17,7 +14,6 @@ function JobCard({ job }: { job: Job }) {
       <div className="timeline-copy">
         <h3>{job.CompanyName}</h3>
         <p>{job.Position}</p>
-        {primaryBullet ? <span>{primaryBullet}</span> : null}
       </div>
     </article>
   );
@@ -30,7 +26,7 @@ export default function Resume({ deviceType }: ResumeProps) {
     <div className="page">
       <section className="page-intro">
         <h1>Experience</h1>
-        <p>A public summary of roles, impact, and how I work.</p>
+        <p>Roles, tools, and education.</p>
       </section>
 
       <div className="experience-layout">
@@ -44,23 +40,6 @@ export default function Resume({ deviceType }: ResumeProps) {
         </section>
 
         <aside className="experience-aside">
-          <section className="principles-section">
-            <h2>How I work</h2>
-            <div className="principles-list">
-              {workPrinciples.map((principle) => (
-                <article className="principle" key={principle.title}>
-                  <div className="icon-tile icon-tile--small">
-                    <PortfolioIcon name={principle.icon} />
-                  </div>
-                  <div>
-                    <h3>{principle.title}</h3>
-                    <p>{principle.summary}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-
           <section className="skills-section">
             <h2>Skills</h2>
             <div className="skills-grid">

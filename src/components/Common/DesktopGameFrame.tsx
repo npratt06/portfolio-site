@@ -19,8 +19,8 @@ export default function DesktopGameFrame({ children, description, deviceType, ti
           <p>{description}</p>
           <p>{title} is only implemented for desktop right now. Try it out on a computer.</p>
           <div className="button-row">
-            <a className="button button--primary" href="#/lab">
-              Back to Lab
+            <a className="button button--primary" href="#/projects#experiments">
+              Back to projects
               <PortfolioIcon name="arrow" />
             </a>
             <a className="button button--secondary" href="#/">

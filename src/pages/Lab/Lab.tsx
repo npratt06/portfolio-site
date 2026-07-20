@@ -4,9 +4,6 @@ import { labItems } from '../../content/portfolio';
 import labArcadeIcon from '../../img/mockup-icons/lab-arcade.png';
 import labArchiveIcon from '../../img/mockup-icons/lab-archive.png';
 import labDevIcon from '../../img/mockup-icons/lab-dev.png';
-import labArcadeVisual from '../../img/mockup-icons/lab-visual-arcade.png';
-import labArchiveVisual from '../../img/mockup-icons/lab-visual-archive.png';
-import labDevVisual from '../../img/mockup-icons/lab-visual-dev.png';
 
 const labGroups = ['Dev Environment', 'Arcade', 'Archive'] as const;
 
@@ -42,16 +39,10 @@ function getGroupIcon(group: (typeof labGroups)[number]) {
   return labArchiveIcon;
 }
 
-function getGroupVisual(group: (typeof labGroups)[number]) {
-  if (group === 'Dev Environment') return labDevVisual;
-  if (group === 'Arcade') return labArcadeVisual;
-  return labArchiveVisual;
-}
-
 function getGroupSummary(group: (typeof labGroups)[number]) {
-  if (group === 'Dev Environment') return 'Configuration and setup notes for keeping my development environment repeatable and comfortable.';
-  if (group === 'Arcade') return 'Small, interactive games and playful experiments built for learning and fun.';
-  return 'Legacy projects and the original portfolio interface from over the years.';
+  if (group === 'Dev Environment') return 'Dotfiles and setup notes.';
+  if (group === 'Arcade') return 'Small playable experiments.';
+  return 'Earlier work kept for posterity.';
 }
 
 export default function Lab() {
@@ -59,13 +50,12 @@ export default function Lab() {
     <div className="page">
       <section className="page-intro">
         <h1>Lab</h1>
-        <p>A space for experiments, tools, and digital artifacts.</p>
+        <p>Tools, games, and older experiments.</p>
       </section>
 
       <div className="lab-groups">
         {labGroups.map((group) => {
           const items = labItems.filter((item) => item.category === group);
-          const primaryItem = items[0];
 
           return (
             <section className={`lab-group lab-group--${group.toLowerCase().replace(/\s+/g, '-')}`} key={group}>
@@ -73,9 +63,10 @@ export default function Lab() {
                 <div className="icon-tile icon-tile--large icon-tile--image">
                   <img className="mockup-icon-image" src={getGroupIcon(group)} alt="" draggable="false" />
                 </div>
-                <h2>{group}</h2>
-                <p>{getGroupSummary(group)}</p>
-                {primaryItem ? <LabLink href={primaryItem.href} label={group === 'Arcade' ? 'Explore arcade' : primaryItem.linkLabel} pending={primaryItem.pending} /> : null}
+                <div className="lab-group-copy">
+                  <h2>{group}</h2>
+                  <p>{getGroupSummary(group)}</p>
+                </div>
               </div>
               <div className="lab-group-detail">
                 {items.map((item) => (
@@ -86,24 +77,10 @@ export default function Lab() {
                   </article>
                 ))}
               </div>
-              <div className="lab-group-visual" aria-hidden="true">
-                <img className="lab-group-visual-image" src={getGroupVisual(group)} alt="" draggable="false" />
-              </div>
             </section>
           );
         })}
       </div>
-
-      <section className="lab-note">
-        <PortfolioIcon name="info" />
-        <div>
-          <p>The original portfolio lives here as part of the archive. Its old navigation is disabled so it stays a nostalgia route, not a parallel stale portfolio.</p>
-        </div>
-        <Link className="text-link" to="/projects">
-          Back to Projects
-          <PortfolioIcon name="arrow" />
-        </Link>
-      </section>
     </div>
   );
 }

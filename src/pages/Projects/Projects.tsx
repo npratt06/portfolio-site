@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import PortfolioIcon from '../../components/Common/PortfolioIcon';
-import { externalLinks, featuredProject } from '../../content/portfolio';
-import projectWiffleImage from '../../img/mockup-icons/project-wiffle.png';
+import { labItems, projects } from '../../content/portfolio';
+import wiffleMark from '../../img/mockup-icons/project-wiffle.png';
 
 interface ProjectsProps {
   deviceType?: string;
@@ -24,6 +24,28 @@ function ProjectLink({ href, label, pending }: { href: string; label: string; pe
   );
 }
 
+function ExperimentLink({ href, label, pending }: { href: string; label: string; pending?: boolean }) {
+  if (pending) {
+    return <span className="text-link is-disabled">{label}</span>;
+  }
+
+  if (href.startsWith('#/')) {
+    return (
+      <Link className="text-link" to={href.replace('#', '')}>
+        {label}
+        <PortfolioIcon name="arrow" />
+      </Link>
+    );
+  }
+
+  return (
+    <a className="text-link" href={href} rel="noreferrer" target="_blank">
+      {label}
+      <PortfolioIcon name="external" />
+    </a>
+  );
+}
+
 export default function Projects({ deviceType }: ProjectsProps) {
   void deviceType;
 
@@ -31,51 +53,61 @@ export default function Projects({ deviceType }: ProjectsProps) {
     <div className="page">
       <section className="page-intro">
         <h1>Projects</h1>
-        <p>Selected public work, framed honestly.</p>
-        <span>I keep this page selective by design. One featured build that represents the kind of product work I do, and direct access to more public code on GitHub.</span>
+        <p>Products I build, plus smaller experiments worth keeping around.</p>
       </section>
 
-      <section className="project-feature">
-        <div className="project-copy">
-          <p className="section-label">Featured project</p>
-          <h2>{featuredProject.name}</h2>
-          <p>{featuredProject.summary}</p>
-          <ul className="detail-list">
-            {featuredProject.details.map((detail) => (
-              <li key={detail}>{detail}</li>
-            ))}
-          </ul>
+      <section className="featured-projects" aria-labelledby="featured-projects-heading">
+        <h2 className="section-heading" id="featured-projects-heading">
+          Featured work
+        </h2>
+        {projects.map((project, index) => (
+          <article className="project-entry" key={project.name}>
+            <div className="project-meta">
+              <span className="project-number">{String(index + 1).padStart(2, '0')}</span>
+              <span className="project-status">{project.status}</span>
+              {index === 0 ? <img className="project-mark" src={wiffleMark} alt="" draggable="false" /> : null}
+            </div>
+            <div className="project-copy">
+              <h3>{project.name}</h3>
+              <p>{project.summary}</p>
+              {project.details.length > 0 ? (
+                <ul className="detail-list">
+                  {project.details.map((detail) => (
+                    <li key={detail}>{detail}</li>
+                  ))}
+                </ul>
+              ) : null}
+              {project.links.length > 0 ? (
+                <div className="button-row project-actions">
+                  {project.links.map((link) => (
+                    <ProjectLink href={link.href} key={link.label} label={link.label} pending={link.pending} />
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </article>
+        ))}
+      </section>
+
+      <section className="experiments-section" id="experiments" aria-labelledby="experiments-heading">
+        <div className="experiments-heading">
+          <h2 className="section-heading" id="experiments-heading">
+            Experiments &amp; archive
+          </h2>
+          <p>Smaller tools, games, and earlier work.</p>
         </div>
-        <div className="project-visual" aria-hidden="true">
-          <div className="project-visual__field">
-            <img className="project-visual__image" src={projectWiffleImage} alt="" draggable="false" />
-          </div>
-        </div>
-        <div className="button-row project-actions">
-          {featuredProject.links.map((link) => (
-            <ProjectLink href={link.href} key={link.label} label={link.label} pending={link.pending} />
+        <div className="experiment-list">
+          {labItems.map((item) => (
+            <article className="experiment-row" key={item.title}>
+              <span className="experiment-category">{item.category}</span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.summary}</p>
+              </div>
+              <ExperimentLink href={item.href} label={item.linkLabel} pending={item.pending} />
+            </article>
           ))}
-          {externalLinks.github.pending ? (
-            <span className="button button--secondary is-disabled">More on GitHub TODO</span>
-          ) : (
-            <a className="button button--secondary" href={externalLinks.github.href} rel="noreferrer" target="_blank">
-              More on GitHub
-              <PortfolioIcon name="github" />
-            </a>
-          )}
         </div>
-      </section>
-
-      <section className="callout-row">
-        <PortfolioIcon name="flask" />
-        <div>
-          <h2>Games, dotfiles, and archive experiments live in Lab.</h2>
-          <p>It is where the maker energy lives, without getting in the way here.</p>
-        </div>
-        <Link className="text-link" to="/lab">
-          Explore Lab
-          <PortfolioIcon name="arrow" />
-        </Link>
       </section>
     </div>
   );

@@ -153,7 +153,7 @@ export const MyResumeContent: ResumeContent = {
     {
       CompanyName: 'NetJets',
       Position: 'Software Engineer',
-      Dates: '2019',
+      Dates: '2019 - 2020',
       Bullets: [
         {
           title: 'Contributed to an application support and maintenance team responsible for a large enterprise portfolio',
