@@ -1,4 +1,5 @@
 import React from 'react';
+import { Door, HouseSimple } from '@phosphor-icons/react';
 import { HashRouter, Link, NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import DesktopGameFrame from '../components/Common/DesktopGameFrame';
 import PortfolioIcon from '../components/Common/PortfolioIcon';
@@ -15,8 +16,6 @@ const navItems = [
   { label: 'Projects', path: '/projects' },
   { label: 'Experience', path: '/experience' }
 ];
-
-const MENU_CLOSE_DURATION_MS = 770;
 
 type Theme = 'dark' | 'light';
 type MenuPhase = 'closed' | 'open' | 'closing';
@@ -96,34 +95,30 @@ export function ThemeToggle({ setTheme, theme }: { setTheme: React.Dispatch<Reac
   );
 }
 
+function HomeMark({ isHome }: { isHome: boolean }) {
+  return (
+    <span className={`brand-mark brand-home-mark${isHome ? ' brand-home-mark--active' : ''}`} aria-hidden="true">
+      <span className="brand-home-mark__house">
+        <HouseSimple className="brand-home-mark__shell" size={25} weight="regular" />
+        <span className="brand-home-mark__doorway">
+          <Door className="brand-home-mark__interior" size={12} weight="fill" />
+          <span className="brand-home-mark__door">
+            <Door className="brand-home-mark__door-fill" size={12} weight="fill" />
+            <Door className="brand-home-mark__door-outline" size={12} weight="bold" />
+          </span>
+        </span>
+      </span>
+    </span>
+  );
+}
+
 function SiteHeader({ setTheme, theme }: { setTheme: React.Dispatch<React.SetStateAction<Theme>>; theme: Theme }) {
   const [menuPhase, setMenuPhase] = React.useState<MenuPhase>('closed');
-  const closeTimeoutRef = React.useRef<number | null>(null);
   const { pathname } = useLocation();
 
-  const clearCloseTimeout = React.useCallback(() => {
-    if (closeTimeoutRef.current !== null) {
-      window.clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = null;
-    }
-  }, []);
-
   const beginMenuClose = React.useCallback(() => {
-    clearCloseTimeout();
-
-    setMenuPhase((phase) => {
-      if (phase === 'closed') {
-        return 'closed';
-      }
-
-      closeTimeoutRef.current = window.setTimeout(() => {
-        setMenuPhase('closed');
-        closeTimeoutRef.current = null;
-      }, MENU_CLOSE_DURATION_MS);
-
-      return 'closing';
-    });
-  }, [clearCloseTimeout]);
+    setMenuPhase((phase) => (phase === 'closed' ? 'closed' : 'closing'));
+  }, []);
 
   const closeMenu = React.useCallback(() => {
     beginMenuClose();
@@ -135,28 +130,30 @@ function SiteHeader({ setTheme, theme }: { setTheme: React.Dispatch<React.SetSta
       return;
     }
 
-    clearCloseTimeout();
     setMenuPhase('open');
+  };
+
+  const finishMenuClose = (event: React.AnimationEvent<HTMLElement>) => {
+    if (event.target === event.currentTarget && event.animationName === 'mobile-menu-container-close') {
+      setMenuPhase((phase) => (phase === 'closing' ? 'closed' : phase));
+    }
   };
 
   React.useEffect(() => {
     closeMenu();
   }, [pathname, closeMenu]);
 
-  React.useEffect(() => clearCloseTimeout, [clearCloseTimeout]);
-
   const isMenuOpen = menuPhase === 'open';
+  const isHomePage = pathname === '/';
   const headerClassName = `site-header${menuPhase === 'open' ? ' site-header--menu-open' : ''}${menuPhase === 'closing' ? ' site-header--menu-closing' : ''}`;
 
   return (
     <header className={headerClassName}>
-      <Link className="brand-link" onClick={closeMenu} to="/">
-        <span className="brand-mark" aria-hidden="true">
-          NP
-        </span>
+      <Link aria-current={isHomePage ? 'page' : undefined} className="brand-link" onClick={closeMenu} to="/">
+        <HomeMark isHome={isHomePage} />
         <span>Nate Pratt</span>
       </Link>
-      <nav className="site-nav" id="primary-navigation" aria-label="Primary navigation">
+      <nav className="site-nav" id="primary-navigation" aria-label="Primary navigation" onAnimationEnd={finishMenuClose}>
         {navItems.map((item) => (
           <NavLink className={({ isActive }) => `nav-link${isActive ? ' nav-link--active' : ''}`} end={item.path === '/'} key={item.path} onClick={closeMenu} to={item.path}>
             {item.label}
