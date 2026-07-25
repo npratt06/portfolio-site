@@ -12,7 +12,7 @@ https://npratt06.github.io/portfolio-site/
 - Build tooling has been migrated from Create React App to Vite.
 - Routing currently uses hash URLs for reliable GitHub Pages static hosting.
 - The primary information architecture is Home, Projects, and Experience. Header navigation is the single path between those sections.
-- Projects contains the live Wiffle App, the in-development Fantasy Football Recap Generator, and a quieter Experiments & Archive section.
+- Projects uses a text-first presentation without project thumbnails. It contains the live Wiffle App, the in-development Fantasy Football Recap Generator, and a quieter Experiments & Archive section.
 - The former Lab route redirects to the Experiments & Archive section so old links continue to work.
 - Experience focuses on role history, technical skills, and education without presenting resume bullet copy.
 - Home is designed to fit comfortably on typical laptop screens; longer project and mobile layouts use intentional scrolling with responsive spacing.
@@ -22,6 +22,12 @@ https://npratt06.github.io/portfolio-site/
 - Production dependency status can be checked with `npm audit --omit=dev`; GitHub Dependabot handles repository alerting.
 
 Most portfolio copy and structured project data lives in `src/content/portfolio.ts`. Page-specific resume history lives in `src/pages/Resume/Resume.const.tsx`.
+
+## Final Step Before Shelving
+
+The remaining planned milestone is an owner-led verbiage and content pass across Home, Projects, Experience, navigation labels, and supporting project descriptions. The goal is to confirm that every statement is accurate, personal, specific, and written in Nate's own voice before pausing active work on the site.
+
+No additional visual or functional work is currently required before shelving. Reduced-motion overrides and a replacement backend for Zomboozled high scores remain intentionally deferred rather than active tasks.
 
 ## Local Development
 

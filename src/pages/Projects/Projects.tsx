@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import PortfolioIcon from '../../components/Common/PortfolioIcon';
 import { labItems, projects } from '../../content/portfolio';
-import wiffleMark from '../../img/mockup-icons/project-wiffle.png';
 
 interface ProjectsProps {
   deviceType?: string;
@@ -65,7 +64,6 @@ export default function Projects({ deviceType }: ProjectsProps) {
             <div className="project-meta">
               <span className="project-number">{String(index + 1).padStart(2, '0')}</span>
               <span className="project-status">{project.status}</span>
-              {index === 0 ? <img className="project-mark" src={wiffleMark} alt="" draggable="false" /> : null}
             </div>
             <div className="project-copy">
               <h3>{project.name}</h3>

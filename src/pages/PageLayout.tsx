@@ -118,10 +118,10 @@ function HomeMark({ isHome }: { isHome: boolean }) {
   return (
     <span className={`brand-mark brand-home-mark brand-home-mark--${lightPhase}`} aria-hidden="true">
       <svg className="brand-home-mark__house" viewBox="0 0 24 24">
-        <path className="brand-home-mark__light" d="M9.8 14.5h4.4v6.25H9.8z" />
+        <path className="brand-home-mark__light" d="M9.15 20.75V14.9Q12 13.55 14.85 14.9v5.85z" />
         <path
           className="brand-home-mark__outline"
-          d="M3.5 10.25 12 3.25l8.5 7v10.5h-5.75v-7h-5.5v7H3.5v-10.5Z"
+          d="M3.5 10.25 12 3.25l8.5 7v10.5H15v-5.9Q12 13.45 9 14.85v5.9H3.5v-10.5Z"
         />
       </svg>
     </span>
