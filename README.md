@@ -23,12 +23,6 @@ https://npratt06.github.io/portfolio-site/
 
 Most portfolio copy and structured project data lives in `src/content/portfolio.ts`. Page-specific resume history lives in `src/pages/Resume/Resume.const.tsx`.
 
-## Final Step Before Shelving
-
-The remaining planned milestone is an owner-led verbiage and content pass across Home, Projects, Experience, navigation labels, and supporting project descriptions. The goal is to confirm that every statement is accurate, personal, specific, and written in Nate's own voice before pausing active work on the site.
-
-No additional visual or functional work is currently required before shelving. Reduced-motion overrides and a replacement backend for Zomboozled high scores remain intentionally deferred rather than active tasks.
-
 ## Local Development
 
 Install dependencies:
