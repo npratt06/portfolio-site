@@ -1,5 +1,4 @@
 import React from 'react';
-import { Door, HouseSimple } from '@phosphor-icons/react';
 import { HashRouter, Link, NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import DesktopGameFrame from '../components/Common/DesktopGameFrame';
 import PortfolioIcon from '../components/Common/PortfolioIcon';
@@ -19,6 +18,7 @@ const navItems = [
 
 type Theme = 'dark' | 'light';
 type MenuPhase = 'closed' | 'open' | 'closing';
+type HomeLightPhase = 'inactive' | 'igniting' | 'active' | 'cooling';
 
 function getDeviceType(windowWidth: number, windowHeight: number) {
   return windowWidth < windowHeight * 0.95 ? DEVICE_TYPES.MOBILE : DEVICE_TYPES.DESKTOP;
@@ -96,18 +96,34 @@ export function ThemeToggle({ setTheme, theme }: { setTheme: React.Dispatch<Reac
 }
 
 function HomeMark({ isHome }: { isHome: boolean }) {
+  const [lightPhase, setLightPhase] = React.useState<HomeLightPhase>(isHome ? 'active' : 'inactive');
+  const previousIsHome = React.useRef(isHome);
+
+  React.useEffect(() => {
+    if (previousIsHome.current === isHome) {
+      return;
+    }
+
+    previousIsHome.current = isHome;
+    setLightPhase(isHome ? 'igniting' : 'cooling');
+
+    const phaseTimer = window.setTimeout(
+      () => setLightPhase(isHome ? 'active' : 'inactive'),
+      isHome ? 560 : 720
+    );
+
+    return () => window.clearTimeout(phaseTimer);
+  }, [isHome]);
+
   return (
-    <span className={`brand-mark brand-home-mark${isHome ? ' brand-home-mark--active' : ''}`} aria-hidden="true">
-      <span className="brand-home-mark__house">
-        <HouseSimple className="brand-home-mark__shell" size={25} weight="regular" />
-        <span className="brand-home-mark__doorway">
-          <Door className="brand-home-mark__interior" size={12} weight="fill" />
-          <span className="brand-home-mark__door">
-            <Door className="brand-home-mark__door-fill" size={12} weight="fill" />
-            <Door className="brand-home-mark__door-outline" size={12} weight="bold" />
-          </span>
-        </span>
-      </span>
+    <span className={`brand-mark brand-home-mark brand-home-mark--${lightPhase}`} aria-hidden="true">
+      <svg className="brand-home-mark__house" viewBox="0 0 24 24">
+        <path className="brand-home-mark__light" d="M9.8 14.5h4.4v6.25H9.8z" />
+        <path
+          className="brand-home-mark__outline"
+          d="M3.5 10.25 12 3.25l8.5 7v10.5h-5.75v-7h-5.5v7H3.5v-10.5Z"
+        />
+      </svg>
     </span>
   );
 }

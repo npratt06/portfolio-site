@@ -16,7 +16,8 @@ https://npratt06.github.io/portfolio-site/
 - The former Lab route redirects to the Experiments & Archive section so old links continue to work.
 - Experience focuses on role history, technical skills, and education without presenting resume bullet copy.
 - Home is designed to fit comfortably on typical laptop screens; longer project and mobile layouts use intentional scrolling with responsive spacing.
-- Motion is limited to short page, menu, theme, and interaction transitions, with reduced-motion preferences respected.
+- Motion is limited to page, menu, theme, and interaction transitions. These animations currently run regardless of the operating system's reduced-motion preference as an intentional design choice.
+- The mobile menu uses a reversible 250ms rolling fold animation, and the top-left Home control uses a custom centered house mark with a route-driven incandescent doorway light.
 - Zomboozled is playable, but online high scores are intentionally offline while any future backend is reconsidered.
 - Production dependency status can be checked with `npm audit --omit=dev`; GitHub Dependabot handles repository alerting.
 
