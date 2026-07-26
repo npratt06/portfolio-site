@@ -24,7 +24,7 @@ export default function Home({ deviceType }: HomeProps) {
               <div>
                 <span>{stat.label}</span>
                 <strong>{stat.value}</strong>
-                <p>{stat.detail}</p>
+                {stat.detail ? <p>{stat.detail}</p> : null}
               </div>
             </article>
           ))}

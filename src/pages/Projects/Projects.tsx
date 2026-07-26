@@ -52,17 +52,16 @@ export default function Projects({ deviceType }: ProjectsProps) {
     <div className="page">
       <section className="page-intro">
         <h1>Projects</h1>
-        <p>Products I build, plus smaller experiments worth keeping around.</p>
+        <p>Apps, tools, &amp; games I’ve built</p>
       </section>
 
       <section className="featured-projects" aria-labelledby="featured-projects-heading">
         <h2 className="section-heading" id="featured-projects-heading">
-          Featured work
+          Apps
         </h2>
-        {projects.map((project, index) => (
+        {projects.map((project) => (
           <article className="project-entry" key={project.name}>
             <div className="project-meta">
-              <span className="project-number">{String(index + 1).padStart(2, '0')}</span>
               <span className="project-status">{project.status}</span>
             </div>
             <div className="project-copy">
@@ -90,7 +89,7 @@ export default function Projects({ deviceType }: ProjectsProps) {
       <section className="experiments-section" id="experiments" aria-labelledby="experiments-heading">
         <div className="experiments-heading">
           <h2 className="section-heading" id="experiments-heading">
-            Experiments &amp; archive
+            Tools, Games, &amp; Archive
           </h2>
           <p>Smaller tools, games, and earlier work.</p>
         </div>

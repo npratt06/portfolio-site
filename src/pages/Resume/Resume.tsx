@@ -26,7 +26,7 @@ export default function Resume({ deviceType }: ResumeProps) {
     <div className="page">
       <section className="page-intro">
         <h1>Experience</h1>
-        <p>Roles, tools, and education.</p>
+        <p>Roles, skills, &amp; education</p>
       </section>
 
       <div className="experience-layout">

@@ -11,9 +11,9 @@ export type PortfolioIconName =
   | 'joystick'
   | 'moon'
   | 'search'
+  | 'stack'
   | 'sun'
   | 'terminal'
-  | 'target'
   | 'users'
   | 'wiffle';
 
@@ -150,13 +150,12 @@ export default function PortfolioIcon({ name, className }: PortfolioIconProps) {
           <path d="M3.5 4.5h17v15h-17z" />
         </svg>
       );
-    case 'target':
+    case 'stack':
       return (
         <svg {...commonProps}>
-          <circle cx="12" cy="12" r="8" />
-          <circle cx="12" cy="12" r="3.5" />
-          <path d="M12 4v3" />
-          <path d="M20 12h-3" />
+          <path d="m12 4 8 4-8 4-8-4 8-4Z" />
+          <path d="m4 12 8 4 8-4" />
+          <path d="m4 16 8 4 8-4" />
         </svg>
       );
     case 'users':

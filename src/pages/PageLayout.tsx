@@ -59,13 +59,13 @@ function usePortfolioTheme() {
 function ScrollToTop() {
   const { hash, pathname } = useLocation();
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (hash) {
       document.getElementById(hash.slice(1))?.scrollIntoView();
       return;
     }
 
-    window.scrollTo({ top: 0 });
+    window.scrollTo({ behavior: 'instant', left: 0, top: 0 });
   }, [hash, pathname]);
 
   return null;
@@ -200,7 +200,7 @@ function SiteFooter() {
     <footer className="site-footer">
       <div>
         <strong>Nate Pratt</strong>
-        <span>Senior full-stack engineer</span>
+        <span>Software engineer</span>
       </div>
       <div className="footer-links">
         <a href={externalLinks.github.href} rel="noreferrer" target="_blank">
@@ -270,12 +270,9 @@ function PortfolioRoutes() {
 
   if (location.pathname === '/lab/archive') {
     return (
-      <>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/lab/archive" element={<ArchivePage deviceType={deviceType} />} />
-        </Routes>
-      </>
+      <Routes>
+        <Route path="/lab/archive" element={<ArchivePage deviceType={deviceType} />} />
+      </Routes>
     );
   }
 
@@ -283,7 +280,6 @@ function PortfolioRoutes() {
     <div className={`site-shell theme-${theme}`}>
       <SiteHeader setTheme={setTheme} theme={theme} />
       <main>
-        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home deviceType={deviceType} />} />
           <Route path="/projects" element={<Projects deviceType={deviceType} />} />
@@ -306,6 +302,7 @@ function PortfolioRoutes() {
 export default function PageLayout() {
   return (
     <HashRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
+      <ScrollToTop />
       <PortfolioRoutes />
     </HashRouter>
   );

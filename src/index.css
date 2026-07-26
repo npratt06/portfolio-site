@@ -487,7 +487,6 @@ code {
 }
 
 .home-fact span,
-.project-number,
 .project-status,
 .experiment-category {
   display: block;
@@ -594,12 +593,6 @@ code {
   flex-direction: column;
   gap: 10px;
   padding-top: 5px;
-}
-
-.project-number {
-  color: var(--text-soft);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.06em;
 }
 
 .project-status {

@@ -22,10 +22,10 @@ export interface LabItem {
 }
 
 export interface HomeStat {
-  icon: 'briefcase' | 'calendar' | 'target';
+  icon: 'briefcase' | 'calendar' | 'stack';
   label: string;
   value: string;
-  detail: string;
+  detail?: string;
 }
 
 export interface SkillGroup {
@@ -46,8 +46,8 @@ export const externalLinks: Record<string, ExternalLink> = {
 
 export const heroStatement = {
   name: 'Nate Pratt',
-  title: 'Senior full-stack engineer',
-  summary: 'I build web products across the frontend and backend.'
+  title: 'Software engineer',
+  summary: 'I love to solve problems across the stack & design elegant solutions.'
 };
 
 export const homeStats: HomeStat[] = [
@@ -61,13 +61,12 @@ export const homeStats: HomeStat[] = [
     icon: 'calendar',
     label: 'Experience',
     value: '8+ years',
-    detail: 'Product engineering'
+    detail: 'Software engineering & management'
   },
   {
-    icon: 'target',
+    icon: 'stack',
     label: 'Focus',
-    value: 'Full-stack systems',
-    detail: 'TypeScript, React, and Node.js'
+    value: 'React, TypeScript, Node.js, PostgreSQL, AWS'
   }
 ];
 
@@ -75,10 +74,12 @@ export const projects: ProjectFeature[] = [
   {
     name: 'Wiffle App',
     status: 'Live',
-    summary: 'A web app for organizing wiffle ball leagues, teams, and games.',
+    summary: 'A web app I built for a friend’s yearly backyard wiffle ball tournament',
     details: [
-      'Covers league setup, schedules, teams, players, and game coordination.',
-      'The live app is public; the source remains private while I finish cleanup.'
+      'Built and launched the initial version in six days for the tournament',
+      'Generates tournament brackets automatically',
+      'Supports fully customizable brackets and teams, including flexible mid-tournament adjustments',
+      'Tracks live game state, reducing admin work and giving spectators real-time visibility'
     ],
     links: [
       {
@@ -90,7 +91,7 @@ export const projects: ProjectFeature[] = [
   {
     name: 'Fantasy Football Recap Generator',
     status: 'In development',
-    summary: 'A new tool for turning weekly fantasy football results into a shareable league recap.',
+    summary: 'Admin tool that utilizes Sleeper API to generate weekly league-specific statistics. Stats are richer and more dynamic than what Sleeper automatically provides.',
     details: [],
     links: []
   }
@@ -119,28 +120,28 @@ export const labItems: LabItem[] = [
   {
     title: 'Dotfiles',
     category: 'Dev Environment',
-    summary: 'The configuration and setup notes I use to keep a repeatable development environment.',
+    summary: 'Idempotent & repeatable local dev terminal setup for macOS',
     linkLabel: 'View dotfiles',
     href: 'https://github.com/npratt06/dotfiles'
   },
   {
     title: 'Zomboozled',
     category: 'Arcade',
-    summary: 'A preserved browser game from 2017. High scores remain offline.',
+    summary: 'Browser game I created in 2017, challenging myself to build a game from scratch in a single HTML file',
     linkLabel: 'Play Zomboozled',
     href: '#/zomboozled'
   },
   {
     title: 'Pong',
     category: 'Arcade',
-    summary: 'A two-player canvas game preserved as a desktop-only experiment.',
+    summary: '2-player browser Pong game I created for fun in preparation for Zomboozled',
     linkLabel: 'Play Pong',
     href: '#/pong'
   },
   {
     title: 'Original portfolio interface',
     category: 'Archive',
-    summary: 'The 2017 jukebox interface, preserved as a snapshot of earlier work.',
+    summary: 'The OG jukebox interface for this portfolio site that I created in a cave with a box of scraps in 2022. Kept it around for nostalgia',
     linkLabel: 'View archive',
     href: '#/lab/archive'
   }

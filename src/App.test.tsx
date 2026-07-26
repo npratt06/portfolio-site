@@ -24,7 +24,7 @@ describe('App', () => {
       href: '#/lab/archive',
       linkLabel: 'View archive'
     });
-    expect(archiveItem?.summary).toContain('snapshot of earlier work');
+    expect(archiveItem?.summary).toContain('created in a cave with a box of scraps');
   });
 
   it('includes the in-progress fantasy football project', () => {
