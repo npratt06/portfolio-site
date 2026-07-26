@@ -1,18 +1,15 @@
 import { MouseEventHandler } from 'react';
 
 export interface NavigateLRProps {
-  navIndex: number;
   handleClickLeft: MouseEventHandler<HTMLDivElement>;
   handleClickRight: MouseEventHandler<HTMLDivElement>;
   handleMouseDown: () => void;
   handleMouseUp: () => void;
   handleMouseLeave: () => void;
   deviceType: string;
-  archiveMode?: boolean;
 }
 
 export interface NavigateLRState {
-  linkPath: string;
   deviceType: string;
 }
 

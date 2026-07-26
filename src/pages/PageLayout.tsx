@@ -266,7 +266,7 @@ function ArchivePage({ deviceType }: { deviceType: string }) {
     <div className="legacy-archive-page">
       <ArtifactHeader category="Archive" title="Original Portfolio" />
       <div className="archive-jukebox-frame">
-        <JukeBox archiveMode deviceType={deviceType} />
+        <JukeBox deviceType={deviceType} />
       </div>
     </div>
   );
@@ -315,16 +315,14 @@ function PortfolioRoutes() {
       <SiteHeader setTheme={setTheme} theme={theme} />
       <main>
         <Routes>
-          <Route path="/" element={<Home deviceType={deviceType} />} />
-          <Route path="/projects" element={<Projects deviceType={deviceType} />} />
-          <Route path="/experience" element={<Resume deviceType={deviceType} />} />
-          <Route path="/resume" element={<Resume deviceType={deviceType} />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/experience" element={<Resume />} />
+          <Route path="/resume" element={<Resume />} />
           <Route path="/lab" element={<Navigate replace to="/projects#experiments" />} />
-          <Route path="/pong" element={<PongPage deviceType={deviceType} />} />
-          <Route path="/lab/archive" element={<ArchivePage deviceType={deviceType} />} />
           <Route path="/archive" element={<Navigate replace to="/lab/archive" />} />
-          <Route path="/about" element={<Home deviceType={deviceType} />} />
-          <Route path="/about me" element={<Home deviceType={deviceType} />} />
+          <Route path="/about" element={<Home />} />
+          <Route path="/about me" element={<Home />} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
       </main>

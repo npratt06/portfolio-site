@@ -1,13 +1,7 @@
 import PortfolioIcon from '../../components/Common/PortfolioIcon';
 import { heroStatement, homeStats } from '../../content/portfolio';
 
-interface HomeProps {
-  deviceType?: string;
-}
-
-export default function Home({ deviceType }: HomeProps) {
-  void deviceType;
-
+export default function Home() {
   return (
     <div className="page page--home">
       <section className="home-intro">

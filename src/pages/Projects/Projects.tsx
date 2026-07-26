@@ -2,10 +2,6 @@ import { Link } from 'react-router-dom';
 import PortfolioIcon from '../../components/Common/PortfolioIcon';
 import { labItems, projects } from '../../content/portfolio';
 
-interface ProjectsProps {
-  deviceType?: string;
-}
-
 function ProjectLink({ href, label, pending }: { href: string; label: string; pending?: boolean }) {
   if (pending || href.startsWith('#')) {
     return (
@@ -45,9 +41,7 @@ function ExperimentLink({ href, label, pending }: { href: string; label: string;
   );
 }
 
-export default function Projects({ deviceType }: ProjectsProps) {
-  void deviceType;
-
+export default function Projects() {
   return (
     <div className="page">
       <section className="page-intro">

@@ -1,4 +1,4 @@
-import React, { Component, MouseEventHandler } from 'react';
+import { Component, MouseEventHandler } from 'react';
 import { headerAndRowStyle, highScoresStyle, rowStyle, tableStyle } from './HighScores.const';
 import { HighScoreItem, HighScoresProps, HighScoresState } from './HighScores.interface';
 import { outerWrapper, rowElement } from './../JukeBox/JukeBox.interface';

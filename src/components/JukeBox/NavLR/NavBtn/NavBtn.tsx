@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import { Component, MouseEventHandler } from 'react';
 import { btnImgBaseStyle, btnImgStyleClicked, btnTextTransformBaseStyle, btnTextTransformClickedStyle, NAV_BTN_STYLE_SETS } from './NavBtn.const';
 import { NavBtnProps, NavBtnState } from '../NavLR.interface';
-import { MouseEventHandler } from 'react';
 import { getStyleSet, StyleSet } from '../../../componentHelpers';
 
 export default class NavBtn extends Component<NavBtnProps, NavBtnState> {

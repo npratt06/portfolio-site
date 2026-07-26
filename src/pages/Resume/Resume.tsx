@@ -2,10 +2,6 @@ import { skillGroups } from '../../content/portfolio';
 import { Job } from './Resume.interface';
 import { MyResumeContent } from './Resume.const';
 
-interface ResumeProps {
-  deviceType?: string;
-}
-
 function JobCard({ job }: { job: Job }) {
   return (
     <article className="timeline-item">
@@ -19,9 +15,7 @@ function JobCard({ job }: { job: Job }) {
   );
 }
 
-export default function Resume({ deviceType }: ResumeProps) {
-  void deviceType;
-
+export default function Resume() {
   return (
     <div className="page">
       <section className="page-intro">

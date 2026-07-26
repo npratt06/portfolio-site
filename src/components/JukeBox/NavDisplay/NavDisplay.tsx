@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { outerWrapper, rowElement } from '../JukeBox.interface';
-import { NAV_DISPLAY_STYLE_SETS, MyPages } from './NavDisplay.const';
+import { ARCHIVE_PAGES, NAV_DISPLAY_STYLE_SETS } from './NavDisplay.const';
 import { PageInfo, NavDisplayProps, NavDisplayState, RecordRotationInputs, NavDisplayStringStyleDynamic } from './NavDisplay.interface';
 import { getCurrentPageInfo } from '../../../utils/NavUtils';
 import screenImg from '../../../img/screen.png';
@@ -15,8 +15,8 @@ export default class NavDisplay extends Component<NavDisplayProps, NavDisplaySta
 
   constructor(props: NavDisplayProps) {
     super(props);
-    const displayString = getCurrentPageInfo(MyPages.pages, props.navIndex).displayString;
-    const degToRotate = 360 / MyPages.pages.length;
+    const displayString = getCurrentPageInfo(ARCHIVE_PAGES, props.navIndex).displayString;
+    const degToRotate = 360 / ARCHIVE_PAGES.length;
     const recordRotation = props.navIndex * degToRotate;
     this.state = {
       navDisplayString: displayString,
@@ -38,9 +38,9 @@ export default class NavDisplay extends Component<NavDisplayProps, NavDisplaySta
     if (prevProps.navIndex !== this.props.navIndex) {
       this.setState(() => {
         // nav display string
-        const navDisplayString = getCurrentPageInfo(MyPages.pages, this.props.navIndex).displayString;
+        const navDisplayString = getCurrentPageInfo(ARCHIVE_PAGES, this.props.navIndex).displayString;
         // record rotation
-        const degToRotate = 360 / MyPages.pages.length;
+        const degToRotate = 360 / ARCHIVE_PAGES.length;
         const recordRotationInputs: RecordRotationInputs = { degToRotate, prevProps, prevState, props: this.props };
         const recordRotation = this.determineRecordRotation(recordRotationInputs);
         return { navDisplayString, recordRotation, isMouseDownOnNavBtn: this.props.isMouseDownOnNavBtn };
@@ -57,7 +57,7 @@ export default class NavDisplay extends Component<NavDisplayProps, NavDisplaySta
 
   getDots(): JSX.Element[] {
     const dots: JSX.Element[] = [];
-    MyPages.pages.forEach((pageInfo: PageInfo) => {
+    ARCHIVE_PAGES.forEach((pageInfo: PageInfo) => {
       const pageKey = pageInfo.key;
       let currentDotStyle = this.styleSet.dotStyle;
       if (pageKey === this.props.navIndex) {
@@ -74,8 +74,8 @@ export default class NavDisplay extends Component<NavDisplayProps, NavDisplaySta
 
   determineRecordRotation(recordRotationInputs: RecordRotationInputs): number {
     let recordRotation = 0;
-    const loopedToBeginning = recordRotationInputs.props.navIndex === 0 && recordRotationInputs.prevProps.navIndex === MyPages.pages.length - 1;
-    const loopedToEnd = recordRotationInputs.props.navIndex === MyPages.pages.length - 1 && recordRotationInputs.prevProps.navIndex === 0;
+    const loopedToBeginning = recordRotationInputs.props.navIndex === 0 && recordRotationInputs.prevProps.navIndex === ARCHIVE_PAGES.length - 1;
+    const loopedToEnd = recordRotationInputs.props.navIndex === ARCHIVE_PAGES.length - 1 && recordRotationInputs.prevProps.navIndex === 0;
     if (loopedToBeginning) {
       recordRotation = recordRotationInputs.prevState.recordRotation + recordRotationInputs.degToRotate;
     } else if (loopedToEnd) {

@@ -1,8 +1,5 @@
-import React, { Component, MouseEventHandler } from 'react';
-import { Link } from 'react-router-dom';
-import { getCurrentPageInfo } from '../../../utils/NavUtils';
+import { Component, MouseEventHandler } from 'react';
 import { NavigateLRProps, NavigateLRState } from './NavLR.interface';
-import { MyPages } from '../NavDisplay/NavDisplay.const';
 import leftBtn from '../../../img/navLeftBtn_grey.png';
 import rightBtn from '../../../img/navRightBtn_grey.png';
 import selectBtn from '../../../img/selectBtn_grey.png';
@@ -14,30 +11,20 @@ export default class NavigateLR extends Component<NavigateLRProps, NavigateLRSta
   handleMouseDown: (() => void) | undefined;
   handleMouseUp: (() => void) | undefined;
   handleMouseLeave: (() => void) | undefined;
-  navIndex: number;
 
   constructor(props: NavigateLRProps) {
     super(props);
-    this.navIndex = props.navIndex;
     this.handleClickLeft = props.handleClickLeft;
     this.handleClickRight = props.handleClickRight;
     this.handleMouseDown = props.handleMouseDown;
     this.handleMouseUp = props.handleMouseUp;
     this.handleMouseLeave = props.handleMouseLeave;
-    const page = getCurrentPageInfo(MyPages.pages, this.navIndex);
     this.state = {
-      linkPath: page.linkPath,
       deviceType: props.deviceType
     };
   }
 
   componentDidUpdate(prevProps: Readonly<NavigateLRProps>): void {
-    if (prevProps.navIndex !== this.props.navIndex) {
-      this.setState(() => {
-        const linkPath = getCurrentPageInfo(MyPages.pages, this.props.navIndex).linkPath;
-        return { linkPath };
-      });
-    }
     if (prevProps.deviceType !== this.props.deviceType) {
       this.setState(() => {
         return { deviceType: this.props.deviceType };
@@ -46,7 +33,7 @@ export default class NavigateLR extends Component<NavigateLRProps, NavigateLRSta
   }
 
   getComponents(): JSX.Element {
-    const selectButton = <NavBtn imgSrc={selectBtn} btnText={'SELECT'} deviceType={this.state.deviceType} disabled={this.props.archiveMode} />;
+    const selectButton = <NavBtn imgSrc={selectBtn} btnText={'SELECT'} deviceType={this.state.deviceType} disabled />;
 
     return (
       <div style={{ display: 'flex' }}>
@@ -59,13 +46,9 @@ export default class NavigateLR extends Component<NavigateLRProps, NavigateLRSta
           handleMouseLeave={this.handleMouseLeave}
           deviceType={this.state.deviceType}
         />
-        {this.props.archiveMode ? (
-          <div aria-label="Old jukebox navigation is disabled" title="Old navigation is disabled for the archive">
-            {selectButton}
-          </div>
-        ) : (
-          <Link to={this.state.linkPath}>{selectButton}</Link>
-        )}
+        <div aria-label="Old jukebox navigation is disabled" title="Old navigation is disabled for the archive">
+          {selectButton}
+        </div>
         <NavBtn
           imgSrc={rightBtn}
           btnText={''}

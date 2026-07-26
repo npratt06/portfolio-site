@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Player from './Player';
 import { batHeight, batWidth, GAME_STATES, GAME_WRAPPER_ID, getRandomSpawnXY, KEY, playerHeight, playerWidth, PLAYER_SPEED } from './Zomboozled.const';
 import { ZomboozledProps, ZomboozledState } from './Zomboozled.interface';

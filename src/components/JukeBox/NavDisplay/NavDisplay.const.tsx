@@ -1,51 +1,23 @@
-import { PageInfo, Pages } from './NavDisplay.interface';
-import Resume from '../../../pages/Resume/Resume';
-import Projects from '../../../pages/Projects/Projects';
-import About from '../../../pages/About/About';
-import Home from '../../../pages/Home/Home';
+import { PageInfo } from './NavDisplay.interface';
 import { textFontStyle } from '../../../globalCSS';
 import { DEVICE_TYPES } from '../../../global.const';
 import { StyleSets } from '../../componentHelpers';
-import Zomboozled from '../../Zomboozled/Zomboozled';
 
 // Pages --- start
-const OtherPages: PageInfo[] = [
+export const ARCHIVE_PAGES: PageInfo[] = [
   {
     key: 0,
-    linkPath: '/resume',
-    displayString: 'Resume',
-    component: <Resume deviceType={DEVICE_TYPES.DESKTOP} />
+    displayString: 'Resume'
   },
   {
     key: 1,
-    linkPath: '/projects',
-    displayString: 'Projects',
-    component: <Projects deviceType={DEVICE_TYPES.DESKTOP} />
+    displayString: 'Projects'
   },
   {
     key: 2,
-    linkPath: '/about me',
-    displayString: 'About Me',
-    component: <About deviceType={DEVICE_TYPES.DESKTOP} />
+    displayString: 'About Me'
   }
 ];
-
-export const ZomboozledPage: PageInfo = {
-  key: 3,
-  linkPath: '/zomboozled',
-  displayString: 'Zomboozled',
-  component: <Zomboozled deviceType={DEVICE_TYPES.DESKTOP} />
-};
-
-export const MyPages: Pages = {
-  home: {
-    key: -1,
-    linkPath: '/',
-    displayString: 'Home',
-    component: <Home deviceType={DEVICE_TYPES.DESKTOP} />
-  },
-  pages: OtherPages
-};
 // Pages --- end
 
 // css styles --- start

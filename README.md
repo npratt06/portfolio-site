@@ -1,27 +1,28 @@
 # Nate's Portfolio Site
 
-Personal portfolio site for Nate Pratt, built with React, TypeScript, and Vite. It presents selected projects, a concise experience summary, and a small archive of development experiments.
+Personal portfolio site for Nate Pratt. It presents selected projects, a concise experience summary, and a deliberately secondary collection of tools, games, and archived work.
 
-The site is published with GitHub Pages at:
+[View the live site](https://npratt06.github.io/portfolio-site/).
 
-https://npratt06.github.io/portfolio-site/
+## Project Status
 
-## Current Status
+The current portfolio milestone is complete, and the project is in maintenance mode. Future updates will be limited to substantive new project content, compatibility/security maintenance, or focused fixes.
 
-- Frontend-only React app deployed through GitHub Pages.
-- Build tooling has been migrated from Create React App to Vite.
-- Routing currently uses hash URLs for reliable GitHub Pages static hosting.
-- The primary information architecture is Home, Projects, and Experience. Header navigation is the single path between those sections.
-- Projects uses a text-first presentation without project thumbnails. It contains the live Wiffle App, the in-development Fantasy Football Recap Generator, and a quieter Experiments & Archive section.
-- The former Lab route redirects to the Experiments & Archive section so old links continue to work.
-- Experience focuses on role history, technical skills, and education without presenting resume bullet copy.
-- Home is designed to fit comfortably on typical laptop screens; longer project and mobile layouts use intentional scrolling with responsive spacing.
-- Motion is limited to page, menu, theme, and interaction transitions. These animations currently run regardless of the operating system's reduced-motion preference as an intentional design choice.
-- The mobile menu uses a reversible 250ms rolling fold animation, and the top-left Home control uses a custom centered house mark with a route-driven incandescent doorway light.
-- Zomboozled is playable, but online high scores are intentionally offline while any future backend is reconsidered.
-- Production dependency status can be checked with `npm audit --omit=dev`; GitHub Dependabot handles repository alerting.
+- Home, Projects, and Experience form the primary information architecture.
+- Projects contains the live Wiffle App, the in-development Fantasy Football Recap Generator, and a quieter Tools, Games, & Archive section.
+- The former Lab route redirects to Tools, Games, & Archive so old links continue to work.
+- Pong, Zomboozled, and the original jukebox portfolio are preserved as framed historical/playable artifacts.
+- Zomboozled remains playable with offline high scores; the retired frontend AWS/DynamoDB integration is not used.
 
-Most portfolio copy and structured project data lives in `src/content/portfolio.ts`. Page-specific resume history lives in `src/pages/Resume/Resume.const.tsx`.
+Most portfolio copy and structured project data lives in `src/content/portfolio.ts`. Experience history lives in `src/pages/Resume/Resume.const.tsx`.
+
+## Tech Stack
+
+- React 18 and TypeScript
+- Vite
+- React Router with hash routing for GitHub Pages
+- Vitest and ESLint
+- GitHub Actions and GitHub Pages
 
 ## Local Development
 
@@ -52,14 +53,12 @@ npm run lint
 CI=true npm test
 npm run build
 npm run preview
-npm audit --omit=dev
 ```
 
 - `npm run lint` runs ESLint.
 - `CI=true npm test` runs the Vitest test suite once.
 - `npm run build` type-checks and builds the production app into `dist/`.
 - `npm run preview` serves the production build locally.
-- `npm audit --omit=dev` checks production dependencies.
 
 ## Deployment
 
