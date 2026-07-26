@@ -5,7 +5,7 @@ export const highScoresStyle: React.CSSProperties = {
   ...backgroundColorStyle,
   overflow: 'hidden',
   ...textFontStyle,
-  height: '100vh'
+  height: '100%'
 };
 
 export const tableStyle: React.CSSProperties = { border: 'none', tableLayout: 'fixed', width: '25vw', fontSize: '1vw'};

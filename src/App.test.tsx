@@ -1,7 +1,9 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
+import ArtifactHeader from './components/Common/ArtifactHeader';
 import DesktopGameFrame from './components/Common/DesktopGameFrame';
 import { labItems, projects } from './content/portfolio';
+import { DEVICE_TYPES } from './global.const';
 import { ThemeToggle } from './pages/PageLayout';
 
 describe('App', () => {
@@ -36,16 +38,40 @@ describe('App', () => {
     );
   });
 
-  it('uses a shared desktop-only frame for arcade games on mobile', () => {
+  it('uses a shared arcade frame around playable desktop games', () => {
     const markup = renderToStaticMarkup(
-      <DesktopGameFrame description="A preserved game." deviceType="mobile" title="Pong">
+      <DesktopGameFrame description="A preserved game." deviceType={DEVICE_TYPES.DESKTOP} title="Pong">
+        <div>Playable game</div>
+      </DesktopGameFrame>
+    );
+
+    expect(markup).toContain('Arcade');
+    expect(markup).toContain('Pong');
+    expect(markup).toContain('← Back to Projects');
+    expect(markup).toContain('#/projects#experiments');
+    expect(markup).toContain('href="#/"');
+    expect(markup).toContain('Playable game');
+  });
+
+  it('uses the shared arcade frame for desktop-only games on mobile', () => {
+    const markup = renderToStaticMarkup(
+      <DesktopGameFrame description="A preserved game." deviceType={DEVICE_TYPES.MOBILE} title="Pong">
         <div>Playable game</div>
       </DesktopGameFrame>
     );
 
     expect(markup).toContain('Pong is only implemented for desktop right now');
-    expect(markup).toContain('Back to projects');
+    expect(markup).toContain('← Back to Projects');
     expect(markup).toContain('#/projects#experiments');
     expect(markup).not.toContain('Playable game');
+  });
+
+  it('supports the same preserved-artifact header for the portfolio archive', () => {
+    const markup = renderToStaticMarkup(<ArtifactHeader category="Archive" title="Original Portfolio" />);
+
+    expect(markup).toContain('Archive');
+    expect(markup).toContain('Original Portfolio');
+    expect(markup).toContain('← Back to Projects');
+    expect(markup).toContain('href="#/"');
   });
 });

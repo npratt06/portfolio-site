@@ -834,10 +834,83 @@ code {
   font-weight: 600;
 }
 
+.arcade-page {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #0d100f;
+  color: #f4f5f2;
+}
+
+.artifact-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  min-height: 56px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 10px clamp(18px, 3vw, 32px);
+  border-bottom: 1px solid rgba(214, 221, 214, 0.18);
+  background: #121715;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+}
+
+.artifact-header__context,
+.artifact-header__nav {
+  display: flex;
+  align-items: center;
+}
+
+.artifact-header__context {
+  gap: 9px;
+  color: #8d9690;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.artifact-header__context strong {
+  color: #f4f5f2;
+  font-size: inherit;
+}
+
+.artifact-header__nav {
+  gap: clamp(16px, 3vw, 28px);
+}
+
+.artifact-header__nav a {
+  color: #c9ceca;
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.artifact-header__nav a:hover,
+.artifact-header__nav a:focus-visible {
+  color: #a0bf77;
+}
+
+.artifact-header__nav a:focus-visible {
+  outline: 2px solid #a0bf77;
+  outline-offset: 5px;
+}
+
+.arcade-stage {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: #000000;
+}
+
 .game-unavailable-page {
   display: grid;
-  min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 0;
   place-items: center;
   padding: 28px;
   background: #0d100f;
@@ -868,11 +941,40 @@ code {
 
 .static-game-frame {
   display: block;
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh;
+  width: 100%;
+  height: 100%;
   border: 0;
   background: #000000;
+}
+
+.zomboozled-game,
+.zomboozled-game > div,
+#game-wrapper {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+#game-wrapper {
+  overflow: hidden;
+}
+
+#gameCanvas {
+  display: block;
+}
+
+@media (max-width: 620px) {
+  .artifact-header {
+    align-items: flex-start;
+    gap: 8px;
+    flex-direction: column;
+    padding-block: 12px;
+  }
+
+  .artifact-header__nav {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
 
 body.legacy-archive-body,
@@ -891,29 +993,6 @@ body.legacy-archive-body #root {
   overflow: hidden;
   overscroll-behavior: none;
   background: #152837;
-}
-
-.archive-note {
-  position: relative;
-  z-index: 30;
-  width: min(920px, calc(100% - 32px));
-  margin: 10px auto 0;
-  padding: 10px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 6px;
-  background: rgba(31, 47, 58, 0.96);
-  color: #ffffff;
-  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
-}
-
-.archive-note__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-}
-
-.archive-note a {
-  color: #ffffff;
 }
 
 .archive-jukebox-frame {
@@ -1583,30 +1662,9 @@ body.legacy-archive-body #root {
     padding-bottom: 18px;
   }
 
-  .archive-note {
-    width: calc(100% - 24px);
-    margin-top: 8px;
-    padding: 8px 10px;
-  }
-
-  .archive-note__links {
-    gap: 12px;
-    font-size: 0.78rem;
-  }
 }
 
 @media (orientation: landscape) and (max-height: 520px) {
-  .archive-note {
-    width: min(680px, calc(100% - 24px));
-    margin-top: 6px;
-    padding: 6px 10px;
-  }
-
-  .archive-note__links {
-    gap: 12px;
-    font-size: 0.76rem;
-  }
-
   .archive-jukebox-frame > div {
     width: 128%;
     height: 128%;

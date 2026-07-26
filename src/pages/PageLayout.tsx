@@ -1,5 +1,6 @@
 import React from 'react';
 import { HashRouter, Link, NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import ArtifactHeader from '../components/Common/ArtifactHeader';
 import DesktopGameFrame from '../components/Common/DesktopGameFrame';
 import PortfolioIcon from '../components/Common/PortfolioIcon';
 import JukeBox from '../components/JukeBox/JukeBox';
@@ -58,14 +59,52 @@ function usePortfolioTheme() {
 
 function ScrollToTop() {
   const { hash, pathname } = useLocation();
+  const previousPathname = React.useRef(pathname);
+
+  React.useEffect(() => {
+    const previousScrollRestoration = window.history.scrollRestoration;
+    window.history.scrollRestoration = 'manual';
+
+    return () => {
+      window.history.scrollRestoration = previousScrollRestoration;
+    };
+  }, []);
 
   React.useLayoutEffect(() => {
-    if (hash) {
+    const pageChanged = previousPathname.current !== pathname;
+    previousPathname.current = pathname;
+
+    if (!pageChanged && hash) {
       document.getElementById(hash.slice(1))?.scrollIntoView();
       return;
     }
 
-    window.scrollTo({ behavior: 'instant', left: 0, top: 0 });
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+    let secondFrame = 0;
+
+    const resetScroll = () => {
+      window.scrollTo(0, 0);
+      root.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+
+    root.style.scrollBehavior = 'auto';
+    resetScroll();
+
+    const firstFrame = window.requestAnimationFrame(() => {
+      resetScroll();
+      secondFrame = window.requestAnimationFrame(() => {
+        resetScroll();
+        root.style.scrollBehavior = previousScrollBehavior;
+      });
+    });
+
+    return () => {
+      window.cancelAnimationFrame(firstFrame);
+      window.cancelAnimationFrame(secondFrame);
+      root.style.scrollBehavior = previousScrollBehavior;
+    };
   }, [hash, pathname]);
 
   return null;
@@ -215,7 +254,7 @@ function SiteFooter() {
 }
 
 function ArchivePage({ deviceType }: { deviceType: string }) {
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     document.body.classList.add('legacy-archive-body');
 
     return () => {
@@ -225,12 +264,7 @@ function ArchivePage({ deviceType }: { deviceType: string }) {
 
   return (
     <div className="legacy-archive-page">
-      <div className="archive-note">
-        <div className="archive-note__links">
-          <Link to="/">Back to current portfolio</Link>
-          <Link to="/projects#experiments">Back to projects</Link>
-        </div>
-      </div>
+      <ArtifactHeader category="Archive" title="Original Portfolio" />
       <div className="archive-jukebox-frame">
         <JukeBox archiveMode deviceType={deviceType} />
       </div>

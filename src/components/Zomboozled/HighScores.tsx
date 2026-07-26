@@ -106,7 +106,7 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
       );
 
     const highScoreComponents = (
-      <div style={{ width: '100vw' }}>
+      <div style={{ width: '100%' }}>
         {scoreboardComponents}
         <div style={{ ...rowElement, marginTop: '2vw', marginBottom: '2vw' }}>
           <button style={{ ...buttonStyle, fontSize: '0.9vw' }} onClick={this.handlePlayAgainBtnClick.bind(this)}>
@@ -120,7 +120,7 @@ export default class HighScores extends Component<HighScoresProps, HighScoresSta
       <div style={highScoresStyle}>
         <div style={outerWrapper}>
           <HomePageLink />
-          <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%', height: '100vh', alignItems: 'center' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%', height: '100%', alignItems: 'center' }}>
             <div style={rowElement}>{highScoreComponents}</div>
           </div>
         </div>
