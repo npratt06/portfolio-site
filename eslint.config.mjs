@@ -27,6 +27,7 @@ export default tseslint.config(
             }
         },
         rules: {
+            'no-useless-assignment': 'off',
             '@typescript-eslint/no-empty-object-type': [
                 'error',
                 {

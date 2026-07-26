@@ -335,7 +335,7 @@ function PortfolioRoutes() {
 
 export default function PageLayout() {
   return (
-    <HashRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
+    <HashRouter>
       <ScrollToTop />
       <PortfolioRoutes />
     </HashRouter>
