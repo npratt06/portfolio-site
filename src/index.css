@@ -441,6 +441,11 @@ code {
   text-transform: uppercase;
 }
 
+.hero-eyebrow {
+  font-size: 0.95rem;
+  letter-spacing: 0.055em;
+}
+
 .hero-copy h1,
 .page-intro h1 {
   margin: 0;

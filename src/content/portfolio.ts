@@ -46,8 +46,8 @@ export const externalLinks: Record<string, ExternalLink> = {
 
 export const heroStatement = {
   name: 'Nate Pratt',
-  title: 'Software engineer',
-  summary: 'I love to solve problems across the stack & design elegant solutions.'
+  title: 'Full-stack software engineer',
+  summary: 'I enjoy turning complex problems into easy-to-use software.'
 };
 
 export const homeStats: HomeStat[] = [
@@ -61,12 +61,12 @@ export const homeStats: HomeStat[] = [
     icon: 'calendar',
     label: 'Experience',
     value: '8+ years',
-    detail: 'Software engineering & management'
+    detail: 'Software engineering & leadership'
   },
   {
     icon: 'stack',
     label: 'Focus',
-    value: 'React, TypeScript, Node.js, PostgreSQL, AWS'
+    value: 'React · TypeScript · Node.js · PostgreSQL · AWS'
   }
 ];
 

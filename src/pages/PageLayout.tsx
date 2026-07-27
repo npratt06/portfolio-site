@@ -239,7 +239,7 @@ function SiteFooter() {
     <footer className="site-footer">
       <div>
         <strong>Nate Pratt</strong>
-        <span>Software engineer</span>
+        <span>Full-stack software engineer</span>
       </div>
       <div className="footer-links">
         <a href={externalLinks.github.href} rel="noreferrer" target="_blank">
