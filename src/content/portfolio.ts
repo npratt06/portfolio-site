@@ -99,20 +99,12 @@ export const projects: ProjectFeature[] = [
 
 export const skillGroups: SkillGroup[] = [
   {
-    title: 'Frontend',
-    skills: ['TypeScript', 'React', 'Angular', 'Vue.js', 'HTML', 'CSS', 'Playwright', 'Jest']
+    title: 'Core stack',
+    skills: ['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'AWS']
   },
   {
-    title: 'Backend',
-    skills: ['Node.js', 'Express', 'REST APIs', 'Redis', 'BullMQ', 'C#', '.NET']
-  },
-  {
-    title: 'Data',
-    skills: ['PostgreSQL', 'TimescaleDB', 'MongoDB', 'SQL', 'Data modeling', 'ORMs']
-  },
-  {
-    title: 'Delivery',
-    skills: ['Git', 'GitHub', 'Docker', 'AWS', 'CI/CD', 'Observability', 'Code review']
+    title: 'How I work',
+    skills: ['I take ownership, lead by example, and raise the bar through continuous improvements to systems and processes.']
   }
 ];
 

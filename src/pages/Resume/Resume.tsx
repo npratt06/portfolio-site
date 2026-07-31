@@ -20,7 +20,7 @@ export default function Resume() {
     <div className="page">
       <section className="page-intro">
         <h1>Experience</h1>
-        <p>Roles, skills, &amp; education</p>
+        <p>Roles, strengths, &amp; education</p>
       </section>
 
       <div className="experience-layout">
@@ -35,7 +35,7 @@ export default function Resume() {
 
         <aside className="experience-aside">
           <section className="skills-section">
-            <h2>Skills</h2>
+            <h2>Strengths</h2>
             <div className="skills-grid">
               {skillGroups.map((group) => (
                 <div className="skill-row" key={group.title}>
